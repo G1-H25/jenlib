@@ -39,3 +39,15 @@
 
 # debug information files
 *.dwo
+
+# build directory
+build/
+
+# cmake files
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# python venv
+.venv/
