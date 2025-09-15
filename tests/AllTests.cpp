@@ -10,6 +10,12 @@
 extern void test_digital_roundtrip(void);
 extern void test_analog_roundtrip(void);
 extern void test_resolution_forwarding(void);
+extern void test_typed_pin_construction(void);
+extern void test_typed_pin_conversion(void);
+extern void test_onewire_type_safety(void);
+extern void test_onewire_basic_operations(void);
+extern void test_pin_operations_through_typed_pin(void);
+extern void test_different_pin_types(void);
 extern void test_native_driver_roundtrip(void);
 extern void test_native_driver_analog(void);
 extern void test_voltage_levels_and_tmp36(void);
@@ -24,6 +30,12 @@ int main() {
     RUN_TEST(test_digital_roundtrip);
     RUN_TEST(test_analog_roundtrip);
     RUN_TEST(test_resolution_forwarding);
+    RUN_TEST(test_typed_pin_construction);
+    RUN_TEST(test_typed_pin_conversion);
+    RUN_TEST(test_onewire_type_safety);
+    RUN_TEST(test_onewire_basic_operations);
+    RUN_TEST(test_pin_operations_through_typed_pin);
+    RUN_TEST(test_different_pin_types);
     RUN_TEST(test_native_driver_roundtrip);
     RUN_TEST(test_native_driver_analog);
     RUN_TEST(test_voltage_levels_and_tmp36);
