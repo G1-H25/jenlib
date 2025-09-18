@@ -3,19 +3,21 @@ project(jenlib_gpio C CXX)
 
 option(BUILD_TESTING "Build tests" ON)
 
-# Library: header-only for now
 add_library(jenlib_gpio
     src/gpio/GPIO.cpp
     src/gpio/drivers/NativeGpioDriver.cpp
     src/gpio/drivers/ArduinoGpioDriver.cpp
     src/onewire/drivers/NativeOneWireBus.cpp
+    src/ble/Ids.cpp
+    src/ble/Messages.cpp
+    src/ble/NativeBleDriver.cpp
 )
 target_include_directories(jenlib_gpio PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 target_compile_features(jenlib_gpio PUBLIC cxx_std_17)
 
-# Optional Arduino OneWire adapter
+# Only use for Arduino when you need to use the OneWire library
 option(JENLIB_ENABLE_ARDUINO_ONEWIRE "Enable Arduino OneWire adapter" OFF)
 if(JENLIB_ENABLE_ARDUINO_ONEWIRE)
     target_sources(jenlib_gpio PRIVATE
@@ -26,7 +28,7 @@ endif()
 
 if(BUILD_TESTING)
     include(FetchContent)
-    # Fetch Unity (ThrowTheSwitch/Unity)
+    # Fetch Unity
     FetchContent_Declare(
         Unity
         GIT_REPOSITORY https://github.com/ThrowTheSwitch/Unity.git
@@ -42,6 +44,7 @@ if(BUILD_TESTING)
         tests/PinTypeTests.cpp
         tests/NativeDriverTests.cpp
         tests/Tmp36Tests.cpp
+        tests/BleTests.cpp
         ${unity_SOURCE_DIR}/src/unity.c
     )
     target_include_directories(jenlib_gpio_tests PRIVATE ${unity_SOURCE_DIR}/src)
