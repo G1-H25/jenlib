@@ -43,6 +43,14 @@ class Pin {
     //! Read an analog value (ADC) from the pin.
     std::uint16_t analogRead() const noexcept;
 
+    //! Get the raw pin index for use with libraries that require raw pin numbers.
+    //! @return The underlying pin index as used by the driver.
+    PinIndex getIndex() const noexcept { return raw_pin_; }
+
+    //! Implicit conversion to raw pin number for compatibility with existing libraries.
+    //! @return The underlying pin index as a raw integer.
+    operator PinIndex() const noexcept { return raw_pin_; }
+
     ~Pin() = default;
 
  private:
