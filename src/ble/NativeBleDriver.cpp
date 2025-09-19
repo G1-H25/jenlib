@@ -45,7 +45,7 @@ public:
         std::lock_guard<std::mutex> lock(mutex_);
         auto &q = inbox_[self_id.value()];
         if (q.empty()) return false;
-        out_payload = q.front();
+        out_payload = std::move(q.front());
         q.pop_front();
         return true;
     }

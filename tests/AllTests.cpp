@@ -34,6 +34,7 @@ extern void test_ble_point_to_point_delivery(void);
 extern void test_ble_broadcast_delivery_with_sender_id(void);
 extern void test_ble_receipt_acknowledgment_flow(void);
 extern void test_ble_multiple_broadcast_ordering(void);
+extern void run_measurement_tests(void);
 
 void setUp(void) {}
 void tearDown(void) {}
@@ -67,6 +68,7 @@ int main() {
     RUN_TEST(test_ble_broadcast_delivery_with_sender_id);
     RUN_TEST(test_ble_receipt_acknowledgment_flow);
     RUN_TEST(test_ble_multiple_broadcast_ordering);
+    run_measurement_tests();
     return UNITY_END();
 }
 

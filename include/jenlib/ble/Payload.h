@@ -16,17 +16,41 @@ namespace ble {
 constexpr std::size_t kMaxPayload = 64u;
 
 //! @brief Fixed-size buffer with helpers for LE encoding/decoding.
-//!
-//! Replaces std::vector to retain Arduino compatibility and avoid dynamic
-//! allocation. Append methods return false if the buffer would overflow.
 struct BlePayload {
     std::array<std::uint8_t, kMaxPayload> bytes{};
     std::size_t size{0};
 
     using const_iterator = std::array<std::uint8_t, kMaxPayload>::const_iterator;
 
+    //! @brief Default constructor.
+    BlePayload() = default;
+    
+    //! @brief Move constructor - transfers ownership of payload data.
+    BlePayload(BlePayload&& other) noexcept 
+        : bytes(std::move(other.bytes)), size(other.size) {
+        other.size = 0; // Mark as consumed
+    }
+    
+    //! @brief Move assignment operator - transfers ownership of payload data.
+    BlePayload& operator=(BlePayload&& other) noexcept {
+        if (this != &other) {
+            bytes = std::move(other.bytes);
+            size = other.size;
+            other.size = 0; // Mark as consumed
+        }
+        return *this;
+    }
+    
+    //! @brief Disable copy constructor to prevent accidental copies.
+    BlePayload(const BlePayload&) = delete;
+    BlePayload& operator=(const BlePayload&) = delete;
+
     //! @brief Reset the buffer to empty.
     void clear() { size = 0; }
+    
+    //! @brief Check if the payload has been consumed (moved from).
+    //! @return true if payload is empty (either never filled or consumed).
+    bool is_consumed() const { return size == 0; }
 
     //! @brief Begin iterator to the buffer start (const).
     const_iterator cbegin() const { return bytes.cbegin(); }

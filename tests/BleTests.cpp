@@ -154,7 +154,7 @@ class TestBleDriver final : public ble::BleDriver {
         bool receive(DeviceId self_id, BlePayload &out_payload) override {
             auto it = inbox.find(self_id.value());
             if (it == inbox.end() || it->second.empty()) return false;
-            out_payload = it->second.front();
+            out_payload = std::move(it->second.front());
             it->second.erase(it->second.begin());
             return true;
         }

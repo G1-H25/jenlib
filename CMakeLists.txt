@@ -11,6 +11,7 @@ add_library(jenlib_gpio
     src/ble/Ids.cpp
     src/ble/Messages.cpp
     src/ble/NativeBleDriver.cpp
+    src/measurement/Measurement.cpp
 )
 target_include_directories(jenlib_gpio PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -46,6 +47,7 @@ if(BUILD_TESTING)
         tests/Tmp36Tests.cpp
         tests/PayloadTests.cpp
         tests/BleTests.cpp
+        tests/MeasurementTests.cpp
         ${unity_SOURCE_DIR}/src/unity.c
     )
     target_include_directories(jenlib_gpio_tests PRIVATE ${unity_SOURCE_DIR}/src)
