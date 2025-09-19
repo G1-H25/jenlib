@@ -44,6 +44,7 @@ if(BUILD_TESTING)
         tests/PinTypeTests.cpp
         tests/NativeDriverTests.cpp
         tests/Tmp36Tests.cpp
+        tests/PayloadTests.cpp
         tests/BleTests.cpp
         ${unity_SOURCE_DIR}/src/unity.c
     )

@@ -50,6 +50,13 @@ class DeviceId {
     //! @return True if the value was deserialized, false otherwise.
     static bool deserialize(const BlePayload &buf, size_t &offset, DeviceId &out);
 
+    //! @brief Deserialize using iterators over a payload buffer.
+    //! @param it Current iterator position (advanced on success).
+    //! @param end End iterator limit.
+    //! @param out The device identifier written to.
+    //! @return True if the value was deserialized, false otherwise.
+    static bool deserialize(BlePayload::const_iterator &it, BlePayload::const_iterator end, DeviceId &out);
+
  private:
     std::uint32_t value_; //!< Raw value.
 };

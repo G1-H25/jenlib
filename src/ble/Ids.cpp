@@ -55,6 +55,23 @@ bool DeviceId::deserialize(const BlePayload &buf, size_t &offset, DeviceId &out)
     return true;
 }
 
+bool DeviceId::deserialize(BlePayload::const_iterator &it, BlePayload::const_iterator end, DeviceId &out) {
+    // Read 4 bytes LE into v
+    std::uint32_t v = 0;
+    if (!read_u32le(it, end, v)) return false;
+    std::uint8_t crc = 0;
+    if (!read_u8(it, end, crc)) return false;
+    const std::uint8_t bytes[4] = {
+        static_cast<std::uint8_t>(v & 0xFF),
+        static_cast<std::uint8_t>((v >> 8) & 0xFF),
+        static_cast<std::uint8_t>((v >> 16) & 0xFF),
+        static_cast<std::uint8_t>((v >> 24) & 0xFF)
+    };
+    if (crc != crc8(bytes, 4)) return false;
+    out = DeviceId(v);
+    return true;
+}
+
 std::uint8_t compute_crc8(const std::uint8_t *data, size_t len) {
     return crc8(data, len);
 }
