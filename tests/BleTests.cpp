@@ -176,6 +176,23 @@ class TestBleDriver final : public ble::BleDriver {
         inbox[device_id.value()].push_back(std::move(payload));
         }
     
+    // Required BleDriver interface methods
+    bool begin() override { return true; }
+    void end() override {}
+    bool initialize() override { return true; }
+    void cleanup() override {}
+    bool is_connected() const override { return true; }
+    DeviceId get_local_device_id() const override { return DeviceId(0); }
+    void poll() override {}
+    void set_message_callback(BleMessageCallback callback) override {}
+    void clear_message_callback() override {}
+    void set_start_broadcast_callback(StartBroadcastCallback callback) override {}
+    void set_reading_callback(ReadingCallback callback) override {}
+    void set_receipt_callback(ReceiptCallback callback) override {}
+    void clear_type_specific_callbacks() override {}
+    void set_connection_callback(ConnectionCallback callback) override {}
+    void clear_connection_callback() override {}
+    
         std::unordered_map<std::uint32_t, std::vector<BlePayload>> inbox;
 };
 

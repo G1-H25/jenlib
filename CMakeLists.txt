@@ -10,8 +10,17 @@ add_library(jenlib_gpio
     src/onewire/drivers/NativeOneWireBus.cpp
     src/ble/Ids.cpp
     src/ble/Messages.cpp
-    src/ble/NativeBleDriver.cpp
+    src/ble/drivers/NativeBleDriver.cpp
+    src/ble/drivers/ArduinoBleDriver.cpp
+    src/ble/drivers/NativeBleCharacteristic.cpp
+    src/ble/drivers/ArduinoBleCharacteristic.cpp
+    src/ble/drivers/NativeBleService.cpp
+    src/ble/drivers/ArduinoBleService.cpp
     src/measurement/Measurement.cpp
+    src/events/EventDispatcher.cpp
+    src/time/Time.cpp
+    src/time/drivers/NativeTimeDriver.cpp
+    src/state/StateMachine.cpp
 )
 target_include_directories(jenlib_gpio PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
