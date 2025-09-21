@@ -22,6 +22,7 @@ class SessionId {
     constexpr std::uint32_t value() const { return value_; }
     friend constexpr bool operator==(SessionId a, SessionId b) { return a.value_ == b.value_; }
     friend constexpr bool operator!=(SessionId a, SessionId b) { return a.value_ != b.value_; }
+    friend constexpr bool operator<(SessionId a, SessionId b) { return a.value_ < b.value_; }
  private:
     std::uint32_t value_; //!< Raw value.
 };
@@ -39,6 +40,7 @@ class DeviceId {
     constexpr std::uint32_t value() const { return value_; }
     friend constexpr bool operator==(DeviceId a, DeviceId b) { return a.value_ == b.value_; }
     friend constexpr bool operator!=(DeviceId a, DeviceId b) { return a.value_ != b.value_; }
+    friend constexpr bool operator<(DeviceId a, DeviceId b) { return a.value_ < b.value_; }
 
     //! @brief Serialize as 4-byte LE + 1-byte CRC8 over the 4 bytes (LE order)
     //! @param id The device identifier.

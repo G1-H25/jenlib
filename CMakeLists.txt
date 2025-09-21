@@ -66,6 +66,19 @@ if(BUILD_TESTING)
     target_link_libraries(jenlib_gpio_tests PRIVATE jenlib_gpio)
 
     add_test(NAME jenlib_gpio_tests COMMAND jenlib_gpio_tests)
+
+    # Smoke Tests - Integration tests that exercise the full example path
+    add_executable(jenlib_smoke_tests
+        smoke_tests/FinalSmokeTest.cpp
+        ${unity_SOURCE_DIR}/src/unity.c
+    )
+    target_include_directories(jenlib_smoke_tests PRIVATE 
+        ${unity_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+    target_link_libraries(jenlib_smoke_tests PRIVATE jenlib_gpio)
+
+    add_test(NAME jenlib_smoke_tests COMMAND jenlib_smoke_tests)
 endif()
 
 
