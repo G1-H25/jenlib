@@ -23,7 +23,7 @@ static std::uint8_t crc8(const std::uint8_t *data, size_t len) {
 }
 }
 
-namespace ble {
+namespace jenlib::ble {
 
 bool DeviceId::serialize(const DeviceId &id, BlePayload &out) {
     const std::uint32_t v = id.value_;
@@ -76,6 +76,6 @@ std::uint8_t compute_crc8(const std::uint8_t *data, size_t len) {
     return crc8(data, len);
 }
 
-} // namespace ble
+} // namespace jenlib::ble
 
 

@@ -4,7 +4,7 @@
 #include <jenlib/ble/Messages.h>
 
 
-namespace ble {
+namespace jenlib::ble {
 
 bool StartBroadcastMsg::serialize(const StartBroadcastMsg &msg, BlePayload &out) {
     out.clear();
@@ -72,6 +72,6 @@ bool ReceiptMsg::deserialize(const BlePayload &buf, ReceiptMsg &out) {
     return it == end;
 }
 
-} // namespace ble
+} // namespace jenlib::ble
 
 

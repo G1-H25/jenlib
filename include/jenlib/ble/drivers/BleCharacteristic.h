@@ -10,7 +10,7 @@
 #include <functional>
 #include <jenlib/ble/Payload.h>
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief BLE characteristic properties.
 enum class BleCharacteristicProperty : std::uint8_t {
@@ -70,6 +70,6 @@ class BleCharacteristic {
     virtual std::size_t get_max_payload_size() const = 0;
 };
 
-} // namespace ble
+} // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_BLECHARACTERISTIC_H_

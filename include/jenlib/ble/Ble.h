@@ -10,7 +10,7 @@
 #include "jenlib/ble/BleDriver.h"
 #include "jenlib/ble/Messages.h"
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Facade for sending typed BLE messages via a configured driver.
 //!
@@ -96,6 +96,26 @@ class BLE {
         if (driver_) {
             driver_->poll();
         }
+    }
+
+    //! @brief Begin BLE driver lifecycle.
+    static bool begin() { return driver_ ? driver_->begin() : false; }
+
+    //! @brief End BLE driver lifecycle.
+    static void end() { if (driver_) driver_->end(); }
+
+    //! @brief Query connection status.
+    static bool is_connected() { return driver_ ? driver_->is_connected() : false; }
+
+    // Forward type-specific callback setters to driver for convenience
+    static void set_start_broadcast_callback(StartBroadcastCallback cb) {
+        if (driver_) driver_->set_start_broadcast_callback(std::move(cb));
+    }
+    static void set_reading_callback(ReadingCallback cb) {
+        if (driver_) driver_->set_reading_callback(std::move(cb));
+    }
+    static void set_receipt_callback(ReceiptCallback cb) {
+        if (driver_) driver_->set_receipt_callback(std::move(cb));
     }
 
  private:

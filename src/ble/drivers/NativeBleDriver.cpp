@@ -8,7 +8,7 @@
 #include <mutex>
 #include <utility>
 
-namespace ble {
+namespace jenlib::ble {
 
 // Native driver constants
 constexpr std::uint8_t kSenderIdMarker = 0xFF;
@@ -247,6 +247,6 @@ private:
     std::mutex mutex_; //!< Mutex for inbox.
 };
 
-} // namespace ble
+} // namespace jenlib::ble
 
 

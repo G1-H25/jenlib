@@ -12,7 +12,7 @@
 #include <atomic>
 #include <chrono>
 
-using namespace ble;
+using namespace jenlib::ble;
 
 //! @brief Test helper: Focused unit test utilities
 class BleDriverTestUtils {
@@ -21,14 +21,15 @@ public:
     static BlePayload create_test_payload() {
         BlePayload payload;
         payload.append_u8(0x01); // Message type
-        payload.append_u32(0x12345678); // Test data
+        payload.append_u32le(0x12345678); // Test data
         return payload;
     }
     
     //! @brief Verify payload content matches expected values
     static void verify_test_payload(const BlePayload& payload) {
-        TEST_ASSERT_EQUAL_UINT8(0x01, payload.data[0]);
-        TEST_ASSERT_EQUAL_UINT32(0x12345678, payload.read_u32(1));
+        TEST_ASSERT_EQUAL_UINT8(0x01, payload.bytes[0]);
+        std::size_t i = 1; std::uint32_t v = 0; TEST_ASSERT_TRUE(jenlib::ble::read_u32le(payload, i, v));
+        TEST_ASSERT_EQUAL_UINT32(0x12345678, v);
     }
 };
 
@@ -38,7 +39,7 @@ void test_driver_initialization_state(void) {
     NativeBleDriver driver(DeviceId(0x12345678));
     
     //! Act
-    bool init_result = driver.initialize();
+    bool init_result = driver.begin();
     
     //! Assert
     TEST_ASSERT_TRUE(init_result);
@@ -52,13 +53,13 @@ void test_driver_lifecycle_reinitialization(void) {
     NativeBleDriver driver(DeviceId(0x12345678));
     
     //! Act - First initialization
-    bool init1 = driver.initialize();
+    bool init1 = driver.begin();
     bool connected1 = driver.is_connected();
-    driver.cleanup();
+    driver.end();
     bool connected_after_cleanup = driver.is_connected();
     
     //! Act - Second initialization
-    bool init2 = driver.initialize();
+    bool init2 = driver.begin();
     bool connected2 = driver.is_connected();
     
     //! Assert
@@ -73,7 +74,7 @@ void test_driver_lifecycle_reinitialization(void) {
 void test_messaging_round_trip_with_payload(void) {
     //! Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     
     BlePayload test_payload = BleDriverTestUtils::create_test_payload();
     DeviceId target_device(0x11111111);
@@ -92,7 +93,7 @@ void test_messaging_round_trip_with_payload(void) {
 void test_callback_invocation_on_message(void) {
     //! Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     std::atomic<int> callback_count{0};
     driver.set_message_callback([&callback_count](DeviceId, const BlePayload&) {
         callback_count++;
@@ -110,7 +111,7 @@ void test_callback_invocation_on_message(void) {
 void test_callback_not_invoked_after_clearing(void) {
     //! Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     std::atomic<int> callback_count{0};
     driver.set_message_callback([&callback_count](DeviceId, const BlePayload&) {
         callback_count++;
@@ -154,7 +155,7 @@ void test_driver_state_after_cleanup(void) {
     driver.initialize();
     
     //! Act
-    driver.cleanup();
+    driver.end();
     
     //! Assert
     TEST_ASSERT_FALSE(driver.is_connected());
@@ -191,7 +192,7 @@ void test_receive_fails_when_not_initialized(void) {
 void test_concurrent_messaging(void) {
     //! Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     
     std::atomic<int> messages_sent{0};
     std::atomic<int> messages_received{0};
@@ -235,7 +236,7 @@ void test_concurrent_messaging(void) {
 void test_messaging_with_zero_device_id(void) {
     //! Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     BlePayload test_payload = BleDriverTestUtils::create_test_payload();
     DeviceId device(0x00000000);
     

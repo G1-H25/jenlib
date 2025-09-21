@@ -8,7 +8,7 @@
 #include <ArduinoBLE.h>
 #endif
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Arduino BLE service implementation using ArduinoBLE library.
 class ArduinoBleService : public BleService {
@@ -98,4 +98,4 @@ class ArduinoBleService : public BleService {
 #endif
 };
 
-} // namespace ble
+} // namespace jenlib::ble

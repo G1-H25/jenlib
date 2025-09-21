@@ -12,12 +12,12 @@
 #endif
 
 // Forward declarations for Arduino-specific implementations
-namespace ble {
+namespace jenlib::ble {
     class ArduinoBleCharacteristic;
     class ArduinoBleService;
 }
 
-namespace ble {
+namespace jenlib::ble {
 
 ArduinoBleDriver::ArduinoBleDriver(const char* device_name, DeviceId local_device_id)
     : device_name_(device_name)
@@ -392,4 +392,4 @@ bool ArduinoBleDriver::PayloadBuffer::pop(BlePayload& out_payload) {
     return true;
 }
 
-} // namespace ble
+} // namespace jenlib::ble

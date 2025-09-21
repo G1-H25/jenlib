@@ -10,7 +10,7 @@
 #include "jenlib/ble/Payload.h"
 #include "jenlib/ble/Ids.h"
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief BLE message types used over advertisements or GATT values.
 //!
@@ -66,6 +66,6 @@ struct ReceiptMsg {
     static bool deserialize(const BlePayload &buf, ReceiptMsg &out);
 };
 
-} // namespace ble
+} // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_MESSAGES_H_

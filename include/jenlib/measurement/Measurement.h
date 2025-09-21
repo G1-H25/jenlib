@@ -22,14 +22,14 @@ struct Measurement {
     //! @param measurement The measurement to serialize.
     //! @param payload The output payload buffer.
     //! @return true if serialization succeeded, false if payload buffer is too small.
-    static bool serialize(const Measurement &measurement, ble::BlePayload &payload);
+    static bool serialize(const Measurement &measurement, jenlib::ble::BlePayload &payload);
 
     //! @brief Deserialize a Measurement from a BLE payload (consumes the payload).
     //! @param payload The input payload buffer (will be consumed/moved from).
     //! @param measurement The output measurement.
     //! @return true if deserialization succeeded, false if payload format is invalid.
     //! @note The payload will be consumed (size set to 0) after successful deserialization.
-    static bool deserialize(ble::BlePayload &&payload, Measurement &measurement);
+    static bool deserialize(jenlib::ble::BlePayload &&payload, Measurement &measurement);
 };
 
 //! @brief Convert temperature from float Celsius to centi-degrees (int16).

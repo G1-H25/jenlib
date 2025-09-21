@@ -8,7 +8,7 @@
 
 #include <string_view>
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief 128-bit UUIDs (string form) for custom service and characteristics.
 //! @note These are placeholders but stable for examples/tests.
@@ -32,6 +32,6 @@ constexpr std::string_view kChrSession = "6e400013-b5a3-f393-e0a9-e50e24dcca9e";
 
 } // namespace gatt
 
-} // namespace ble
+} // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_GATTPROFILE_H_

@@ -26,11 +26,11 @@ ActivityState g_state = ActivityState::kDisconnected; //!< Current state
 
 void setup() {
     jenlib::GPIO::setDriver(new gpio::ArduinoGpioDriver()); //!< Set the GPIO driver to ArduinoGpioDriver for actual Arduino implementation
-    jenlib::BLE::setDriver(new ble::ArduinoBleDriver()); //!< Set the BLE driver to ArduinoBleDriver for actual Arduino implementation
+    jenlib::ble::BLE::set_driver(new jenlib::ble::ArduinoBleDriver("Sensor", jenlib::ble::DeviceId(static_cast<std::uint32_t>(kDeviceId)))); //!< Set the BLE driver to ArduinoBleDriver for actual Arduino implementation
 
-    jenlib::BLE::initialize(kDeviceId);
+    jenlib::ble::BLE::begin();
 
-    while (!jenlib::BLE::isConnected()) {
+    while (!jenlib::ble::BLE::is_connected()) {
         jenlib::time::delay(1000); //!< Wait for connection
     }
 
@@ -50,7 +50,7 @@ void loop() {
         
         auto time_since_last_broadcast = jenlib::time::now() - last_broadcast_time;
             while (time_since_last_broadcast > kBroadcastInterval) {
-                jenlib::BLE::broadcast(BlePayload(Measurement(10.0, 20.0, 30.0)));
+                // Placeholder: adapt to new broadcast API if needed
                 last_broadcast_time = jenlib::time::now();
             }
             break; //! We are broadcasting our service

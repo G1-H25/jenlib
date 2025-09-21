@@ -7,7 +7,7 @@
 #include <ArduinoBLE.h>
 #endif
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Arduino BLE characteristic implementation using ArduinoBLE library.
 class ArduinoBleCharacteristic : public BleCharacteristic {
@@ -119,4 +119,4 @@ class ArduinoBleCharacteristic : public BleCharacteristic {
 #endif
 };
 
-} // namespace ble
+} // namespace jenlib::ble

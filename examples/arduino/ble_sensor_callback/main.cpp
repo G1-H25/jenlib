@@ -12,7 +12,7 @@
 #include <jenlib/state/StateMachine.h>
 
 // Device configuration
-constexpr DeviceId kDeviceId = DeviceId(0x12345678);
+constexpr jenlib::ble::DeviceId kDeviceId = jenlib::ble::DeviceId(0x12345678);
 constexpr std::uint32_t kBroadcastInterval = 5000; // 5 seconds
 constexpr std::uint32_t kConnectionTimeout = 30000; // 30 seconds
 constexpr std::uint32_t kRetryInterval = 2000; // 2 seconds
@@ -28,7 +28,7 @@ enum class SensorState : jenlib::state::StateId {
 
 // Global state management
 jenlib::state::StateMachine g_state_machine;
-SessionId g_current_session_id = SessionId(0);
+jenlib::ble::SessionId g_current_session_id = jenlib::ble::SessionId(0);
 jenlib::time::TimerId g_broadcast_timer = jenlib::time::kInvalidTimerId;
 jenlib::time::TimerId g_connection_timeout = jenlib::time::kInvalidTimerId;
 jenlib::time::TimerId g_retry_timer = jenlib::time::kInvalidTimerId;
@@ -36,8 +36,8 @@ std::uint32_t g_session_start_time = 0;
 
 // Forward declarations for callback functions
 void on_connection_changed(bool connected);
-void on_start_broadcast(DeviceId sender_id, const StartBroadcastMsg& msg);
-void on_receipt(DeviceId sender_id, const ReceiptMsg& msg);
+void on_start_broadcast(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBroadcastMsg& msg);
+void on_receipt(jenlib::ble::DeviceId sender_id, const jenlib::ble::ReceiptMsg& msg);
 void on_connection_timeout();
 void on_retry_connection();
 void on_broadcast_timer();
@@ -75,7 +75,7 @@ void on_connection_changed(bool connected) {
 }
 
 // Start broadcast message callback
-void on_start_broadcast(DeviceId sender_id, const StartBroadcastMsg& msg) {
+void on_start_broadcast(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBroadcastMsg& msg) {
     Serial.print("Received start broadcast from: 0x");
     Serial.println(static_cast<uint32_t>(sender_id), HEX);
     
@@ -96,7 +96,7 @@ void on_start_broadcast(DeviceId sender_id, const StartBroadcastMsg& msg) {
 }
 
 // Receipt message callback
-void on_receipt(DeviceId sender_id, const ReceiptMsg& msg) {
+void on_receipt(jenlib::ble::DeviceId sender_id, const jenlib::ble::ReceiptMsg& msg) {
     Serial.print("Received receipt from: 0x");
     Serial.print(static_cast<uint32_t>(sender_id), HEX);
     Serial.print(" - Session: 0x");
@@ -157,7 +157,7 @@ void on_broadcast_timer() {
     };
     
     // Broadcast the reading
-    jenlib::BLE::broadcast_reading(kDeviceId, reading_msg);
+    jenlib::ble::BLE::broadcast_reading(kDeviceId, reading_msg);
     
     Serial.print("Broadcast reading - Temp: ");
     Serial.print(measurement.temperature_c_centi / 100.0f);
@@ -253,8 +253,7 @@ void on_enter_connected() {
         g_connection_timeout = jenlib::time::kInvalidTimerId;
     }
     
-    // Subscribe to GATT service for our device
-    jenlib::BLE::subscribe_to_service(kDeviceId);
+    // Subscribe to GATT service for our device (not implemented in facade yet)
     
     // Transition to passive waiting
     g_state_machine.set_state(static_cast<jenlib::state::StateId>(SensorState::kPassiveWaiting));
@@ -310,18 +309,18 @@ void setup() {
     
     // Initialize drivers
     jenlib::GPIO::setDriver(new gpio::ArduinoGpioDriver());
-    jenlib::BLE::setDriver(new ble::ArduinoBleDriver());
+    jenlib::ble::BLE::set_driver(new jenlib::ble::ArduinoBleDriver("Sensor", jenlib::ble::DeviceId(static_cast<std::uint32_t>(kDeviceId))));
     
     // Initialize measurement system
     jenlib::measurement::initialize();
     
     // Set up BLE callbacks
-    jenlib::BLE::set_connection_callback(on_connection_changed);
-    jenlib::BLE::set_start_broadcast_callback(on_start_broadcast);
-    jenlib::BLE::set_receipt_callback(on_receipt);
+    jenlib::ble::BLE::set_connection_callback(on_connection_changed);
+    jenlib::ble::BLE::set_start_broadcast_callback(on_start_broadcast);
+    jenlib::ble::BLE::set_receipt_callback(on_receipt);
     
     // Initialize BLE
-    if (!jenlib::BLE::initialize(kDeviceId)) {
+    if (!jenlib::ble::BLE::begin()) {
         Serial.println("BLE initialization failed!");
         return;
     }
@@ -360,8 +359,8 @@ void setup() {
     // Start in connecting state
     g_state_machine.set_state(static_cast<jenlib::state::StateId>(SensorState::kConnecting));
     
-    // Attempt to connect
-    if (jenlib::BLE::connect()) {
+    // Connection management handled internally; check status
+    if (jenlib::ble::BLE::is_connected()) {
         Serial.println("Connection attempt started");
     } else {
         Serial.println("Connection failed, will retry");
@@ -372,7 +371,7 @@ void setup() {
 // Main loop - now much simpler with event-driven architecture
 void loop() {
     // Process all event systems
-    jenlib::BLE::process_events();
+    jenlib::ble::BLE::process_events();
     jenlib::time::process_timers();
     jenlib::events::EventDispatcher::process_events();
     

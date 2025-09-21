@@ -20,7 +20,7 @@
 #include <chrono>
 #include <atomic>
 
-using namespace ble;
+using namespace jenlib::ble;
 
 //! @brief Test helper: Complete sensor simulation
 class SensorSimulator {
@@ -142,7 +142,7 @@ void test_complete_sensor_broker_communication_flow(void) {
     // Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000)); // Broker
     BLE::set_driver(driver.get());
-    driver->initialize();
+    driver->begin();
 
     DeviceId sensor_id(0x12345678);
     SessionId session_id(0x87654321);
@@ -173,7 +173,7 @@ void test_multiple_sensors_single_broker(void) {
     // Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000)); // Broker
     BLE::set_driver(driver.get());
-    driver->initialize();
+    driver->begin();
 
     std::vector<DeviceId> sensor_ids = {
         DeviceId(0x11111111),
@@ -217,7 +217,7 @@ void test_session_management_and_cleanup(void) {
     // Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
-    driver->initialize();
+    driver->begin();
 
     DeviceId sensor_id(0x12345678);
     SensorSimulator sensor(sensor_id, driver);
@@ -255,7 +255,7 @@ void test_callback_performance_under_load(void) {
     // Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
-    driver->initialize();
+    driver->begin();
 
     std::atomic<int> callback_count{0};
     driver->set_reading_callback([&callback_count](DeviceId, const ReadingMsg&) {
@@ -300,7 +300,7 @@ void test_callback_reliability_with_message_loss(void) {
     // Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
-    driver->initialize();
+    driver->begin();
 
     std::atomic<int> callback_count{0};
     driver->set_reading_callback([&callback_count](DeviceId, const ReadingMsg&) {

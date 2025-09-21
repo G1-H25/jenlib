@@ -5,7 +5,7 @@
 
 namespace measurement {
 
-bool Measurement::serialize(const Measurement &measurement, ble::BlePayload &payload) {
+bool Measurement::serialize(const Measurement &measurement, jenlib::ble::BlePayload &payload) {
     payload.clear();
     
     // Serialize timestamp (4 bytes, little-endian)
@@ -28,7 +28,7 @@ bool Measurement::serialize(const Measurement &measurement, ble::BlePayload &pay
     return true;
 }
 
-bool Measurement::deserialize(ble::BlePayload &&payload, Measurement &measurement) {
+bool Measurement::deserialize(jenlib::ble::BlePayload &&payload, Measurement &measurement) {
     // Expected payload size: 4 + 2 + 2 = 8 bytes
     constexpr std::size_t expected_size = 8;
     if (payload.size != expected_size) {
@@ -40,19 +40,19 @@ bool Measurement::deserialize(ble::BlePayload &&payload, Measurement &measuremen
     
     // Deserialize timestamp
     std::uint32_t timestamp_ms = 0;
-    if (!ble::read_u32le(it, end, timestamp_ms)) {
+    if (!jenlib::ble::read_u32le(it, end, timestamp_ms)) {
         return false;
     }
     
     // Deserialize temperature (centi-degrees to float)
     std::int16_t temp_centi = 0;
-    if (!ble::read_i16le(it, end, temp_centi)) {
+    if (!jenlib::ble::read_i16le(it, end, temp_centi)) {
         return false;
     }
     
     // Deserialize humidity (basis points to float)
     std::uint16_t humidity_bp = 0;
-    if (!ble::read_u16le(it, end, humidity_bp)) {
+    if (!jenlib::ble::read_u16le(it, end, humidity_bp)) {
         return false;
     }
     

@@ -9,7 +9,7 @@
 #include <cstdint>
 #include "jenlib/ble/Payload.h"
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Session identifier type
 //! @details Type for passing to arguments and returning from functions.
@@ -76,6 +76,6 @@ inline bool append_u32le(BlePayload &buf, std::uint32_t v) {
 //! @note Used for DeviceId integrity checking. Exposed for testing.
 std::uint8_t compute_crc8(const std::uint8_t *data, size_t len);
 
-} // namespace ble
+} // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_IDS_H_

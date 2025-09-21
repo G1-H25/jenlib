@@ -10,7 +10,7 @@
 #include <string_view>
 #include <jenlib/ble/drivers/BleCharacteristic.h>
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Abstract BLE service interface.
 //! @details
@@ -41,6 +41,6 @@ class BleService {
     virtual void stop_advertising() = 0;
 };
 
-} // namespace ble
+} // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_BLESERVICE_H_

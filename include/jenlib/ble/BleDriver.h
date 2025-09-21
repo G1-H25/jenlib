@@ -11,7 +11,7 @@
 #include "jenlib/ble/Payload.h"
 #include "jenlib/ble/Ids.h"
 
-namespace ble {
+namespace jenlib::ble {
 
 // Forward declarations
 struct StartBroadcastMsg;
@@ -50,14 +50,7 @@ class BleDriver {
     //! @pre Driver initialized. @post Driver can be re-initialized.
     virtual void end() = 0;
 
-    //! @brief Initialize the BLE driver and establish connections.
-    //! @return true if initialization succeeded, false otherwise.
-    //! @pre None. @post Driver ready for messaging operations.
-    virtual bool initialize() = 0;
-
-    //! @brief Cleanup BLE driver resources and close connections.
-    //! @pre Driver initialized. @post Driver can be re-initialized.
-    virtual void cleanup() = 0;
+    // Note: initialize/cleanup removed in favor of begin/end
 
     //! @brief Check if the driver is connected and ready for communication.
     //! @return true if connected and ready, false otherwise.
@@ -128,6 +121,6 @@ class BleDriver {
     virtual void clear_connection_callback() = 0;
 };
 
-} // namespace ble
+} // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_BLEDRIVER_H_

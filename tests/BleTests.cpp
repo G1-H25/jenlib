@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include <vector>
 
-using namespace ble;
+using namespace jenlib::ble;
 
 //! @test Test CRC-8-ATM with known test vectors
 void test_crc8_atm_known_vectors(void) {
@@ -149,7 +149,7 @@ void test_crc8_edge_cases(void) {
 }
 
 //! @brief Test helper: Local BLE driver for testing
-class TestBleDriver final : public ble::BleDriver {
+class TestBleDriver final : public jenlib::ble::BleDriver {
     public:
         bool receive(DeviceId self_id, BlePayload &out_payload) override {
             auto it = inbox.find(self_id.value());

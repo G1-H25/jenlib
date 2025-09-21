@@ -19,7 +19,7 @@
 #include <vector>
 #include <atomic>
 
-using namespace ble;
+using namespace jenlib::ble;
 
 //! @brief Test helper: Mock callback tracker
 class CallbackTracker {
@@ -78,7 +78,7 @@ void test_type_specific_callback_registration(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     // Act - Register type-specific callbacks
     driver.set_start_broadcast_callback([&tracker](DeviceId sender_id, const StartBroadcastMsg& msg) {
@@ -100,7 +100,7 @@ void test_start_broadcast_callback_routing(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     driver.set_start_broadcast_callback([&tracker](DeviceId sender_id, const StartBroadcastMsg& msg) {
         tracker.on_start_broadcast(sender_id, msg);
@@ -129,7 +129,7 @@ void test_reading_callback_routing(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     driver.set_reading_callback([&tracker](DeviceId sender_id, const ReadingMsg& msg) {
         tracker.on_reading(sender_id, msg);
@@ -164,7 +164,7 @@ void test_receipt_callback_routing(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     driver.set_receipt_callback([&tracker](DeviceId sender_id, const ReceiptMsg& msg) {
         tracker.on_receipt(sender_id, msg);
@@ -193,7 +193,7 @@ void test_callback_priority_type_specific_over_generic(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     // Register both type-specific and generic callbacks
     driver.set_start_broadcast_callback([&tracker](DeviceId sender_id, const StartBroadcastMsg& msg) {
@@ -361,7 +361,7 @@ void test_interface_contract_compliance(void) {
 
     // Act - Call all interface methods
     bool begin_result = driver.begin();
-    bool init_result = driver.initialize();
+    bool init_result = false; // initialize removed
     bool connected = driver.is_connected();
     DeviceId local_id = driver.get_local_device_id();
     
@@ -375,7 +375,7 @@ void test_interface_contract_compliance(void) {
 
     // Test lifecycle methods
     driver.end();
-    driver.cleanup();
+    driver.end();
     driver.poll();
 
     // Test messaging methods

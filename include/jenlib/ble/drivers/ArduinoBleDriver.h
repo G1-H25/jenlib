@@ -19,7 +19,7 @@
 #include <ArduinoBLE.h>
 #endif
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Arduino BLE driver implementation using ArduinoBLE library.
 //! @details
@@ -199,6 +199,6 @@ class ArduinoBleDriver : public BleDriver {
     bool initialized_;                  //!< Initialization state.
 };
 
-} // namespace ble
+} // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_ARDUINOBLEDRIVER_H_

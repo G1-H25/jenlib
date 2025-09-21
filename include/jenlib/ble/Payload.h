@@ -9,7 +9,7 @@
 #include <array>
 #include <cstdint>
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Maximum payload size used by BLE messages in this library.
 //! @details Chosen to fit typical ATT MTU values while leaving headroom.
@@ -164,7 +164,7 @@ inline bool read_i16le(BlePayload::const_iterator &it, BlePayload::const_iterato
     return true;
 }
 
-} // namespace ble
+} // namespace jenlib::ble
 
 
 #endif  // INCLUDE_JENLIB_BLE_PAYLOAD_H_
