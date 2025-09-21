@@ -129,7 +129,7 @@ namespace jenlib::ble {
 
 namespace jenlib::ble {
 
-ArduinoBleDriver::ArduinoBleDriver(const char* device_name, DeviceId local_device_id)
+ArduinoBleDriver::ArduinoBleDriver(std::string_view device_name, DeviceId local_device_id)
     : device_name_(device_name)
     , local_device_id_(local_device_id)
     , message_callback_(nullptr)
@@ -146,6 +146,15 @@ ArduinoBleDriver::ArduinoBleDriver(const char* device_name, DeviceId local_devic
 {
 }
 
+ArduinoBleDriver::ArduinoBleDriver(std::string_view device_name, DeviceId local_device_id, const BleCallbacks& cb)
+    : ArduinoBleDriver(device_name, local_device_id) {
+    if (cb.on_connection) set_connection_callback(cb.on_connection);
+    if (cb.on_start) set_start_broadcast_callback(cb.on_start);
+    if (cb.on_reading) set_reading_callback(cb.on_reading);
+    if (cb.on_receipt) set_receipt_callback(cb.on_receipt);
+    if (cb.on_generic) set_message_callback(cb.on_generic);
+}
+
 bool ArduinoBleDriver::begin() {
 #ifdef ARDUINO
     if (initialized_) {
@@ -156,10 +165,6 @@ bool ArduinoBleDriver::begin() {
     if (!BLE.begin()) {
         return false;
     }
-
-    // Set local name and advertised service
-    BLE.setLocalName(device_name_);
-    BLE.setAdvertisedService("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
 
     // Setup GATT service
     setup_gatt_service();

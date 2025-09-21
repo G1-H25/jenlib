@@ -14,6 +14,7 @@
 #include <array>
 #include <cstdint>
 #include <memory>
+#include <string_view>
 
 #ifdef ARDUINO
 #include <ArduinoBLE.h>
@@ -30,8 +31,12 @@ class ArduinoBleDriver : public BleDriver {
     //! @brief Constructor.
     //! @param device_name Name to advertise for this BLE device.
     //! @param local_device_id Local device identifier for this instance.
-    ArduinoBleDriver(const char* device_name, DeviceId local_device_id);
-    
+    //! @brief Construct with name and local id.
+    ArduinoBleDriver(std::string_view device_name, DeviceId local_device_id);
+
+    //! @brief Construct and bind callbacks via aggregate.
+    ArduinoBleDriver(std::string_view device_name, DeviceId local_device_id, const BleCallbacks& callbacks);
+
     //! @brief Destructor.
     ~ArduinoBleDriver() override = default;
 
@@ -175,7 +180,8 @@ class ArduinoBleDriver : public BleDriver {
         bool full() const { return count >= kMaxBufferedPayloads; }
     };
 
-    const char* device_name_;           //!< BLE device name for advertising.
+    static constexpr std::size_t kMaxDeviceNameLen = 31;
+    std::string_view device_name_; //!< Non-owning; copied to stack buffer in begin()
     DeviceId local_device_id_;          //!< Local device identifier.
     PayloadBuffer received_payloads_;   //!< Buffer for received payloads.
     BleMessageCallback message_callback_; //!< Callback for received messages.
