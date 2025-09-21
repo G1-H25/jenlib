@@ -16,6 +16,14 @@ std::chrono::steady_clock::time_point NativeTimeDriver::start_time_;
 bool NativeTimeDriver::initialized_ = false;
 
 std::uint32_t NativeTimeDriver::now() {
+    return now_static();
+}
+
+void NativeTimeDriver::delay(std::uint32_t delay_ms) {
+    delay_static(delay_ms);
+}
+
+std::uint32_t NativeTimeDriver::now_static() {
     if (!initialized_) {
         initialize();
     }
@@ -26,7 +34,7 @@ std::uint32_t NativeTimeDriver::now() {
     return static_cast<std::uint32_t>(duration.count());
 }
 
-void NativeTimeDriver::delay(std::uint32_t delay_ms) {
+void NativeTimeDriver::delay_static(std::uint32_t delay_ms) {
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));
 }
 

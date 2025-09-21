@@ -59,6 +59,7 @@ if(BUILD_TESTING)
         tests/BleTests.cpp
         tests/MeasurementTests.cpp
         tests/StateMachineTests.cpp
+        tests/TimeDriverTests.cpp
         ${unity_SOURCE_DIR}/src/unity.c
     )
     target_include_directories(jenlib_gpio_tests PRIVATE ${unity_SOURCE_DIR}/src)

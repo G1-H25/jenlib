@@ -6,6 +6,7 @@
 #ifndef INCLUDE_JENLIB_TIME_DRIVERS_ARDUINOTIMEDRIVER_H_
 #define INCLUDE_JENLIB_TIME_DRIVERS_ARDUINOTIMEDRIVER_H_
 
+#include "jenlib/time/TimeDriver.h"
 #include "jenlib/time/TimeTypes.h"
 
 namespace jenlib::time {
@@ -14,15 +15,19 @@ namespace jenlib::time {
 //! @details
 //! Provides time functionality using Arduino's millis() function.
 //! Handles timer overflow (49.7 days) and provides non-blocking timer processing.
-class ArduinoTimeDriver {
+class ArduinoTimeDriver : public TimeDriver {
 public:
     //! @brief Get current time in milliseconds using Arduino millis()
     //! @return Current time in milliseconds
-    static std::uint32_t now();
+    std::uint32_t now() override;
     
     //! @brief Delay execution for specified milliseconds using Arduino delay()
     //! @param delay_ms Delay duration in milliseconds
-    static void delay(std::uint32_t delay_ms);
+    void delay(std::uint32_t delay_ms) override;
+    
+    //! @brief Static versions for backward compatibility
+    static std::uint32_t now_static();
+    static void delay_static(std::uint32_t delay_ms);
     
     //! @brief Check if a time value has overflowed (for 32-bit millis())
     //! @param time_value The time value to check

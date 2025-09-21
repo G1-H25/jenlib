@@ -15,6 +15,7 @@ bool Time::initialized_ = false;
 TimerId Time::next_timer_id_ = 1;
 std::array<TimerEntry, Time::kMaxTimers> Time::timers_;
 std::size_t Time::timer_count_ = 0;
+TimeDriver* Time::driver_ = nullptr;
 
 TimerId Time::schedule_callback(std::uint32_t interval_ms, TimerCallback callback, bool repeat) {
     if (!callback || interval_ms == 0) {
@@ -112,11 +113,19 @@ std::size_t Time::process_timers() {
 }
 
 std::uint32_t Time::now() {
-    return jenlib::time::NativeTimeDriver::now();   
+    if (!driver_) {
+        // No-op when no driver is set - return 0
+        return 0;
+    }
+    return driver_->now();
 }
 
 void Time::delay(std::uint32_t delay_ms) {
-    jenlib::time::NativeTimeDriver::delay(delay_ms);
+    if (!driver_) {
+        // No-op when no driver is set - do nothing
+        return;
+    }
+    driver_->delay(delay_ms);
 }
 
 std::size_t Time::get_active_timer_count() {
@@ -160,6 +169,14 @@ TimerId Time::get_next_timer_id() {
     }
     
     return next_timer_id_++;
+}
+
+void Time::setDriver(TimeDriver* driver) noexcept {
+    driver_ = driver;
+}
+
+TimeDriver* Time::getDriver() noexcept {
+    return driver_;
 }
 
 } // namespace jenlib::time

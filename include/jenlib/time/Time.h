@@ -6,6 +6,7 @@
 #ifndef INCLUDE_JENLIB_TIME_TIME_H_
 #define INCLUDE_JENLIB_TIME_TIME_H_
 
+#include "jenlib/time/TimeDriver.h"
 #include "jenlib/time/TimeTypes.h"
 
 //! @namespace jenlib::time
@@ -60,6 +61,14 @@ public:
     
     //! @brief Initialize the time service (called automatically on first use)
     static void initialize();
+    
+    //! @brief Set the time driver for dependency injection
+    //! @param driver Pointer to the time driver implementation
+    static void setDriver(TimeDriver* driver) noexcept;
+    
+    //! @brief Get the current time driver
+    //! @return Pointer to the current time driver, or nullptr if none set
+    static TimeDriver* getDriver() noexcept;
 
 private:
     //! @brief Get the next available timer ID
@@ -79,6 +88,9 @@ private:
     
     //! @brief Current number of active timers
     static std::size_t timer_count_;
+    
+    //! @brief Current time driver (dependency injection)
+    static TimeDriver* driver_;
 };
 
 //! @brief Convenience function to schedule a repeating timer

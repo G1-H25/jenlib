@@ -6,6 +6,7 @@
 #ifndef INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_
 #define INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_
 
+#include "jenlib/time/TimeDriver.h"
 #include "jenlib/time/TimeTypes.h"
 #include <chrono>
 
@@ -15,15 +16,19 @@ namespace jenlib::time {
 //! @details
 //! Provides time functionality using std::chrono for native desktop environments.
 //! Uses steady_clock for consistent timing across different platforms.
-class NativeTimeDriver {
+class NativeTimeDriver : public TimeDriver {
 public:
     //! @brief Get current time in milliseconds using std::chrono
     //! @return Current time in milliseconds
-    static std::uint32_t now();
+    std::uint32_t now() override;
     
     //! @brief Delay execution for specified milliseconds using std::this_thread::sleep_for
     //! @param delay_ms Delay duration in milliseconds
-    static void delay(std::uint32_t delay_ms);
+    void delay(std::uint32_t delay_ms) override;
+    
+    //! @brief Static versions for backward compatibility
+    static std::uint32_t now_static();
+    static void delay_static(std::uint32_t delay_ms);
     
     //! @brief Initialize the native time driver
     static void initialize();
