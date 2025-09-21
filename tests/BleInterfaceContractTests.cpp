@@ -142,7 +142,7 @@ void test_driver_state_after_initialization(void) {
     NativeBleDriver driver(DeviceId(0x12345678));
     
     //! Act
-    driver.initialize();
+    driver.begin();
     
     //! Assert
     TEST_ASSERT_TRUE(driver.is_connected());
@@ -152,7 +152,7 @@ void test_driver_state_after_initialization(void) {
 void test_driver_state_after_cleanup(void) {
     //! Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     
     //! Act
     driver.end();
@@ -254,7 +254,7 @@ void test_messaging_with_zero_device_id(void) {
 void test_messaging_with_max_device_id(void) {
     //! Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     BlePayload test_payload = BleDriverTestUtils::create_test_payload();
     DeviceId device(0xFFFFFFFF);
     
@@ -272,7 +272,7 @@ void test_messaging_with_max_device_id(void) {
 void test_messaging_with_normal_device_id(void) {
     //! Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     BlePayload test_payload = BleDriverTestUtils::create_test_payload();
     DeviceId device(0x12345678);
     
@@ -290,7 +290,7 @@ void test_messaging_with_normal_device_id(void) {
 void test_callback_parameters_passed_correctly(void) {
     // Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
     
     DeviceId expected_sender(0x11111111);
     BlePayload expected_payload = BleDriverTestUtils::create_test_payload();
@@ -320,9 +320,9 @@ void test_initialization_return_value_consistency(void) {
     NativeBleDriver driver(DeviceId(0x12345678));
     
     //! Act
-    bool init1 = driver.initialize();
-    driver.cleanup();
-    bool init2 = driver.initialize();
+    bool init1 = driver.begin();
+    driver.end();
+    bool init2 = driver.begin();
     
     //! Assert
     TEST_ASSERT_EQUAL_UINT8(init1, init2);
@@ -335,7 +335,7 @@ void test_connection_state_return_value_consistency(void) {
     
     //! Act
     bool connected1 = driver.is_connected();
-    driver.initialize();
+    driver.begin();
     bool connected2 = driver.is_connected();
     
     //! Assert

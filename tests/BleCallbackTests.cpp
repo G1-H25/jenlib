@@ -224,7 +224,7 @@ void test_fallback_to_generic_callback(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     // Register only generic callback
     driver.set_message_callback([&tracker](DeviceId sender_id, const BlePayload& payload) {
@@ -252,7 +252,7 @@ void test_callback_clearing(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     // Register callbacks
     driver.set_start_broadcast_callback([&tracker](DeviceId sender_id, const StartBroadcastMsg& msg) {
@@ -288,7 +288,7 @@ void test_multiple_message_types_different_callbacks(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     // Register different callbacks for different message types
     driver.set_start_broadcast_callback([&tracker](DeviceId sender_id, const StartBroadcastMsg& msg) {
@@ -336,7 +336,7 @@ void test_callback_with_invalid_message_data(void) {
     // Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     driver.set_start_broadcast_callback([&tracker](DeviceId sender_id, const StartBroadcastMsg& msg) {
         tracker.on_start_broadcast(sender_id, msg);
@@ -398,7 +398,7 @@ void test_interface_contract_compliance(void) {
 void test_sender_id_extraction(void) {
     // Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     ReadingMsg reading_msg;
     reading_msg.sender_id = DeviceId(0x87654321);
@@ -430,7 +430,7 @@ void test_callback_error_handling(void) {
     // Arrange
     std::atomic<int> callback_count{0};
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     driver.set_start_broadcast_callback([&callback_count](DeviceId, const StartBroadcastMsg&) {
         callback_count++;
@@ -460,7 +460,7 @@ void test_concurrent_callback_access(void) {
     // Arrange
     std::atomic<int> callback_count{0};
     NativeBleDriver driver(DeviceId(0x12345678));
-    driver.initialize();
+    driver.begin();
 
     driver.set_reading_callback([&callback_count](DeviceId, const ReadingMsg&) {
         callback_count++;

@@ -343,7 +343,7 @@ void test_callback_error_recovery(void) {
     // Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
-    driver->initialize();
+    driver->begin();
 
     std::atomic<int> callback_count{0};
     std::atomic<int> error_count{0};
@@ -393,7 +393,7 @@ void test_callback_with_mixed_message_types(void) {
     // Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
-    driver->initialize();
+    driver->begin();
 
     std::atomic<int> start_broadcast_count{0};
     std::atomic<int> reading_count{0};
@@ -452,7 +452,7 @@ void test_callback_with_concurrent_access(void) {
     // Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
-    driver->initialize();
+    driver->begin();
 
     std::atomic<int> callback_count{0};
     driver->set_reading_callback([&callback_count](DeviceId, const ReadingMsg&) {

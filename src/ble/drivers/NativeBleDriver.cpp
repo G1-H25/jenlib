@@ -46,16 +46,7 @@ public:
         }
     }
 
-    //! @brief Initialize the BLE driver and establish connections (contract method).
-    //! @return true if initialization succeeded, false otherwise.
-    bool initialize() override {
-        return begin();  // Delegate to Arduino-friendly method
-    }
-
-    //! @brief Cleanup BLE driver resources and close connections (contract method).
-    void cleanup() override {
-        end();  // Delegate to Arduino-friendly method
-    }
+    // initialize/cleanup removed in favor of begin/end
 
     //! @brief Check if the driver is connected and ready for communication.
     //! @return true if connected and ready, false otherwise.

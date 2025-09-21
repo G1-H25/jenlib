@@ -73,13 +73,7 @@ void ArduinoBleDriver::end() {
 #endif
 }
 
-bool ArduinoBleDriver::initialize() {
-    return begin();  // Delegate to Arduino-friendly method
-}
-
-void ArduinoBleDriver::cleanup() {
-    end();  // Delegate to Arduino-friendly method
-}
+// initialize/cleanup removed in favor of begin/end
 
 void ArduinoBleDriver::advertise(DeviceId device_id, BlePayload payload) {
 #ifdef ARDUINO

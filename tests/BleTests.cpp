@@ -179,8 +179,7 @@ class TestBleDriver final : public jenlib::ble::BleDriver {
     // Required BleDriver interface methods
     bool begin() override { return true; }
     void end() override {}
-    bool initialize() override { return true; }
-    void cleanup() override {}
+    // initialize/cleanup removed
     bool is_connected() const override { return true; }
     DeviceId get_local_device_id() const override { return DeviceId(0); }
     void poll() override {}

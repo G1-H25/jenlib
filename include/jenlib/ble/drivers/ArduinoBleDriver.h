@@ -44,14 +44,7 @@ class ArduinoBleDriver : public BleDriver {
     //! @pre Driver initialized. @post Driver can be re-initialized.
     void end() override;
 
-    //! @brief Initialize the BLE driver and establish connections.
-    //! @return true if initialization succeeded, false otherwise.
-    //! @pre None. @post Driver ready for messaging operations.
-    bool initialize() override;
-
-    //! @brief Cleanup BLE driver resources and close connections.
-    //! @pre Driver initialized. @post Driver can be re-initialized.
-    void cleanup() override;
+    // initialize/cleanup removed in favor of begin/end
 
     //! @brief Send a best-effort broadcast from a device.
     //! @param device_id Logical sender identity.
