@@ -184,7 +184,7 @@ class ArduinoBleDriver : public BleDriver {
     ReceiptCallback receipt_callback_;  //!< Callback for Receipt messages.
     ConnectionCallback connection_callback_; //!< Callback for connection state changes.
     
-    std::unique_ptr<BleService> gatt_service_;          //!< Main GATT service.
+    BleService* gatt_service_;          //!< Main GATT service (static lifetime on Arduino).
     BleCharacteristic* control_char_;   //!< Control characteristic (StartBroadcast).
     BleCharacteristic* reading_char_;   //!< Reading characteristic (notifications).
     BleCharacteristic* receipt_char_;   //!< Receipt characteristic (writes).

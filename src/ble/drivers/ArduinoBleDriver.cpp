@@ -5,11 +5,121 @@
 
 #include <jenlib/ble/drivers/ArduinoBleDriver.h>
 #include <jenlib/ble/Messages.h>
+#include <jenlib/ble/GattProfile.h>
 
 #ifdef ARDUINO
 #include <ArduinoBLE.h>
 #include <Arduino.h>
 #endif
+
+#ifdef ARDUINO
+namespace {
+using namespace jenlib::ble;
+
+class ArduinoBleCharacteristicImpl : public BleCharacteristic {
+public:
+    ArduinoBleCharacteristicImpl(std::string_view uuid, std::uint8_t properties, std::size_t max_size)
+        : uuid_(uuid), properties_(properties), max_size_(max_size), characteristic_()
+    {
+        int arduino_properties = 0;
+        if (properties & static_cast<std::uint8_t>(BleCharacteristicProperty::Read)) arduino_properties |= BLERead;
+        if (properties & static_cast<std::uint8_t>(BleCharacteristicProperty::Write)) arduino_properties |= BLEWrite;
+        if (properties & static_cast<std::uint8_t>(BleCharacteristicProperty::Notify)) arduino_properties |= BLENotify;
+        if (properties & static_cast<std::uint8_t>(BleCharacteristicProperty::Indicate)) arduino_properties |= BLEIndicate;
+        if (properties & static_cast<std::uint8_t>(BleCharacteristicProperty::WriteWithoutResponse)) arduino_properties |= BLEWriteWithoutResponse;
+        characteristic_ = BLECharacteristic(uuid.data(), arduino_properties, max_size);
+    }
+
+    bool write_value(const BlePayload& payload) override {
+        return characteristic_.writeValue(payload.bytes.data(), payload.size);
+    }
+
+    bool read_value(BlePayload& out_payload) const override {
+        out_payload.clear();
+        return out_payload.append_raw(characteristic_.value(), characteristic_.valueLength());
+    }
+
+    void set_event_callback(BleCharacteristicCallback callback) override {
+        callback_ = std::move(callback);
+        characteristic_.setEventHandler(BLEWritten, [this](BLEDevice, BLECharacteristic ch) {
+            if (!callback_) return;
+            BlePayload payload;
+            payload.append_raw(ch.value(), ch.valueLength());
+            callback_(BleCharacteristicEvent::Written, payload);
+        });
+    }
+
+    std::uint8_t get_properties() const override { return properties_; }
+    std::size_t get_max_payload_size() const override { return max_size_; }
+
+    BLECharacteristic& arduino() { return characteristic_; }
+
+private:
+    std::string_view uuid_;
+    std::uint8_t properties_;
+    std::size_t max_size_;
+    BleCharacteristicCallback callback_{};
+    BLECharacteristic characteristic_;
+};
+
+class ArduinoBleServiceImpl : public BleService {
+public:
+    explicit ArduinoBleServiceImpl(std::string_view uuid) : uuid_(uuid), service_(uuid.data()) {}
+
+    bool add_characteristic(BleCharacteristic* characteristic) override {
+        if (!characteristic) return false;
+        auto* arduino_char = dynamic_cast<ArduinoBleCharacteristicImpl*>(characteristic);
+        if (arduino_char) {
+            service_.addCharacteristic(arduino_char->arduino());
+        }
+        characteristics_.push_back(characteristic);
+        return true;
+    }
+
+    BleCharacteristic* get_characteristic(std::string_view uuid) override {
+        (void)uuid;
+        return characteristics_.empty() ? nullptr : characteristics_.front();
+    }
+
+    std::string_view get_uuid() const override { return uuid_; }
+
+    bool start_advertising() override {
+        BLE.setAdvertisedService(service_);
+        BLE.addService(service_);
+        BLE.advertise();
+        return true;
+    }
+
+    void stop_advertising() override { BLE.stopAdvertise(); }
+
+private:
+    std::string_view uuid_;
+    std::vector<BleCharacteristic*> characteristics_;
+    BLEService service_;
+};
+
+// Static protocol objects
+ArduinoBleServiceImpl g_service{gatt::kServiceSensor};
+ArduinoBleCharacteristicImpl g_control{gatt::kChrControl,
+    static_cast<std::uint8_t>(BleCharacteristicProperty::Write), kMaxPayload};
+ArduinoBleCharacteristicImpl g_reading{gatt::kChrReading,
+    static_cast<std::uint8_t>(BleCharacteristicProperty::Notify), kMaxPayload};
+ArduinoBleCharacteristicImpl g_receipt{gatt::kChrReceipt,
+    static_cast<std::uint8_t>(BleCharacteristicProperty::Write), kMaxPayload};
+ArduinoBleCharacteristicImpl g_session{gatt::kChrSession,
+    static_cast<std::uint8_t>(BleCharacteristicProperty::Read), kMaxPayload};
+
+inline BleService* make_arduino_service(std::string_view) { return &g_service; }
+inline BleCharacteristic* make_arduino_characteristic(std::string_view uuid, std::uint8_t, std::size_t) {
+    if (uuid == gatt::kChrControl) return &g_control;
+    if (uuid == gatt::kChrReading) return &g_reading;
+    if (uuid == gatt::kChrReceipt) return &g_receipt;
+    if (uuid == gatt::kChrSession) return &g_session;
+    return nullptr;
+}
+
+} // anonymous namespace
+#endif // ARDUINO
 
 // Forward declarations for Arduino-specific implementations
 namespace jenlib::ble {
@@ -193,41 +303,46 @@ bool ArduinoBleDriver::is_connected() const {
 
 void ArduinoBleDriver::setup_gatt_service() {
 #ifdef ARDUINO
-    // Create the main service
-    gatt_service_ = new BLEService("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
-    BLE.setAdvertisedService(*gatt_service_);
+    // Create service via adapters and add abstract characteristics
+    gatt_service_ = make_arduino_service(gatt::kServiceSensor);
+    control_char_ = make_arduino_characteristic(gatt::kChrControl,
+                        static_cast<std::uint8_t>(BleCharacteristicProperty::Write), kMaxPayload);
+    reading_char_ = make_arduino_characteristic(gatt::kChrReading,
+                        static_cast<std::uint8_t>(BleCharacteristicProperty::Notify), kMaxPayload);
+    receipt_char_ = make_arduino_characteristic(gatt::kChrReceipt,
+                        static_cast<std::uint8_t>(BleCharacteristicProperty::Write), kMaxPayload);
+    session_char_ = make_arduino_characteristic(gatt::kChrSession,
+                        static_cast<std::uint8_t>(BleCharacteristicProperty::Read), kMaxPayload);
 
-    // Control characteristic (StartBroadcast) - Write
-    control_char_ = new BLECharacteristic("6e400010-b5a3-f393-e0a9-e50e24dcca9e", 
-                                         BLEWrite, kMaxPayload);
-    gatt_service_->addCharacteristic(*control_char_);
+    gatt_service_->add_characteristic(control_char_);
+    gatt_service_->add_characteristic(reading_char_);
+    gatt_service_->add_characteristic(receipt_char_);
+    gatt_service_->add_characteristic(session_char_);
 
-    // Reading characteristic - Notify
-    reading_char_ = new BLECharacteristic("6e400011-b5a3-f393-e0a9-e50e24dcca9e", 
-                                         BLENotify, kMaxPayload);
-    gatt_service_->addCharacteristic(*reading_char_);
-
-    // Receipt characteristic - Write
-    receipt_char_ = new BLECharacteristic("6e400012-b5a3-f393-e0a9-e50e24dcca9e", 
-                                         BLEWrite, kMaxPayload);
-    gatt_service_->addCharacteristic(*receipt_char_);
-
-    // Session characteristic - Read
-    session_char_ = new BLECharacteristic("6e400013-b5a3-f393-e0a9-e50e24dcca9e", 
-                                         BLERead, kMaxPayload);
-    gatt_service_->addCharacteristic(*session_char_);
-
-    // Add service
-    BLE.addService(*gatt_service_);
-
-    // Set up characteristic event handlers
-    control_char_->setEventHandler(BLEWritten, [this](BLEDevice central, BLECharacteristic characteristic) {
-        handle_characteristic_write(characteristic);
+    // Register event callbacks through abstract API
+    control_char_->set_event_callback([this](BleCharacteristicEvent event, const BlePayload& payload){
+        if (event == BleCharacteristicEvent::Written) {
+            // Route into common handler
+            // Create a temporary characteristic-like shim not needed; pass payload directly
+            DeviceId sender_id = extract_sender_id_from_connection(*control_char_);
+            // Try type-specific, else generic/queue
+            if (!try_type_specific_callbacks(sender_id, payload)) {
+                if (message_callback_) message_callback_(sender_id, payload); else queue_received_payload(BlePayload(payload));
+            }
+        }
     });
 
-    receipt_char_->setEventHandler(BLEWritten, [this](BLEDevice central, BLECharacteristic characteristic) {
-        handle_characteristic_write(characteristic);
+    receipt_char_->set_event_callback([this](BleCharacteristicEvent event, const BlePayload& payload){
+        if (event == BleCharacteristicEvent::Written) {
+            DeviceId sender_id = extract_sender_id_from_connection(*receipt_char_);
+            if (!try_type_specific_callbacks(sender_id, payload)) {
+                if (message_callback_) message_callback_(sender_id, payload); else queue_received_payload(BlePayload(payload));
+            }
+        }
     });
+
+    // Start advertising via service abstraction
+    gatt_service_->start_advertising();
 #endif
 }
 
@@ -244,31 +359,7 @@ void ArduinoBleDriver::process_ble_events() {
 
 void ArduinoBleDriver::handle_characteristic_write(BleCharacteristic& characteristic) {
 #ifdef ARDUINO
-    if (characteristic.valueLength() == 0) {
-        return;
-    }
-
-    // Create payload from characteristic data
-    BlePayload payload;
-    if (!payload.append_raw(characteristic.value(), characteristic.valueLength())) {
-        return;
-    }
-
-    // Extract sender ID from BLE connection context
-    DeviceId sender_id = extract_sender_id_from_connection(characteristic);
-
-    // Try type-specific callbacks first
-    if (try_type_specific_callbacks(sender_id, payload)) {
-        return; // Handled by type-specific callback
-    }
-
-    // Fallback to generic callback
-    if (message_callback_) {
-        message_callback_(sender_id, payload);
-    } else {
-        // Fallback to queuing for polling-based access
-        queue_received_payload(std::move(payload));
-    }
+    (void)characteristic; // handled via set_event_callback now
 #else
     (void)characteristic;
 #endif
@@ -284,9 +375,7 @@ void ArduinoBleDriver::send_via_advertising(const BlePayload& payload) {
 
 void ArduinoBleDriver::send_via_gatt(BleCharacteristic& characteristic, const BlePayload& payload) {
 #ifdef ARDUINO
-    if (payload.size > 0) {
-        characteristic.writeValue(payload.bytes.data(), payload.size);
-    }
+    if (payload.size > 0) { (void)characteristic.write_value(payload); }
 #else
     (void)characteristic;
     (void)payload;

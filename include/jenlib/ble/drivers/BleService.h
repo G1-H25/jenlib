@@ -19,10 +19,10 @@ class BleService {
  public:
     virtual ~BleService() = default;
 
-    //! @brief Add a characteristic to this service.
-    //! @param characteristic The characteristic to add.
+    //! @brief Add a characteristic to this service (preallocated, no ownership transfer).
+    //! @param characteristic The characteristic to add (must outlive service).
     //! @return true if the characteristic was added successfully, false otherwise.
-    virtual bool add_characteristic(std::unique_ptr<BleCharacteristic> characteristic) = 0;
+    virtual bool add_characteristic(BleCharacteristic* characteristic) = 0;
 
     //! @brief Get a characteristic by UUID.
     //! @param uuid The UUID of the characteristic to find.
