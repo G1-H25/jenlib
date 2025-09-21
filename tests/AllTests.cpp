@@ -81,6 +81,20 @@ extern void test_ble_receipt_acknowledgment_flow(void);
 extern void test_ble_multiple_broadcast_ordering(void);
 extern void run_measurement_tests(void);
 
+// State Machine Tests
+extern void test_state_machine_initialization(void);
+extern void test_sensor_disconnected_to_waiting_transition(void);
+extern void test_sensor_waiting_to_running_transition(void);
+extern void test_sensor_running_to_waiting_transition(void);
+extern void test_broker_no_session_to_session_started_transition(void);
+extern void test_broker_session_started_to_no_session_transition(void);
+extern void test_invalid_start_broadcast_while_disconnected(void);
+extern void test_state_entry_exit_actions(void);
+extern void test_start_broadcast_rejected_when_disconnected(void);
+extern void test_start_broadcast_accepted_when_waiting(void);
+extern void test_state_machine_error_transition(void);
+extern void test_state_machine_error_recovery(void);
+
 void setUp(void) {}
 void tearDown(void) {}
 
@@ -158,6 +172,20 @@ int main() {
     // RUN_TEST(test_callback_error_recovery);
     // RUN_TEST(test_callback_with_mixed_message_types);
     // RUN_TEST(test_callback_with_concurrent_access);
+    
+    // State Machine Tests
+    RUN_TEST(test_state_machine_initialization);
+    RUN_TEST(test_sensor_disconnected_to_waiting_transition);
+    RUN_TEST(test_sensor_waiting_to_running_transition);
+    RUN_TEST(test_sensor_running_to_waiting_transition);
+    RUN_TEST(test_broker_no_session_to_session_started_transition);
+    RUN_TEST(test_broker_session_started_to_no_session_transition);
+    RUN_TEST(test_invalid_start_broadcast_while_disconnected);
+    RUN_TEST(test_state_entry_exit_actions);
+    RUN_TEST(test_start_broadcast_rejected_when_disconnected);
+    RUN_TEST(test_start_broadcast_accepted_when_waiting);
+    RUN_TEST(test_state_machine_error_transition);
+    RUN_TEST(test_state_machine_error_recovery);
     
     run_measurement_tests();
     return UNITY_END();

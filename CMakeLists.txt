@@ -20,7 +20,8 @@ add_library(jenlib_gpio
     src/events/EventDispatcher.cpp
     src/time/Time.cpp
     src/time/drivers/NativeTimeDriver.cpp
-    src/state/StateMachine.cpp
+    src/state/SensorStateMachine.cpp
+    src/state/BrokerStateMachine.cpp
 )
 target_include_directories(jenlib_gpio PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -57,6 +58,7 @@ if(BUILD_TESTING)
         tests/PayloadTests.cpp
         tests/BleTests.cpp
         tests/MeasurementTests.cpp
+        tests/StateMachineTests.cpp
         ${unity_SOURCE_DIR}/src/unity.c
     )
     target_include_directories(jenlib_gpio_tests PRIVATE ${unity_SOURCE_DIR}/src)
