@@ -42,6 +42,7 @@ public:
     //! @param sender_id ID of the sender (broker)
     //! @param msg Start broadcast message
     //! @return true if message was processed, false otherwise
+    //! @note Device ID validation should be done at the application level before calling this method
     bool handle_start_broadcast(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBroadcastMsg& msg);
 
     //! @brief Handle receipt message

@@ -6,9 +6,8 @@
 #ifndef INCLUDE_JENLIB_EVENTS_EVENTDISPATCHER_H_
 #define INCLUDE_JENLIB_EVENTS_EVENTDISPATCHER_H_
 
-#include <unordered_map>
+#include <array>
 #include <vector>
-#include <memory>
 #include "jenlib/events/EventTypes.h"
 
 namespace jenlib::events {
@@ -70,13 +69,29 @@ private:
         EventId id;
         EventType type;
         EventCallback callback;
+        bool active;
+        
+        CallbackEntry() : id(kInvalidEventId), type(EventType::kCustom), callback(nullptr), active(false) {}
         
         CallbackEntry(EventId callback_id, EventType event_type, EventCallback cb)
-            : id(callback_id), type(event_type), callback(std::move(cb)) {}
+            : id(callback_id), type(event_type), callback(std::move(cb)), active(true) {}
+        
+        void clear() {
+            id = kInvalidEventId;
+            type = EventType::kCustom;
+            callback = nullptr;
+            active = false;
+        }
     };
     
     //! @brief Get the next available event ID
     static EventId get_next_event_id();
+    
+    //! @brief Find an available callback slot
+    static CallbackEntry* find_available_slot();
+    
+    //! @brief Find callback entry by ID
+    static CallbackEntry* find_callback_entry(EventId event_id);
     
     //! @brief Internal initialization flag
     static bool initialized_;
@@ -84,17 +99,85 @@ private:
     //! @brief Next available event ID
     static EventId next_event_id_;
     
-    //! @brief Callback registry
-    static std::unordered_map<EventId, std::unique_ptr<CallbackEntry>> callbacks_;
-    
-    //! @brief Event type to callback ID mapping
-    static std::unordered_map<EventType, std::vector<EventId>> event_type_map_;
-    
-    //! @brief Event queue for pending events
-    static std::vector<Event> event_queue_;
+    //! @brief Maximum number of callbacks (static allocation)
+    static constexpr std::size_t kMaxCallbacks = 16;
     
     //! @brief Maximum event queue size
     static constexpr std::size_t kMaxEventQueueSize = 32;
+    
+    //! @brief Static callback storage (no dynamic allocation)
+    static std::array<CallbackEntry, kMaxCallbacks> callbacks_;
+    
+    //! @brief Event queue for pending events (circular buffer)
+    static std::array<Event, kMaxEventQueueSize> event_queue_;
+    
+    //! @brief Current queue size
+    static std::size_t queue_size_;
+    
+    //! @brief Current queue head index
+    static std::size_t queue_head_;
+    
+    //! @brief Circular buffer iterator for events
+    class CircularBufferIterator {
+    public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = Event;
+        using difference_type = std::ptrdiff_t;
+        using pointer = Event*;
+        using reference = Event&;
+        
+        CircularBufferIterator(std::array<Event, kMaxEventQueueSize>& buffer, 
+                              std::size_t head, std::size_t size, std::size_t pos)
+            : buffer_(buffer), head_(head), size_(size), pos_(pos) {}
+        
+        reference operator*() const {
+            return buffer_[(head_ + pos_) % kMaxEventQueueSize];
+        }
+        
+        pointer operator->() const {
+            return &buffer_[(head_ + pos_) % kMaxEventQueueSize];
+        }
+        
+        CircularBufferIterator& operator++() {
+            ++pos_;
+            return *this;
+        }
+        
+        CircularBufferIterator operator++(int) {
+            CircularBufferIterator temp = *this;
+            ++pos_;
+            return temp;
+        }
+        
+        bool operator==(const CircularBufferIterator& other) const {
+            return pos_ == other.pos_;
+        }
+        
+        bool operator!=(const CircularBufferIterator& other) const {
+            return pos_ != other.pos_;
+        }
+        
+    private:
+        std::array<Event, kMaxEventQueueSize>& buffer_;
+        std::size_t head_;
+        std::size_t size_;
+        std::size_t pos_;
+    };
+    
+    //! @brief Get begin iterator for event queue
+    static CircularBufferIterator event_queue_begin();
+    
+    //! @brief Get end iterator for event queue
+    static CircularBufferIterator event_queue_end();
+    
+    //! @brief Get range for event queue (for range-based for loops)
+    static auto event_queue_range() {
+        struct Range {
+            CircularBufferIterator begin() const { return EventDispatcher::event_queue_begin(); }
+            CircularBufferIterator end() const { return EventDispatcher::event_queue_end(); }
+        };
+        return Range{};
+    }
 };
 
 } // namespace jenlib::events

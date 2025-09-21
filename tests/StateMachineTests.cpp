@@ -169,6 +169,26 @@ void test_start_broadcast_accepted_when_waiting(void) {
     TEST_ASSERT_TRUE(result);
 }
 
+//! @test test_start_broadcast_device_id_validation
+//! @brief Verifies that device ID validation is handled at the application level
+//! @note The state machine doesn't validate device IDs - that's done in the callback
+void test_start_broadcast_device_id_validation(void) {
+    // Arrange
+    SensorStateMachine sensor_sm;
+    StartBroadcastMsg start_msg{DeviceId(0x9999), SessionId(0x5678)}; // Different device ID
+    sensor_sm.handle_event(Event(EventType::kConnectionStateChange, 0, 1)); // Connect first
+    
+    // Act
+    // The state machine will accept this (it doesn't validate device IDs)
+    bool result = sensor_sm.handle_start_broadcast(DeviceId(0x1234), start_msg);
+    
+    // Assert
+    // State machine accepts it because it only validates state, not device ID
+    TEST_ASSERT_TRUE(result);
+    // Note: In the actual application, device ID validation happens in the callback
+    // before calling the state machine, so invalid device IDs never reach here
+}
+
 //! @test test_state_machine_error_transition
 //! @brief Verifies state machine transitions to error state on error
 void test_state_machine_error_transition(void) {

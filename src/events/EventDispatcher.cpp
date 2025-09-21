@@ -12,9 +12,10 @@ namespace jenlib::events {
 // Static member definitions
 bool EventDispatcher::initialized_ = false;
 EventId EventDispatcher::next_event_id_ = 1;
-std::unordered_map<EventId, std::unique_ptr<EventDispatcher::CallbackEntry>> EventDispatcher::callbacks_;
-std::unordered_map<EventType, std::vector<EventId>> EventDispatcher::event_type_map_;
-std::vector<Event> EventDispatcher::event_queue_;
+std::array<EventDispatcher::CallbackEntry, EventDispatcher::kMaxCallbacks> EventDispatcher::callbacks_;
+std::array<Event, EventDispatcher::kMaxEventQueueSize> EventDispatcher::event_queue_;
+std::size_t EventDispatcher::queue_size_ = 0;
+std::size_t EventDispatcher::queue_head_ = 0;
 
 EventId EventDispatcher::register_callback(EventType event_type, EventCallback callback) {
     if (!callback) {
@@ -28,14 +29,14 @@ EventId EventDispatcher::register_callback(EventType event_type, EventCallback c
         return kInvalidEventId;
     }
     
-    // Create callback entry
-    auto entry = std::make_unique<CallbackEntry>(event_id, event_type, std::move(callback));
+    // Find available slot
+    CallbackEntry* entry = find_available_slot();
+    if (!entry) {
+        return kInvalidEventId; // No available slots
+    }
     
-    // Store callback
-    callbacks_[event_id] = std::move(entry);
-    
-    // Add to event type mapping
-    event_type_map_[event_type].push_back(event_id);
+    // Store callback in available slot
+    *entry = CallbackEntry(event_id, event_type, std::move(callback));
     
     return event_id;
 }
@@ -45,43 +46,24 @@ bool EventDispatcher::unregister_callback(EventId event_id) {
         return false;
     }
     
-    auto it = callbacks_.find(event_id);
-    if (it == callbacks_.end()) {
+    CallbackEntry* entry = find_callback_entry(event_id);
+    if (!entry || !entry->active) {
         return false;
     }
     
-    EventType event_type = it->second->type;
-    
-    // Remove from event type mapping
-    auto type_it = event_type_map_.find(event_type);
-    if (type_it != event_type_map_.end()) {
-        auto& id_list = type_it->second;
-        id_list.erase(std::remove(id_list.begin(), id_list.end(), event_id), id_list.end());
-        
-        // Remove empty event type entry
-        if (id_list.empty()) {
-            event_type_map_.erase(type_it);
-        }
-    }
-    
-    // Remove callback
-    callbacks_.erase(it);
+    // Clear the callback entry
+    entry->clear();
     
     return true;
 }
 
 std::size_t EventDispatcher::unregister_callbacks(EventType event_type) {
-    auto it = event_type_map_.find(event_type);
-    if (it == event_type_map_.end()) {
-        return 0;
-    }
-    
     std::size_t count = 0;
-    const auto& id_list = it->second;
     
-    // Remove all callbacks for this event type
-    for (EventId event_id : id_list) {
-        if (unregister_callback(event_id)) {
+    // Find and remove all callbacks for this event type
+    for (auto& entry : callbacks_) {
+        if (entry.active && entry.type == event_type) {
+            entry.clear();
             ++count;
         }
     }
@@ -93,65 +75,77 @@ std::size_t EventDispatcher::dispatch_event(const Event& event) {
     initialize();
     
     // Check if event queue is full
-    if (event_queue_.size() >= kMaxEventQueueSize) {
-        // Remove oldest event (simple FIFO behavior)
-        event_queue_.erase(event_queue_.begin());
+    if (queue_size_ >= kMaxEventQueueSize) {
+        // Remove oldest event (circular buffer behavior)
+        queue_head_ = (queue_head_ + 1) % kMaxEventQueueSize;
+        --queue_size_;
     }
     
-    // Add event to queue
-    event_queue_.push_back(event);
+    // Add event to queue (circular buffer)
+    std::size_t tail = (queue_head_ + queue_size_) % kMaxEventQueueSize;
+    event_queue_[tail] = event;
+    ++queue_size_;
     
     return 1;
 }
 
 std::size_t EventDispatcher::process_events() {
-    if (event_queue_.empty()) {
+    if (queue_size_ == 0) {
         return 0;
     }
     
     std::size_t processed_count = 0;
     
-    // Process all events in the queue
-    for (const Event& event : event_queue_) {
-        auto it = event_type_map_.find(event.type);
-        if (it != event_type_map_.end()) {
-            const auto& id_list = it->second;
-            
-            // Invoke all callbacks for this event type
-            for (EventId event_id : id_list) {
-                auto callback_it = callbacks_.find(event_id);
-                if (callback_it != callbacks_.end() && callback_it->second->callback) {
-                    try {
-                        callback_it->second->callback(event);
-                        ++processed_count;
-                    } catch (...) {
-                        // Callback exception - continue processing other callbacks
-                        // In a production system, you might want to log this
-                    }
+    // Process all events in the queue using range-based for loop
+    for (const Event& event : event_queue_range()) {
+        
+        // Find all callbacks for this event type
+        for (const auto& entry : callbacks_) {
+            if (entry.active && entry.type == event.type && entry.callback) {
+                try {
+                    entry.callback(event);
+                    ++processed_count;
+                } catch (...) {
+                    // Callback exception - continue processing other callbacks
+                    // In Arduino, exceptions should be avoided entirely
                 }
             }
         }
     }
     
     // Clear the processed events
-    event_queue_.clear();
+    queue_size_ = 0;
+    queue_head_ = 0;
     
     return processed_count;
 }
 
 std::size_t EventDispatcher::get_callback_count(EventType event_type) {
-    auto it = event_type_map_.find(event_type);
-    return (it != event_type_map_.end()) ? it->second.size() : 0;
+    std::size_t count = 0;
+    for (const auto& entry : callbacks_) {
+        if (entry.active && entry.type == event_type) {
+            ++count;
+        }
+    }
+    return count;
 }
 
 std::size_t EventDispatcher::get_total_callback_count() {
-    return callbacks_.size();
+    std::size_t count = 0;
+    for (const auto& entry : callbacks_) {
+        if (entry.active) {
+            ++count;
+        }
+    }
+    return count;
 }
 
 void EventDispatcher::clear_all_callbacks() {
-    callbacks_.clear();
-    event_type_map_.clear();
-    event_queue_.clear();
+    for (auto& entry : callbacks_) {
+        entry.clear();
+    }
+    queue_size_ = 0;
+    queue_head_ = 0;
 }
 
 bool EventDispatcher::is_initialized() {
@@ -160,9 +154,11 @@ bool EventDispatcher::is_initialized() {
 
 void EventDispatcher::initialize() {
     if (!initialized_) {
-        callbacks_.clear();
-        event_type_map_.clear();
-        event_queue_.clear();
+        for (auto& entry : callbacks_) {
+            entry.clear();
+        }
+        queue_size_ = 0;
+        queue_head_ = 0;
         next_event_id_ = 1;
         initialized_ = true;
     }
@@ -176,6 +172,32 @@ EventId EventDispatcher::get_next_event_id() {
     }
     
     return next_event_id_++;
+}
+
+EventDispatcher::CallbackEntry* EventDispatcher::find_available_slot() {
+    for (auto& entry : callbacks_) {
+        if (!entry.active) {
+            return &entry;
+        }
+    }
+    return nullptr; // No available slots
+}
+
+EventDispatcher::CallbackEntry* EventDispatcher::find_callback_entry(EventId event_id) {
+    for (auto& entry : callbacks_) {
+        if (entry.active && entry.id == event_id) {
+            return &entry;
+        }
+    }
+    return nullptr; // Not found
+}
+
+EventDispatcher::CircularBufferIterator EventDispatcher::event_queue_begin() {
+    return CircularBufferIterator(event_queue_, queue_head_, queue_size_, 0);
+}
+
+EventDispatcher::CircularBufferIterator EventDispatcher::event_queue_end() {
+    return CircularBufferIterator(event_queue_, queue_head_, queue_size_, queue_size_);
 }
 
 } // namespace jenlib::events

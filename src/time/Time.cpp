@@ -13,7 +13,8 @@ namespace jenlib::time {
 // Static member definitions
 bool Time::initialized_ = false;
 TimerId Time::next_timer_id_ = 1;
-std::vector<TimerEntry> Time::timers_;
+std::array<TimerEntry, Time::kMaxTimers> Time::timers_;
+std::size_t Time::timer_count_ = 0;
 
 TimerId Time::schedule_callback(std::uint32_t interval_ms, TimerCallback callback, bool repeat) {
     if (!callback || interval_ms == 0) {
@@ -22,8 +23,8 @@ TimerId Time::schedule_callback(std::uint32_t interval_ms, TimerCallback callbac
     
     initialize();
     
-    // Check if we've reached the maximum number of timers
-    if (timers_.size() >= kMaxTimers) {
+    // Check if we have space for another timer
+    if (timer_count_ >= kMaxTimers) {
         return kInvalidTimerId;
     }
     
@@ -38,10 +39,16 @@ TimerId Time::schedule_callback(std::uint32_t interval_ms, TimerCallback callbac
     // Create timer entry
     TimerEntry entry(timer_id, interval_ms, fire_time, std::move(callback), repeat);
     
-    // Add to timer list
-    timers_.push_back(std::move(entry));
+    // Find available slot and create timer entry
+    for (auto& timer : timers_) {
+        if (timer.state == TimerState::kInactive) {
+            timer = std::move(entry);
+            ++timer_count_;
+            return timer_id;
+        }
+    }
     
-    return timer_id;
+    return kInvalidTimerId; // Should not reach here if timer_count_ < kMaxTimers
 }
 
 bool Time::cancel_callback(TimerId timer_id) {
@@ -49,21 +56,19 @@ bool Time::cancel_callback(TimerId timer_id) {
         return false;
     }
     
-    auto it = std::find_if(timers_.begin(), timers_.end(),
-        [timer_id](const TimerEntry& entry) {
-            return entry.id == timer_id;
-        });
-    
-    if (it != timers_.end()) {
-        it->state = TimerState::kInactive;
-        return true;
+    for (auto& timer : timers_) {
+        if (timer.id == timer_id && timer.state == TimerState::kActive) {
+            timer.state = TimerState::kInactive;
+            --timer_count_;
+            return true;
+        }
     }
     
     return false;
 }
 
 std::size_t Time::process_timers() {
-    if (timers_.empty()) {
+    if (timer_count_ == 0) {
         return 0;
     }
     
@@ -95,18 +100,13 @@ std::size_t Time::process_timers() {
             } else {
                 // One-shot timer - mark as inactive
                 timer.state = TimerState::kInactive;
+                --timer_count_;
             }
         }
     }
     
-    // Remove inactive timers to free up space
-    timers_.erase(
-        std::remove_if(timers_.begin(), timers_.end(),
-            [](const TimerEntry& entry) {
-                return entry.state == TimerState::kInactive;
-            }),
-        timers_.end()
-    );
+    // Note: Inactive timers remain in the array but are not processed
+    // This allows for efficient reuse of slots without expensive array operations
     
     return fired_count;
 }
@@ -127,11 +127,14 @@ std::size_t Time::get_active_timer_count() {
 }
 
 std::size_t Time::get_total_timer_count() {
-    return timers_.size();
+    return timer_count_;
 }
 
 void Time::clear_all_timers() {
-    timers_.clear();
+    for (auto& timer : timers_) {
+        timer.state = TimerState::kInactive;
+    }
+    timer_count_ = 0;
 }
 
 bool Time::is_initialized() {
@@ -140,7 +143,10 @@ bool Time::is_initialized() {
 
 void Time::initialize() {
     if (!initialized_) {
-        timers_.clear();
+        for (auto& timer : timers_) {
+            timer.state = TimerState::kInactive;
+        }
+        timer_count_ = 0;
         next_timer_id_ = 1;
         initialized_ = true;
     }

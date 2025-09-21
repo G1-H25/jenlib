@@ -71,11 +71,14 @@ private:
     //! @brief Next available timer ID
     static TimerId next_timer_id_;
     
-    //! @brief Timer storage
-    static std::vector<TimerEntry> timers_;
-    
     //! @brief Maximum number of timers
     static constexpr std::size_t kMaxTimers = 16;
+    
+    //! @brief Timer storage (static allocation)
+    static std::array<TimerEntry, kMaxTimers> timers_;
+    
+    //! @brief Current number of active timers
+    static std::size_t timer_count_;
 };
 
 //! @brief Convenience function to schedule a repeating timer

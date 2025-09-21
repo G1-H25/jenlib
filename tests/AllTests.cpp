@@ -92,6 +92,7 @@ extern void test_invalid_start_broadcast_while_disconnected(void);
 extern void test_state_entry_exit_actions(void);
 extern void test_start_broadcast_rejected_when_disconnected(void);
 extern void test_start_broadcast_accepted_when_waiting(void);
+extern void test_start_broadcast_device_id_validation(void);
 extern void test_state_machine_error_transition(void);
 extern void test_state_machine_error_recovery(void);
 
@@ -184,6 +185,7 @@ int main() {
     RUN_TEST(test_state_entry_exit_actions);
     RUN_TEST(test_start_broadcast_rejected_when_disconnected);
     RUN_TEST(test_start_broadcast_accepted_when_waiting);
+    RUN_TEST(test_start_broadcast_device_id_validation);
     RUN_TEST(test_state_machine_error_transition);
     RUN_TEST(test_state_machine_error_recovery);
     
