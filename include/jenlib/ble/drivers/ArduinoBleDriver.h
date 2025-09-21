@@ -196,6 +196,7 @@ class ArduinoBleDriver : public BleDriver {
     BleCharacteristic* receipt_char_;   //!< Receipt characteristic (writes).
     BleCharacteristic* session_char_;   //!< Session characteristic (read).
     bool initialized_;                  //!< Initialization state.
+    bool last_connected_state_ = false; //!< Track last connection state for edge detection.
 };
 
 } // namespace jenlib::ble

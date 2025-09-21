@@ -10,7 +10,7 @@
 #include <jenlib/gpio/drivers/NativeGpioDriver.h>
 #include <jenlib/gpio/GPIO.h>
 
-using namespace gpio;
+using namespace jenlib::gpio;
 
 static NativeGpioDriver driver;
 
@@ -22,7 +22,7 @@ void test_digital_roundtrip(void) {
     GPIO::Pin led(13);
     led.pinMode(GPIO::PinMode::OUTPUT);
     led.digitalWrite(GPIO::DigitalValue::HIGH);
-    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(gpio::DigitalValue::HIGH), static_cast<uint8_t>(driver.digital_read(13)));
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH), static_cast<uint8_t>(driver.digital_read(13)));
 }
 
 //! @test test_analog_roundtrip

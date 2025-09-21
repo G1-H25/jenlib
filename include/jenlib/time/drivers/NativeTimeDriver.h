@@ -9,7 +9,7 @@
 #include "jenlib/time/TimeTypes.h"
 #include <chrono>
 
-namespace jenlib::time::drivers {
+namespace jenlib::time {
 
 //! @brief Native (desktop) time driver
 //! @details
@@ -40,6 +40,6 @@ private:
     static bool initialized_;
 };
 
-} // namespace jenlib::time::drivers
+} // namespace jenlib::time
 
 #endif // INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_

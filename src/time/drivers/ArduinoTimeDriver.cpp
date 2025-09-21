@@ -3,10 +3,13 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
+
+#ifdef ARDUINO
 #include "jenlib/time/drivers/ArduinoTimeDriver.h"
 #include <Arduino.h>
 
-namespace jenlib::time::drivers {
+//! @namespace jenlib::time
+namespace jenlib::time {
 
 // Static member definitions
 std::uint32_t ArduinoTimeDriver::last_time_ = 0;
@@ -42,4 +45,5 @@ std::uint32_t ArduinoTimeDriver::time_difference(std::uint32_t current_time, std
     return current_time - previous_time;
 }
 
-} // namespace jenlib::time::drivers
+} // namespace jenlib::time
+#endif

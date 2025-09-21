@@ -112,11 +112,11 @@ std::size_t Time::process_timers() {
 }
 
 std::uint32_t Time::now() {
-    return drivers::NativeTimeDriver::now();
+    return jenlib::time::NativeTimeDriver::now();   
 }
 
 void Time::delay(std::uint32_t delay_ms) {
-    drivers::NativeTimeDriver::delay(delay_ms);
+    jenlib::time::NativeTimeDriver::delay(delay_ms);
 }
 
 std::size_t Time::get_active_timer_count() {

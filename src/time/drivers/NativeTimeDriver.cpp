@@ -5,8 +5,11 @@
 
 #include "jenlib/time/drivers/NativeTimeDriver.h"
 #include <thread>
+#include <chrono>
 
-namespace jenlib::time::drivers {
+
+//! @namespace jenlib::time
+namespace jenlib::time {
 
 // Static member definitions
 std::chrono::steady_clock::time_point NativeTimeDriver::start_time_;
@@ -40,4 +43,4 @@ std::uint64_t NativeTimeDriver::get_epoch_time_ms() {
     return static_cast<std::uint64_t>(duration.count());
 }
 
-} // namespace jenlib::time::drivers
+} // namespace jenlib::time

@@ -117,6 +117,9 @@ class BLE {
     static void set_receipt_callback(ReceiptCallback cb) {
         if (driver_) driver_->set_receipt_callback(std::move(cb));
     }
+    static void set_message_callback(BleMessageCallback cb) {
+        if (driver_) driver_->set_message_callback(std::move(cb));
+    }
 
  private:
     static inline BleDriver *driver_ = nullptr;

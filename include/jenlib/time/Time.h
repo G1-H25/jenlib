@@ -8,6 +8,8 @@
 
 #include "jenlib/time/TimeTypes.h"
 
+//! @namespace jenlib::time
+//! @brief Abstracting time handling away from hardware bound libraries
 namespace jenlib::time {
 
 //! @brief Time service for managing timers and time operations

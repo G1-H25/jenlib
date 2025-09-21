@@ -8,7 +8,7 @@
 
 #include "jenlib/time/TimeTypes.h"
 
-namespace jenlib::time::drivers {
+namespace jenlib::time {
 
 //! @brief Arduino-specific time driver
 //! @details
@@ -43,6 +43,6 @@ private:
     static std::uint32_t overflow_count_;
 };
 
-} // namespace jenlib::time::drivers
+} // namespace jenlib::time
 
 #endif // INCLUDE_JENLIB_TIME_DRIVERS_ARDUINOTIMEDRIVER_H_

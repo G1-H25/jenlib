@@ -31,21 +31,21 @@ class ArduinoBleService : public BleService {
 #endif
     }
 
-    bool add_characteristic(std::unique_ptr<BleCharacteristic> characteristic) override {
+    bool add_characteristic(BleCharacteristic* characteristic) override {
         if (!characteristic) {
             return false;
         }
 
 #ifdef ARDUINO
         // Cast to Arduino-specific implementation to get the underlying characteristic
-        auto* arduino_char = dynamic_cast<class ArduinoBleCharacteristic*>(characteristic.get());
+        auto* arduino_char = dynamic_cast<class ArduinoBleCharacteristic*>(characteristic);
         if (arduino_char && service_) {
             service_->addCharacteristic(*arduino_char->get_arduino_characteristic());
         }
 #endif
 
         // Store the characteristic
-        characteristics_.push_back(std::move(characteristic));
+        characteristics_.push_back(std::unique_ptr<BleCharacteristic>(characteristic));
         return true;
     }
 

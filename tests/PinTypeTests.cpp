@@ -12,7 +12,7 @@
 #include <jenlib/gpio/PinTypes.h>
 #include <jenlib/onewire/OneWireBus.h>
 
-using namespace gpio;
+using namespace jenlib::gpio;
 
 static NativeGpioDriver driver;
 
@@ -55,7 +55,7 @@ void test_typed_pin_conversion(void) {
     // Test arrow operator access
     onewire_pin->pinMode(GPIO::PinMode::OUTPUT);
     onewire_pin->digitalWrite(GPIO::DigitalValue::HIGH);
-    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(gpio::DigitalValue::HIGH), 
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH), 
                            static_cast<uint8_t>(driver.digital_read(16)));
 }
 
@@ -102,7 +102,7 @@ void test_pin_operations_through_typed_pin(void) {
     
     // Test digital write/read
     onewire_pin->digitalWrite(GPIO::DigitalValue::HIGH);
-    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(gpio::DigitalValue::HIGH), 
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH), 
                            static_cast<uint8_t>(driver.digital_read(20)));
     
     // Test analog operations

@@ -359,6 +359,15 @@ void ArduinoBleDriver::process_ble_events() {
 
     // Poll for BLE events
     BLE.poll();
+
+    // Detect connection state edges and notify
+    const bool now_connected = BLE.connected();
+    if (now_connected != last_connected_state_) {
+        last_connected_state_ = now_connected;
+        if (connection_callback_) {
+            connection_callback_(now_connected);
+        }
+    }
 #endif
 }
 

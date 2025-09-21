@@ -8,10 +8,10 @@
 
 #include <cstdint>
 
-//! @namespace gpio
+//! @namespace jenlib::gpio
 //! @brief GPIO namespace.
 
-namespace gpio {
+namespace jenlib::gpio {
 
 //! @enum PinMode
 //! @brief Pin mode for a GPIO pin.
@@ -134,7 +134,7 @@ class Pin {
     PinIndex pin_; //!< The pin index.
 };
 
-} // namespace gpio
+} // namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_GPIODRIVER_H_
 

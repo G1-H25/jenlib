@@ -5,10 +5,10 @@
 #include <array>
 #include <cstring>
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Native BLE characteristic implementation for testing/simulation.
-class NativeBleCharacteristic : public BleCharacteristic {
+class NativeBleCharacteristic : public jenlib::ble::BleCharacteristic {
  public:
     //! @brief Constructor.
     //! @param uuid The characteristic UUID.
@@ -22,7 +22,7 @@ class NativeBleCharacteristic : public BleCharacteristic {
         , current_size_(0) {
     }
 
-    bool write_value(const BlePayload& payload) override {
+    bool write_value(const jenlib::ble::BlePayload& payload) override {
         if (payload.size > max_size_) {
             return false;
         }
@@ -32,17 +32,17 @@ class NativeBleCharacteristic : public BleCharacteristic {
         current_size_ = payload.size;
 
         // Trigger callback if set
-        if (callback_ && has_property(BleCharacteristicProperty::Write)) {
-            BlePayload callback_payload;
+        if (callback_ && has_property(jenlib::ble::BleCharacteristicProperty::Write)) {
+            jenlib::ble::BlePayload callback_payload;
             callback_payload.append_raw(payload.bytes.data(), payload.size);
-            callback_(BleCharacteristicEvent::Written, callback_payload);
+            callback_(jenlib::ble::BleCharacteristicEvent::Written, callback_payload);
         }
 
         return true;
     }
 
-    bool read_value(BlePayload& out_payload) const override {
-        if (!has_property(BleCharacteristicProperty::Read) || current_size_ == 0) {
+    bool read_value(jenlib::ble::BlePayload& out_payload) const override {
+        if (!has_property(jenlib::ble::BleCharacteristicProperty::Read) || current_size_ == 0) {
             return false;
         }
 
@@ -50,7 +50,7 @@ class NativeBleCharacteristic : public BleCharacteristic {
         return out_payload.append_raw(current_value_.data(), current_size_);
     }
 
-    void set_event_callback(BleCharacteristicCallback callback) override {
+    void set_event_callback(jenlib::ble::BleCharacteristicCallback callback) override {
         callback_ = std::move(callback);
     }
 
@@ -70,9 +70,9 @@ class NativeBleCharacteristic : public BleCharacteristic {
     std::string_view uuid_;
     std::uint8_t properties_;
     std::size_t max_size_;
-    std::array<std::uint8_t, kMaxPayload> current_value_;
+    std::array<std::uint8_t, jenlib::ble::kMaxPayload> current_value_;
     std::size_t current_size_;
-    BleCharacteristicCallback callback_;
+    jenlib::ble::BleCharacteristicCallback callback_;
 };
 
-} // namespace ble
+} // namespace jenlib::ble
