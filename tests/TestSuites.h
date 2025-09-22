@@ -12,7 +12,7 @@
 #define RUN_TEST_SUITE(suite_name, ...) \
     do { \
         UNITY_PRINT_EOL(); \
-        UNITY_PRINT(__VA_ARGS__); \
+        UNITY_PRINT(suite_name); \
         UNITY_PRINT_EOL(); \
         __VA_ARGS__; \
     } while(0)
