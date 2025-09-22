@@ -53,6 +53,6 @@ cmake_install.cmake
 .venv/
 
 # vscode and ide files
-.vscode/
-.cursor/
-.idea/
+.vscode/*
+.cursor/*
+.idea/*
