@@ -45,7 +45,7 @@ void setUp(void) {
     repeating_timer_count = 0;
     one_shot_timer_fired = false;
     repeating_timer_fired = false;
-    
+
     //! Initialize time service with mock driver
     static smoke_tests::MockTimeDriver mock_time_driver;
     jenlib::time::Time::setDriver(&mock_time_driver);
@@ -64,9 +64,9 @@ void tearDown(void) {
 //! @test Validates time service initialization functionality
 void test_time_service_initialization(void) {
     //! ARRANGE: No setup needed - testing initialization state
-    
+
     //! ACT: No action needed - testing initial state
-    
+
     //! ASSERT: Verify time service is properly initialized
     TEST_ASSERT_TRUE(jenlib::time::Time::is_initialized());
     TEST_ASSERT_EQUAL(0, jenlib::time::Time::get_active_timer_count());
@@ -76,10 +76,10 @@ void test_time_service_initialization(void) {
 //! @test Validates timer scheduling functionality
 void test_timer_scheduling(void) {
     //! ARRANGE: No setup needed - testing scheduling
-    
+
     //! ACT: Schedule a timer
     auto timer_id = jenlib::time::Time::schedule_callback(1000, test_timer_callback, false);
-    
+
     //! ASSERT: Verify timer was scheduled successfully
     TEST_ASSERT_NOT_EQUAL(jenlib::time::kInvalidTimerId, timer_id);
     TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count());
@@ -91,10 +91,10 @@ void test_timer_cancellation(void) {
     //! ARRANGE: Schedule a timer
     auto timer_id = jenlib::time::Time::schedule_callback(1000, test_timer_callback, false);
     TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count());
-    
+
     //! ACT: Cancel the timer
     bool cancelled = jenlib::time::Time::cancel_callback(timer_id);
-    
+
     //! ASSERT: Verify timer was cancelled successfully
     TEST_ASSERT_TRUE(cancelled);
     TEST_ASSERT_EQUAL(0, jenlib::time::Time::get_active_timer_count());
@@ -106,11 +106,11 @@ void test_timer_processing_loop(void) {
     //! ARRANGE: Schedule a timer
     auto timer_id = jenlib::time::Time::schedule_callback(1000, test_timer_callback, false);
     TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count());
-    
+
     //! ACT: Advance time to trigger timer and process timers
     static_cast<smoke_tests::MockTimeDriver*>(jenlib::time::Time::getDriver())->advance_time(1000);
     auto fired_count = jenlib::time::Time::process_timers();
-    
+
     //! ASSERT: Verify timer fired and callback was called
     TEST_ASSERT_EQUAL(1, fired_count);
     TEST_ASSERT_EQUAL(1, timer_callback_count.load());
@@ -123,18 +123,18 @@ void test_repeating_timer_functionality(void) {
     auto timer_id = jenlib::time::Time::schedule_callback(500, test_repeating_timer_callback, true);
     TEST_ASSERT_NOT_EQUAL(jenlib::time::kInvalidTimerId, timer_id);
     TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count());
-    
+
     //! ACT: Advance time and process multiple times
     auto mock_driver = static_cast<smoke_tests::MockTimeDriver*>(jenlib::time::Time::getDriver());
-    
+
     for (int i = 0; i < 5; i++) {
         mock_driver->advance_time(500);
         auto fired_count = jenlib::time::Time::process_timers();
-        
+
         TEST_ASSERT_EQUAL(1, fired_count);
         TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count()); // Repeating timer should stay active
     }
-    
+
     //! ASSERT: Verify repeating timer fired multiple times
     TEST_ASSERT_EQUAL(5, repeating_timer_count.load());
     TEST_ASSERT_TRUE(repeating_timer_fired.load());
@@ -145,10 +145,10 @@ void test_repeating_timer_cancellation(void) {
     //! ARRANGE: Schedule a repeating timer
     auto timer_id = jenlib::time::Time::schedule_callback(500, test_repeating_timer_callback, true);
     TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count());
-    
+
     //! ACT: Cancel the repeating timer
     bool cancelled = jenlib::time::Time::cancel_callback(timer_id);
-    
+
     //! ASSERT: Verify timer was cancelled successfully
     TEST_ASSERT_TRUE(cancelled);
     TEST_ASSERT_EQUAL(0, jenlib::time::Time::get_active_timer_count());
@@ -160,20 +160,20 @@ void test_one_shot_timer_functionality(void) {
     auto timer_id = jenlib::time::Time::schedule_callback(1000, test_one_shot_timer_callback, false);
     TEST_ASSERT_NOT_EQUAL(jenlib::time::kInvalidTimerId, timer_id);
     TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count());
-    
+
     //! ACT: Advance time to trigger timer and process timers
     auto mock_driver = static_cast<smoke_tests::MockTimeDriver*>(jenlib::time::Time::getDriver());
     mock_driver->advance_time(1000);
     auto fired_count = jenlib::time::Time::process_timers();
-    
+
     //! ASSERT: Verify one-shot timer fired and became inactive
     TEST_ASSERT_EQUAL(1, fired_count);
     TEST_ASSERT_TRUE(one_shot_timer_fired.load());
     TEST_ASSERT_EQUAL(0, jenlib::time::Time::get_active_timer_count()); // One-shot should be inactive
-    
+
     //! ACT: Try to process again - should not fire
     fired_count = jenlib::time::Time::process_timers();
-    
+
     //! ASSERT: Verify timer does not fire again
     TEST_ASSERT_EQUAL(0, fired_count);
 }
@@ -182,7 +182,7 @@ void test_one_shot_timer_functionality(void) {
 void test_timer_overflow_handling(void) {
     //! ARRANGE: Prepare to test timer overflow
     std::vector<jenlib::time::TimerId> timer_ids;
-    
+
     //! ACT: Try to schedule more timers than the maximum (16)
     for (int i = 0; i < 20; i++) {
         auto timer_id = jenlib::time::Time::schedule_callback(1000 + i, test_timer_callback, false);
@@ -190,7 +190,7 @@ void test_timer_overflow_handling(void) {
             timer_ids.push_back(timer_id);
         }
     }
-    
+
     //! ASSERT: Should have scheduled up to the maximum number of timers
     TEST_ASSERT_LESS_OR_EQUAL(16, timer_ids.size());
     TEST_ASSERT_GREATER_OR_EQUAL(1, timer_ids.size());
@@ -202,24 +202,25 @@ void test_timer_overflow_handling(void) {
 //! @brief Main function to run all time service smoke tests
 int main(void) {
     UNITY_BEGIN();
-    
+
     // Time Service Initialization Tests
     RUN_TEST(test_time_service_initialization);
-    
+
     // Timer Management Tests
     RUN_TEST(test_timer_scheduling);
     RUN_TEST(test_timer_cancellation);
-    
+
     // Timer Processing Tests
     RUN_TEST(test_timer_processing_loop);
-    
+
     // Timer Type Tests
     RUN_TEST(test_repeating_timer_functionality);
     RUN_TEST(test_repeating_timer_cancellation);
     RUN_TEST(test_one_shot_timer_functionality);
-    
+
     // Timer Edge Case Tests
     RUN_TEST(test_timer_overflow_handling);
-    
+
     return UNITY_END();
 }
+

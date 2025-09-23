@@ -27,10 +27,10 @@ std::uint32_t NativeTimeDriver::now_static() {
     if (!initialized_) {
         initialize();
     }
-    
+
     auto current_time = std::chrono::steady_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - start_time_);
-    
+
     return static_cast<std::uint32_t>(duration.count());
 }
 
@@ -52,3 +52,4 @@ std::uint64_t NativeTimeDriver::get_epoch_time_ms() {
 }
 
 } // namespace jenlib::time
+

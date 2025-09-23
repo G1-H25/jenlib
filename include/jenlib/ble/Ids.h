@@ -31,7 +31,7 @@ class SessionId {
 //! @brief Device identifier type
 //! @details Type for passing to arguments and returning from functions.
 //! Should be created using some device specific identifier, like MAC address.
-//! Stored in the sensor and in backend server using a registration process. 
+//! Stored in the sensor and in backend server using a registration process.
 //! Paired using app QR scan when packing sensor in box.
 class DeviceId {
  public:
@@ -83,3 +83,4 @@ std::uint8_t compute_crc8(const std::uint8_t *data, size_t len);
 } // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_IDS_H_
+

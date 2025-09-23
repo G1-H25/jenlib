@@ -31,3 +31,4 @@ void run_time_driver_tests(void);
 void run_measurement_tests(void);
 
 #endif // TESTS_TESTRUNNERS_H_
+

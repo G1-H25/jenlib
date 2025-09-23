@@ -120,3 +120,4 @@ class ArduinoBleCharacteristic : public BleCharacteristic {
 };
 
 } // namespace jenlib::ble
+

@@ -3,8 +3,8 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
-#include "TestRunners.h"
-#include "unity.h"
+#include "tests/TestRunners.h"
+#include <unity.h>
 
 // Forward declarations for all test functions
 // GPIO Tests
@@ -199,3 +199,4 @@ void run_time_driver_tests(void) {
 }
 
 // run_measurement_tests() is already defined in MeasurementTests.cpp
+

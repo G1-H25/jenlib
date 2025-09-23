@@ -171,7 +171,7 @@ bool ArduinoBleDriver::begin() {
 
     // Start advertising
     BLE.advertise();
-    
+
     initialized_ = true;
     return true;
 #else
@@ -217,7 +217,7 @@ void ArduinoBleDriver::send_to(DeviceId device_id, BlePayload payload) {
     // For point-to-point messaging, we need to determine which characteristic
     // to use based on the message type. This is a simplified implementation.
     // In a real system, you'd need to parse the payload to determine message type.
-    
+
     if (!is_connected()) {
         return;
     }
@@ -465,7 +465,7 @@ bool ArduinoBleDriver::PayloadBuffer::push(BlePayload payload) {
     if (full()) {
         return false;
     }
-    
+
     *write_it = std::move(payload);
     ++write_it;
     if (write_it == payloads.end()) {
@@ -479,7 +479,7 @@ bool ArduinoBleDriver::PayloadBuffer::pop(BlePayload& out_payload) {
     if (empty()) {
         return false;
     }
-    
+
     out_payload = std::move(*read_it);
     ++read_it;
     if (read_it == payloads.end()) {
@@ -490,3 +490,4 @@ bool ArduinoBleDriver::PayloadBuffer::pop(BlePayload& out_payload) {
 }
 
 } // namespace jenlib::ble
+

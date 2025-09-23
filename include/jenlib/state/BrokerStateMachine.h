@@ -114,3 +114,4 @@ private:
 } // namespace jenlib::state
 
 #endif // INCLUDE_JENLIB_STATE_BROKERSTATEMACHINE_H_
+

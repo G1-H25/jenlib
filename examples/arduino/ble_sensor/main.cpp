@@ -22,7 +22,7 @@ static jenlib::ble::Sensor sensor(kDeviceId); //!< We are a Sensor
 
 //! @section Arduino driver construction
 static jenlib::gpio::ArduinoGpioDriver gpio_driver;
-static jenlib::ble::ArduinoBleDriver ble_driver; 
+static jenlib::ble::ArduinoBleDriver ble_driver;
 static jenlib::time::ArduinoTimeDriver time_driver;
 
 //! @section State machine
@@ -55,7 +55,7 @@ float read_humidity_sensor();    // Mock sensor reading
 void setup() {
     // Initialize time service first
     jenlib::time::Time::initialize();
-    
+
     // Initialize BLE communication
     sensor.begin();
     sensor.configure_callbacks(jenlib::ble::BleCallbacks{
@@ -82,7 +82,7 @@ void loop() {
     event_dispatcher.process_events();
     sensor.process_events();
     jenlib::time::Time::process_timers();
-    
+
     // Process state machine events
     // The state machine handles its own event processing internally
 }
@@ -91,10 +91,10 @@ void loop() {
 void callback_connection(bool connected) {
     // Update state machine first - this validates the transition
     sensor_state_machine.handle_connection_change(connected);
-    
+
     // Then dispatch event for other systems that might need to know
-    jenlib::events::Event event(jenlib::events::EventType::kConnectionStateChange, 
-                               jenlib::time::Time::now(), 
+    jenlib::events::Event event(jenlib::events::EventType::kConnectionStateChange,
+                               jenlib::time::Time::now(),
                                connected ? 1 : 0);
     event_dispatcher.dispatch_event(event);
 }
@@ -108,17 +108,17 @@ void callback_start(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBro
         // This message is not for us - ignore it
         return;
     }
-    
+
     // Update state machine - this validates we're in the right state (waiting)
     bool success = sensor_state_machine.handle_start_broadcast(sender_id, msg);
     if (success) {
         // Only start session if state machine allows it
         start_measurement_session(msg);
     }
-    
+
     // Dispatch BLE message event
-    jenlib::events::Event event(jenlib::events::EventType::kBleMessage, 
-                               jenlib::time::Time::now(), 
+    jenlib::events::Event event(jenlib::events::EventType::kBleMessage,
+                               jenlib::time::Time::now(),
                                static_cast<std::uint32_t>(jenlib::ble::MessageType::StartBroadcast));
     event_dispatcher.dispatch_event(event);
 }
@@ -126,21 +126,21 @@ void callback_start(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBro
 void callback_receipt(jenlib::ble::DeviceId sender_id, const jenlib::ble::ReceiptMsg &msg) {
     // Update state machine
     sensor_state_machine.handle_receipt(sender_id, msg);
-    
+
     // Dispatch BLE message event
-    jenlib::events::Event event(jenlib::events::EventType::kBleMessage, 
-                               jenlib::time::Time::now(), 
+    jenlib::events::Event event(jenlib::events::EventType::kBleMessage,
+                               jenlib::time::Time::now(),
                                static_cast<std::uint32_t>(jenlib::ble::MessageType::Receipt));
     event_dispatcher.dispatch_event(event);
-    
+
     // Handle receipt acknowledgment (could purge buffered readings here)
     // The state machine ensures we're in the right state and session
 }
 
 void callback_generic(jenlib::ble::DeviceId sender_id, const jenlib::ble::BlePayload &payload) {
     // Dispatch generic BLE message event
-    jenlib::events::Event event(jenlib::events::EventType::kBleMessage, 
-                               jenlib::time::Time::now(), 
+    jenlib::events::Event event(jenlib::events::EventType::kBleMessage,
+                               jenlib::time::Time::now(),
                                static_cast<std::uint32_t>(jenlib::ble::MessageType::Reading));
     event_dispatcher.dispatch_event(event);
 }
@@ -175,16 +175,16 @@ void handle_connection_state_event(const jenlib::events::Event& event) {
 void start_measurement_session(const jenlib::ble::StartBroadcastMsg& msg) {
     // Stop any existing session
     stop_measurement_session();
-    
+
     // Configure state machine with session parameters
     sensor_state_machine.set_measurement_interval_ms(1000); // 1 second interval
-    
+
     // Schedule first measurement immediately
     take_and_broadcast_reading();
-    
+
     // Schedule recurring measurements using state machine's timer
     jenlib::time::schedule_repeating_timer(
-        sensor_state_machine.get_measurement_interval_ms(), 
+        sensor_state_machine.get_measurement_interval_ms(),
         handle_measurement_timer
     );
 }
@@ -198,11 +198,11 @@ void take_and_broadcast_reading() {
     if (!sensor_state_machine.is_session_active()) {
         return;
     }
-    
+
     // Read sensors
     float temperature_c = read_temperature_sensor();
     float humidity_pct = read_humidity_sensor();
-    
+
     // Create reading message using state machine's session info
     jenlib::ble::ReadingMsg reading_msg{
         .sender_id = kDeviceId,
@@ -211,7 +211,7 @@ void take_and_broadcast_reading() {
         .temperature_c_centi = measurement::temperature_to_centi(temperature_c),
         .humidity_bp = measurement::humidity_to_basis_points(humidity_pct)
     };
-    
+
     // Broadcast the reading
     sensor.broadcast_reading(reading_msg);
 }

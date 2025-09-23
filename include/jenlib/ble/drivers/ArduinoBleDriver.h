@@ -189,7 +189,7 @@ class ArduinoBleDriver : public BleDriver {
     ReadingCallback reading_callback_;  //!< Callback for Reading messages.
     ReceiptCallback receipt_callback_;  //!< Callback for Receipt messages.
     ConnectionCallback connection_callback_; //!< Callback for connection state changes.
-    
+
     BleService* gatt_service_;          //!< Main GATT service (static lifetime on Arduino).
     BleCharacteristic* control_char_;   //!< Control characteristic (StartBroadcast).
     BleCharacteristic* reading_char_;   //!< Reading characteristic (notifications).
@@ -202,3 +202,4 @@ class ArduinoBleDriver : public BleDriver {
 } // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_ARDUINOBLEDRIVER_H_
+

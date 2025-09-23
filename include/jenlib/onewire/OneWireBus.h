@@ -109,21 +109,21 @@ class OneWireBus {
     private:
         //! @brief The pin used for this OneWire bus.
         std::uint8_t pin_;
-        
+
         //! @brief Whether the bus has been initialized.
         bool initialized_;
-        
+
         //! @brief Internal method to configure the pin for OneWire use.
         void configure_pin();
-        
+
         //! @brief Internal method to perform a reset pulse.
         //! @return true if a device is present, false otherwise.
         bool perform_reset();
-        
+
         //! @brief Internal method to write a single bit.
         //! @param bit The bit to write (0 or 1).
         void write_bit(bool bit);
-        
+
         //! @brief Internal method to read a single bit.
         //! @return The bit read from the bus.
         bool read_bit();

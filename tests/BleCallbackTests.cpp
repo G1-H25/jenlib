@@ -10,14 +10,16 @@
 //! - Error handling and edge cases
 //! - Sender ID extraction
 
+#include <unity.h>
 #include <cstdint>
-#include "unity.h"
-#include <jenlib/ble/BleDriver.h>
-#include <jenlib/ble/Messages.h>
-#include <jenlib/ble/drivers/NativeBleDriver.h>
+#include <string>
+#include <utility>
 #include <memory>
 #include <vector>
 #include <atomic>
+#include <jenlib/ble/BleDriver.h>
+#include <jenlib/ble/Messages.h>
+#include <jenlib/ble/drivers/NativeBleDriver.h>
 
 using namespace jenlib::ble;
 
@@ -54,7 +56,7 @@ public:
 
     void on_reading(DeviceId sender_id, const ReadingMsg& msg) {
         reading_calls.push_back({
-            sender_id, "Reading", msg.session_id.value(), msg.offset_ms, 
+            sender_id, "Reading", msg.session_id.value(), msg.offset_ms,
             msg.temperature_c_centi, msg.humidity_bp
         });
     }
@@ -364,7 +366,7 @@ void test_interface_contract_compliance(void) {
     bool init_result = false; // initialize removed
     bool connected = driver.is_connected();
     DeviceId local_id = driver.get_local_device_id();
-    
+
     // Test callback methods
     driver.set_message_callback([](DeviceId, const BlePayload&) {});
     driver.set_start_broadcast_callback([](DeviceId, const StartBroadcastMsg&) {});
@@ -382,7 +384,7 @@ void test_interface_contract_compliance(void) {
     BlePayload empty_payload;
     driver.advertise(DeviceId(0x11111111), BlePayload{});
     driver.send_to(DeviceId(0x22222222), BlePayload{});
-    
+
     BlePayload received;
     bool receive_result = driver.receive(DeviceId(0x12345678), received);
 
@@ -412,7 +414,7 @@ void test_sender_id_extraction(void) {
 
     // Act - Send message (this will add sender ID marker)
     driver.advertise(DeviceId(0x87654321), std::move(payload));
-    
+
     BlePayload received;
     bool receive_success = driver.receive(DeviceId(0), received); // Broker receives broadcasts
 
@@ -488,3 +490,4 @@ void test_concurrent_callback_access(void) {
     // Assert - All callbacks should be invoked
     TEST_ASSERT_EQUAL_INT(10, callback_count.load());
 }
+

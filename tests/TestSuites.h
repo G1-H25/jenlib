@@ -6,7 +6,7 @@
 #ifndef TESTS_TESTSUITES_H_
 #define TESTS_TESTSUITES_H_
 
-#include "unity.h"
+#include <unity.h>
 
 //! @brief Macro to run a group of tests with a suite name
 #define RUN_TEST_SUITE(suite_name, ...) \
@@ -139,3 +139,4 @@
     )
 
 #endif // TESTS_TESTSUITES_H_
+

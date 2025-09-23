@@ -56,24 +56,25 @@ void tearDown(void) {
 
 int main() {
     UNITY_BEGIN();
-    
+
     // Run Event System Smoke Tests
     RUN_EVENT_SYSTEM_SMOKE_TESTS();
-    
+
     // Run Time Service Smoke Tests
     RUN_TIME_SERVICE_SMOKE_TESTS();
-    
+
     // Run BLE System Smoke Tests
     RUN_BLE_SYSTEM_SMOKE_TESTS();
-    
+
     // Run State Machine Smoke Tests
     RUN_STATE_MACHINE_SMOKE_TESTS();
-    
+
     // Run Integration Smoke Tests
     RUN_INTEGRATION_SMOKE_TESTS();
-    
+
     // Run Platform Mock Smoke Tests
     RUN_PLATFORM_MOCK_SMOKE_TESTS();
-    
+
     return UNITY_END();
 }
+

@@ -9,16 +9,16 @@
 //! - Real-world usage scenarios
 //! - Performance and reliability
 
+#include <unity.h>
 #include <cstdint>
-#include "unity.h"
+#include <atomic>
+#include <chrono>
+#include <memory>
+#include <vector>
 #include <jenlib/ble/BleDriver.h>
 #include <jenlib/ble/Ble.h>
 #include <jenlib/ble/Messages.h>
 #include <jenlib/ble/drivers/NativeBleDriver.h>
-#include <memory>
-#include <vector>
-#include <chrono>
-#include <atomic>
 
 using namespace jenlib::ble;
 
@@ -27,12 +27,12 @@ class SensorSimulator {
 public:
     SensorSimulator(DeviceId sensor_id, std::shared_ptr<BleDriver> driver)
         : sensor_id_(sensor_id), driver_(driver), session_active_(false), reading_count_(0) {
-        
+
         // Set up type-specific callbacks
         driver_->set_start_broadcast_callback([this](DeviceId sender_id, const StartBroadcastMsg& msg) {
             on_start_broadcast(sender_id, msg);
         });
-        
+
         driver_->set_receipt_callback([this](DeviceId sender_id, const ReceiptMsg& msg) {
             on_receipt(sender_id, msg);
         });
@@ -91,7 +91,7 @@ class BrokerSimulator {
 public:
     BrokerSimulator(std::shared_ptr<BleDriver> driver)
         : driver_(driver), session_active_(false), total_readings_(0) {
-        
+
         // Set up type-specific callback for readings
         driver_->set_reading_callback([this](DeviceId sender_id, const ReadingMsg& msg) {
             on_reading(sender_id, msg);
@@ -124,7 +124,7 @@ public:
 private:
     void on_reading(DeviceId sender_id, const ReadingMsg& msg) {
         total_readings_++;
-        
+
         // Send receipt every 5 readings
         if (total_readings_ % 5 == 0) {
             send_receipt(sender_id, msg.offset_ms);
@@ -278,7 +278,7 @@ void test_callback_performance_under_load(void) {
         reading.humidity_bp = 5000;
 
         BLE::broadcast_reading(sensor_id, reading);
-        
+
         if (i % 100 == 0) {
             driver->poll(); // Process events periodically
         }
@@ -325,7 +325,7 @@ void test_callback_reliability_with_message_loss(void) {
 
             BLE::broadcast_reading(sensor_id, reading);
         }
-        
+
         if (i % 10 == 0) {
             driver->poll();
         }
@@ -375,7 +375,7 @@ void test_callback_error_recovery(void) {
         } catch (...) {
             // Errors should be handled gracefully
         }
-        
+
         if (i % 5 == 0) {
             driver->poll();
         }
@@ -403,11 +403,11 @@ void test_callback_with_mixed_message_types(void) {
     driver->set_start_broadcast_callback([&start_broadcast_count](DeviceId, const StartBroadcastMsg&) {
         start_broadcast_count++;
     });
-    
+
     driver->set_reading_callback([&reading_count](DeviceId, const ReadingMsg&) {
         reading_count++;
     });
-    
+
     driver->set_receipt_callback([&receipt_count](DeviceId, const ReceiptMsg&) {
         receipt_count++;
     });
@@ -484,3 +484,4 @@ void test_callback_with_concurrent_access(void) {
     // Assert - Verify all messages were processed
     TEST_ASSERT_EQUAL_INT(thread_count * messages_per_thread, callback_count.load());
 }
+

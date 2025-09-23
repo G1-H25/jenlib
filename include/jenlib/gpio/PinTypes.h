@@ -20,25 +20,25 @@ class TypedPin {
 public:
     //! @brief Construct from a GPIO::Pin.
     explicit TypedPin(const Pin& pin) noexcept : pin_(pin) {}
-    
+
     //! @brief Construct from a raw pin index.
     explicit TypedPin(PinIndex index) noexcept : pin_(index) {}
-    
+
     //! @brief Get the underlying GPIO::Pin.
     const Pin& getPin() const noexcept { return pin_; }
-    
+
     //! @brief Get the raw pin index.
     PinIndex getIndex() const noexcept { return pin_.getIndex(); }
-    
+
     //! @brief Implicit conversion to raw pin number for library compatibility.
     operator PinIndex() const noexcept { return pin_.getIndex(); }
-    
+
     //! @brief Implicit conversion to GPIO::Pin for GPIO operations.
     operator const Pin&() const noexcept { return pin_; }
-    
+
     //! @brief Access GPIO operations through the underlying pin.
     const Pin* operator->() const noexcept { return &pin_; }
-    
+
     //! @brief Access GPIO operations through the underlying pin.
     const Pin& operator*() const noexcept { return pin_; }
 
@@ -81,3 +81,4 @@ TypedPin<Tag> makeTypedPin(const Pin& pin) noexcept {
 } // namespace GPIO
 
 #endif // INCLUDE_JENLIB_GPIO_PINTYPES_H_
+

@@ -160,15 +160,15 @@ private:
 
         // Fallback to queuing for polling-based access
         std::lock_guard<std::mutex> lock(mutex_);
-        
+
         try {
             auto &queue = inbox_[dest.value()];
-            
+
             //! Drop oldest messages if queue is at capacity
             while (queue.size() >= kMaxQueueSize) {
                 queue.pop_front();
             }
-            
+
             queue.push_back(std::move(payload));
         } catch (const std::bad_alloc&) {
             //! Memory allocation failed - swallow and move on
@@ -239,5 +239,6 @@ private:
 };
 
 } // namespace jenlib::ble
+
 
 

@@ -73,3 +73,4 @@ class BleCharacteristic {
 } // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_BLECHARACTERISTIC_H_
+

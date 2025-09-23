@@ -20,20 +20,20 @@ public:
     //! @brief Get current time in milliseconds using Arduino millis()
     //! @return Current time in milliseconds
     std::uint32_t now() override;
-    
+
     //! @brief Delay execution for specified milliseconds using Arduino delay()
     //! @param delay_ms Delay duration in milliseconds
     void delay(std::uint32_t delay_ms) override;
-    
+
     //! @brief Static versions for backward compatibility
     static std::uint32_t now_static();
     static void delay_static(std::uint32_t delay_ms);
-    
+
     //! @brief Check if a time value has overflowed (for 32-bit millis())
     //! @param time_value The time value to check
     //! @return true if the time value indicates an overflow condition
     static bool has_overflowed(std::uint32_t time_value);
-    
+
     //! @brief Calculate time difference handling overflow
     //! @param current_time Current time value
     //! @param previous_time Previous time value
@@ -43,7 +43,7 @@ public:
 private:
     //! @brief Last known time value for overflow detection
     static std::uint32_t last_time_;
-    
+
     //! @brief Overflow count for extended time tracking
     static std::uint32_t overflow_count_;
 };
@@ -51,3 +51,4 @@ private:
 } // namespace jenlib::time
 
 #endif // INCLUDE_JENLIB_TIME_DRIVERS_ARDUINOTIMEDRIVER_H_
+

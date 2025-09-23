@@ -20,10 +20,10 @@ void test_state_machine_initialization(void) {
     // Arrange
     SensorStateMachine sensor_sm;
     BrokerStateMachine broker_sm;
-    
+
     // Act
     // (No action needed - testing initialization)
-    
+
     // Assert
     TEST_ASSERT_EQUAL(SensorState::kDisconnected, sensor_sm.get_current_state());
     TEST_ASSERT_EQUAL(BrokerState::kNoSession, broker_sm.get_current_state());
@@ -34,10 +34,10 @@ void test_state_machine_initialization(void) {
 void test_sensor_disconnected_to_waiting_transition(void) {
     // Arrange
     SensorStateMachine sensor_sm;
-    
+
     // Act
     sensor_sm.handle_event(Event(EventType::kConnectionStateChange, 0, 1));
-    
+
     // Assert
     TEST_ASSERT_EQUAL(SensorState::kWaiting, sensor_sm.get_current_state());
 }
@@ -49,10 +49,10 @@ void test_sensor_waiting_to_running_transition(void) {
     SensorStateMachine sensor_sm;
     StartBroadcastMsg start_msg{DeviceId(0x1234), SessionId(0x5678)};
     sensor_sm.handle_event(Event(EventType::kConnectionStateChange, 0, 1)); // Connect first
-    
+
     // Act
     sensor_sm.handle_start_broadcast(DeviceId(0x1234), start_msg);
-    
+
     // Assert
     TEST_ASSERT_EQUAL(SensorState::kRunning, sensor_sm.get_current_state());
 }
@@ -65,10 +65,10 @@ void test_sensor_running_to_waiting_transition(void) {
     StartBroadcastMsg start_msg{DeviceId(0x1234), SessionId(0x5678)};
     sensor_sm.handle_event(Event(EventType::kConnectionStateChange, 0, 1)); // Connect
     sensor_sm.handle_start_broadcast(DeviceId(0x1234), start_msg); // Start session
-    
+
     // Act
     sensor_sm.handle_session_end();
-    
+
     // Assert
     TEST_ASSERT_EQUAL(SensorState::kWaiting, sensor_sm.get_current_state());
 }
@@ -78,10 +78,10 @@ void test_sensor_running_to_waiting_transition(void) {
 void test_broker_no_session_to_session_started_transition(void) {
     // Arrange
     BrokerStateMachine broker_sm;
-    
+
     // Act
     broker_sm.handle_start_command(DeviceId(0x1234), SessionId(0x5678));
-    
+
     // Assert
     TEST_ASSERT_EQUAL(BrokerState::kSessionStarted, broker_sm.get_current_state());
 }
@@ -92,10 +92,10 @@ void test_broker_session_started_to_no_session_transition(void) {
     // Arrange
     BrokerStateMachine broker_sm;
     broker_sm.handle_start_command(DeviceId(0x1234), SessionId(0x5678)); // Start session first
-    
+
     // Act
     broker_sm.handle_session_end();
-    
+
     // Assert
     TEST_ASSERT_EQUAL(BrokerState::kNoSession, broker_sm.get_current_state());
 }
@@ -106,10 +106,10 @@ void test_invalid_start_broadcast_while_disconnected(void) {
     // Arrange
     SensorStateMachine sensor_sm;
     StartBroadcastMsg start_msg{DeviceId(0x1234), SessionId(0x5678)};
-    
+
     // Act
     bool result = sensor_sm.handle_start_broadcast(DeviceId(0x1234), start_msg);
-    
+
     // Assert
     TEST_ASSERT_FALSE(result);
     TEST_ASSERT_EQUAL(SensorState::kDisconnected, sensor_sm.get_current_state());
@@ -122,7 +122,7 @@ void test_state_entry_exit_actions(void) {
     SensorStateMachine sensor_sm;
     bool entry_called = false;
     bool exit_called = false;
-    
+
     sensor_sm.set_state_action_callback([&](StateAction action, SensorState state) {
         if (action == StateAction::kEntry && state == SensorState::kWaiting) {
             entry_called = true;
@@ -131,10 +131,10 @@ void test_state_entry_exit_actions(void) {
             exit_called = true;
         }
     });
-    
+
     // Act
     sensor_sm.handle_event(Event(EventType::kConnectionStateChange, 0, 1));
-    
+
     // Assert
     TEST_ASSERT_TRUE(entry_called);
     TEST_ASSERT_TRUE(exit_called);
@@ -146,10 +146,10 @@ void test_start_broadcast_rejected_when_disconnected(void) {
     // Arrange
     SensorStateMachine sensor_sm;
     StartBroadcastMsg start_msg{DeviceId(0x1234), SessionId(0x5678)};
-    
+
     // Act
     bool result = sensor_sm.handle_start_broadcast(DeviceId(0x1234), start_msg);
-    
+
     // Assert
     TEST_ASSERT_FALSE(result);
 }
@@ -161,10 +161,10 @@ void test_start_broadcast_accepted_when_waiting(void) {
     SensorStateMachine sensor_sm;
     StartBroadcastMsg start_msg{DeviceId(0x1234), SessionId(0x5678)};
     sensor_sm.handle_event(Event(EventType::kConnectionStateChange, 0, 1)); // Connect first
-    
+
     // Act
     bool result = sensor_sm.handle_start_broadcast(DeviceId(0x1234), start_msg);
-    
+
     // Assert
     TEST_ASSERT_TRUE(result);
 }
@@ -177,11 +177,11 @@ void test_start_broadcast_device_id_validation(void) {
     SensorStateMachine sensor_sm;
     StartBroadcastMsg start_msg{DeviceId(0x9999), SessionId(0x5678)}; // Different device ID
     sensor_sm.handle_event(Event(EventType::kConnectionStateChange, 0, 1)); // Connect first
-    
+
     // Act
     // The state machine will accept this (it doesn't validate device IDs)
     bool result = sensor_sm.handle_start_broadcast(DeviceId(0x1234), start_msg);
-    
+
     // Assert
     // State machine accepts it because it only validates state, not device ID
     TEST_ASSERT_TRUE(result);
@@ -194,10 +194,10 @@ void test_start_broadcast_device_id_validation(void) {
 void test_state_machine_error_transition(void) {
     // Arrange
     SensorStateMachine sensor_sm;
-    
+
     // Act
     sensor_sm.handle_error("Test error");
-    
+
     // Assert
     TEST_ASSERT_EQUAL(SensorState::kError, sensor_sm.get_current_state());
 }
@@ -208,10 +208,11 @@ void test_state_machine_error_recovery(void) {
     // Arrange
     SensorStateMachine sensor_sm;
     sensor_sm.handle_error("Test error"); // Put in error state first
-    
+
     // Act
     sensor_sm.handle_recovery();
-    
+
     // Assert
     TEST_ASSERT_EQUAL(SensorState::kDisconnected, sensor_sm.get_current_state());
 }
+

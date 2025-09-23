@@ -35,17 +35,17 @@ struct TimerEntry {
     TimerCallback callback;     //!< Callback function to invoke
     bool repeat;                //!< Whether timer repeats
     TimerState state;           //!< Current timer state
-    
+
     //! @brief Default constructor
-    TimerEntry() 
+    TimerEntry()
         : id(kInvalidTimerId)
         , interval_ms(0)
         , next_fire_time(0)
         , repeat(false)
         , state(TimerState::kInactive) {}
-    
+
     //! @brief Constructor with parameters
-    TimerEntry(TimerId timer_id, std::uint32_t interval, std::uint32_t fire_time, 
+    TimerEntry(TimerId timer_id, std::uint32_t interval, std::uint32_t fire_time,
                TimerCallback cb, bool should_repeat)
         : id(timer_id)
         , interval_ms(interval)
@@ -58,3 +58,4 @@ struct TimerEntry {
 } // namespace jenlib::time
 
 #endif // INCLUDE_JENLIB_TIME_TIMETYPES_H_
+

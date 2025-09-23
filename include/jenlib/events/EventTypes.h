@@ -26,10 +26,10 @@ struct Event {
     EventType type;             //!< Type of event
     std::uint32_t timestamp;    //!< Event timestamp (platform-specific)
     std::uint32_t data;         //!< Event data (or pointer for complex data)
-    
+
     //! @brief Default constructor
     Event() : type(EventType::kCustom), timestamp(0), data(0) {}
-    
+
     //! @brief Constructor with parameters
     Event(EventType event_type, std::uint32_t event_timestamp, std::uint32_t event_data = 0)
         : type(event_type), timestamp(event_timestamp), data(event_data) {}
@@ -47,3 +47,4 @@ constexpr EventId kInvalidEventId = 0;
 } // namespace jenlib::events
 
 #endif // INCLUDE_JENLIB_EVENTS_EVENTTYPES_H_
+

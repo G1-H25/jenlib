@@ -75,3 +75,4 @@ bool ReceiptMsg::deserialize(const BlePayload &buf, ReceiptMsg &out) {
 } // namespace jenlib::ble
 
 
+

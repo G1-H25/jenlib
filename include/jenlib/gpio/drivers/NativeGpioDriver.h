@@ -7,7 +7,7 @@
 #define INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_
 
 #include <jenlib/gpio/GpioDriver.h>
-#include <unordered_map>  // OK for desktop; NativeGpioDriver doesn't run on Arduino 
+#include <unordered_map>  // OK for desktop; NativeGpioDriver doesn't run on Arduino
 
 //! @namespace jenlib::gpio
 //! @brief GPIO namespace.
@@ -113,5 +113,6 @@ class NativeGpioDriver : public GpioDriver {
 }  // namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_
+
 
 

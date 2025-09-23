@@ -79,3 +79,4 @@ std::uint8_t compute_crc8(const std::uint8_t *data, size_t len) {
 } // namespace jenlib::ble
 
 
+

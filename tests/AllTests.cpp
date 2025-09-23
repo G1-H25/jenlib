@@ -3,8 +3,8 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
+#include <unity.h>
 #include <cstdint>
-#include "unity.h"
 
 // Declarations of test functions from other translation units
 extern void test_digital_roundtrip(void);
@@ -134,7 +134,7 @@ int main() {
     RUN_TEST(test_ble_broadcast_delivery_with_sender_id);
     RUN_TEST(test_ble_receipt_acknowledgment_flow);
     RUN_TEST(test_ble_multiple_broadcast_ordering);
-    
+
     // BLE Callback Tests - TODO: Implement these tests
     // RUN_TEST(test_type_specific_callback_registration);
     // RUN_TEST(test_start_broadcast_callback_routing);
@@ -149,7 +149,7 @@ int main() {
     // RUN_TEST(test_sender_id_extraction);
     // RUN_TEST(test_callback_error_handling);
     // RUN_TEST(test_concurrent_callback_access);
-    
+
     // BLE Interface Contract Tests - TODO: Implement these tests
     // RUN_TEST(test_driver_initialization_state);
     // RUN_TEST(test_driver_lifecycle_reinitialization);
@@ -169,7 +169,7 @@ int main() {
     // RUN_TEST(test_initialization_return_value_consistency);
     // RUN_TEST(test_connection_state_return_value_consistency);
     // RUN_TEST(test_device_id_return_value_consistency);
-    
+
     // BLE Integration Tests - TODO: Implement these tests
     // RUN_TEST(test_complete_sensor_broker_communication_flow);
     // RUN_TEST(test_multiple_sensors_single_broker);
@@ -179,7 +179,7 @@ int main() {
     // RUN_TEST(test_callback_error_recovery);
     // RUN_TEST(test_callback_with_mixed_message_types);
     // RUN_TEST(test_callback_with_concurrent_access);
-    
+
     // State Machine Tests
     RUN_TEST(test_state_machine_initialization);
     RUN_TEST(test_sensor_disconnected_to_waiting_transition);
@@ -194,16 +194,17 @@ int main() {
     RUN_TEST(test_start_broadcast_device_id_validation);
     RUN_TEST(test_state_machine_error_transition);
     RUN_TEST(test_state_machine_error_recovery);
-    
+
     run_measurement_tests();
-    
+
     // Time Driver Tests
     RUN_TEST(test_driver_injection_native);
     RUN_TEST(test_driver_no_op_behavior);
     RUN_TEST(test_driver_switching);
     RUN_TEST(test_driver_clear);
-    
+
     return UNITY_END();
 }
+
 
 

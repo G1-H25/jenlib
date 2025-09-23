@@ -18,7 +18,7 @@ Pin::Pin(PinIndex pin_index) noexcept : raw_pin_(pin_index) {}
 
 
 void Pin::pinMode(PinMode mode) const noexcept {
-    if (!g_driver) return; 
+    if (!g_driver) return;
     g_driver->set_pin_mode(raw_pin_, static_cast<jenlib::gpio::PinMode>(mode));
 }
 
@@ -75,5 +75,6 @@ jenlib::gpio::GpioDriver* getDriver() noexcept {
 }
 
 } // namespace GPIO
+
 
 

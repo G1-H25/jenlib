@@ -3,9 +3,9 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
+#include <unity.h>
 #include <cstdint>
-#include "unity.h"
-#include "TestSuites.h"
+#include "tests/TestSuites.h"
 
 // Forward declarations for test functions
 // GPIO Tests
@@ -110,7 +110,7 @@ void tearDown(void) {}
 
 int main() {
     UNITY_BEGIN();
-    
+
     // Run all test suites
     RUN_GPIO_TESTS();
     RUN_BLE_TESTS();
@@ -120,6 +120,7 @@ int main() {
     RUN_STATE_MACHINE_TESTS();
     RUN_TIME_DRIVER_TESTS();
     RUN_MEASUREMENT_TESTS();
-    
+
     return UNITY_END();
 }
+
