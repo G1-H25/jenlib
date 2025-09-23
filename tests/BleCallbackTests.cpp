@@ -17,9 +17,9 @@
 #include <memory>
 #include <vector>
 #include <atomic>
-#include <jenlib/ble/BleDriver.h>
-#include <jenlib/ble/Messages.h>
-#include <jenlib/ble/drivers/NativeBleDriver.h>
+#include "jenlib/ble/BleDriver.h"
+#include "jenlib/ble/Messages.h"
+#include "jenlib/ble/drivers/NativeBleDriver.h"
 
 using namespace jenlib::ble;
 
