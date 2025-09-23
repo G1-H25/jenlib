@@ -31,7 +31,7 @@ using jenlib::ble::StartBroadcastMsg;
 
 //! @brief Test helper: Mock callback tracker
 class CallbackTracker {
-public:
+ public:
     struct CallbackCall {
         DeviceId sender_id;
         std::string message_type;
@@ -148,8 +148,8 @@ void test_reading_callback_routing(void) {
     reading_msg.sender_id = DeviceId(0x87654321);
     reading_msg.session_id = SessionId(0x22222222);
     reading_msg.offset_ms = 5000;
-    reading_msg.temperature_c_centi = 2312; // 23.12°C
-    reading_msg.humidity_bp = 4567;         // 45.67%
+    reading_msg.temperature_c_centi = 2312;  // 23.12°C
+    reading_msg.humidity_bp = 4567;          // 45.67%
 
     BlePayload payload;
     ReadingMsg::serialize(reading_msg, payload);
@@ -352,8 +352,8 @@ void test_callback_with_invalid_message_data(void) {
 
     // Create invalid payload (too small for StartBroadcast)
     BlePayload invalid_payload;
-    invalid_payload.append_u8(0x01); // Message type
-    invalid_payload.append_u8(0x12); // Only partial device ID
+    invalid_payload.append_u8(0x01);  // Message type
+    invalid_payload.append_u8(0x12);  // Only partial device ID
 
     // Act - Send invalid message
     driver.send_to(DeviceId(0x12345678), std::move(invalid_payload));
@@ -422,7 +422,7 @@ void test_sender_id_extraction(void) {
     driver.advertise(DeviceId(0x87654321), std::move(payload));
 
     BlePayload received;
-    bool receive_success = driver.receive(DeviceId(0), received); // Broker receives broadcasts
+    bool receive_success = driver.receive(DeviceId(0), received);  // Broker receives broadcasts
 
     // Assert - Check that sender ID is extracted correctly
     TEST_ASSERT_TRUE(receive_success);

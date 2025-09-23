@@ -30,8 +30,8 @@ using jenlib::ble::StartBroadcastMsg;
 
 //! @brief Test helper: Complete sensor simulation
 class SensorSimulator {
-public:
-    SensorSimulator(DeviceId sensor_id, std::shared_ptr<BleDriver> driver)
+ public:
+    explicit SensorSimulator(DeviceId sensor_id, std::shared_ptr<BleDriver> driver)
         : sensor_id_(sensor_id), driver_(driver), session_active_(false), reading_count_(0) {
 
         // Set up type-specific callbacks
@@ -60,9 +60,9 @@ public:
         ReadingMsg reading;
         reading.sender_id = sensor_id_;
         reading.session_id = current_session_id_;
-        reading.offset_ms = reading_count_ * 1000; // 1 second intervals
-        reading.temperature_c_centi = 2300 + reading_count_ * 10; // Simulate temperature
-        reading.humidity_bp = 5000 + reading_count_ * 50; // Simulate humidity
+        reading.offset_ms = reading_count_ * 1000;  // 1 second intervals
+        reading.temperature_c_centi = 2300 + reading_count_ * 10;  // Simulate temperature
+        reading.humidity_bp = 5000 + reading_count_ * 50;  // Simulate humidity
 
         BLE::broadcast_reading(sensor_id_, reading);
         reading_count_++;
@@ -72,7 +72,7 @@ public:
     int get_reading_count() const { return reading_count_; }
     SessionId get_current_session() const { return current_session_id_; }
 
-private:
+ private:
     void on_start_broadcast(DeviceId sender_id, const StartBroadcastMsg& msg) {
         if (msg.device_id.value() == sensor_id_.value()) {
             start_session(msg.session_id);
@@ -94,7 +94,7 @@ private:
 
 //! @brief Test helper: Complete broker simulation
 class BrokerSimulator {
-public:
+ public:
     BrokerSimulator(std::shared_ptr<BleDriver> driver)
         : driver_(driver), session_active_(false), total_readings_(0) {
 
@@ -127,7 +127,7 @@ public:
     int get_total_readings() const { return total_readings_; }
     SessionId get_current_session() const { return current_session_id_; }
 
-private:
+ private:
     void on_reading(DeviceId sender_id, const ReadingMsg& msg) {
         total_readings_++;
 
@@ -162,7 +162,7 @@ void test_complete_sensor_broker_communication_flow(void) {
     // Send multiple readings
     for (int i = 0; i < 10; ++i) {
         sensor.send_reading();
-        driver->poll(); // Process BLE events
+        driver->poll();  //  Process BLE events
     }
 
     // Assert - Verify complete flow
@@ -286,7 +286,7 @@ void test_callback_performance_under_load(void) {
         BLE::broadcast_reading(sensor_id, reading);
 
         if (i % 100 == 0) {
-            driver->poll(); // Process events periodically
+            driver->poll();  //  Process events periodically
         }
     }
 

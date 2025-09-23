@@ -19,12 +19,12 @@ using jenlib::ble::NativeBleDriver;
 
 //! @brief Test helper: Focused unit test utilities
 class BleDriverTestUtils {
-public:
+ public:
     //! @brief Create a test payload with known content
     static BlePayload create_test_payload() {
         BlePayload payload;
-        payload.append_u8(0x01); // Message type
-        payload.append_u32le(0x12345678); // Test data
+        payload.append_u8(0x01);  // Message type
+        payload.append_u32le(0x12345678);  // Test data
         return payload;
     }
 
