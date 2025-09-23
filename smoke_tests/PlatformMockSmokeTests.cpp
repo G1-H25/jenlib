@@ -3,16 +3,18 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
-#include "unity.h"
-#include "SmokeTestSuites.h"
-#include <smoke_tests/PlatformMocks.h>
-#include <jenlib/time/Time.h>
-#include <jenlib/ble/BLE.h>
-#include <jenlib/ble/Messages.h>
-#include <jenlib/ble/Ids.h>
+#include <unity.h>
 #include <atomic>
-#include <thread>
 #include <chrono>
+#include <thread>
+#include <utility>
+#include <vector>
+#include "smoke_tests/SmokeTestSuites.h"
+#include "smoke_tests/PlatformMocks.h"
+#include "jenlib/time/Time.h"
+#include "jenlib/ble/BLE.h"
+#include "jenlib/ble/Messages.h"
+#include "jenlib/ble/Ids.h"
 
 //! @section Test State Tracking
 static std::atomic<int> mock_time_calls{0};

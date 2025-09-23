@@ -3,16 +3,16 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
-#include "unity.h"
-#include <jenlib/events/EventDispatcher.h>
-#include <jenlib/events/EventTypes.h>
-#include <jenlib/time/Time.h>
-#include <jenlib/time/drivers/NativeTimeDriver.h>
-#include <jenlib/state/SensorStateMachine.h>
-#include <jenlib/measurement/Measurement.h>
+#include <unity.h>
 #include <atomic>
-#include <vector>
 #include <functional>
+#include <vector>
+#include "jenlib/events/EventDispatcher.h"
+#include "jenlib/events/EventTypes.h"
+#include "jenlib/time/Time.h"
+#include "jenlib/time/drivers/NativeTimeDriver.h"
+#include "jenlib/state/SensorStateMachine.h"
+#include "jenlib/measurement/Measurement.h"
 
 //! @section Test State Tracking
 static std::atomic<int> connection_events{0};

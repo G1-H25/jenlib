@@ -3,16 +3,16 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
-#include "unity.h"
-#include "SmokeTestSuites.h"
-#include <jenlib/events/EventDispatcher.h>
-#include <jenlib/events/EventTypes.h>
-#include <jenlib/time/Time.h>
-#include <jenlib/time/drivers/NativeTimeDriver.h>
-#include <smoke_tests/PlatformMocks.h>
+#include <unity.h>
 #include <atomic>
-#include <thread>
 #include <chrono>
+#include <thread>
+#include "smoke_tests/SmokeTestSuites.h"
+#include "jenlib/events/EventDispatcher.h"
+#include "jenlib/events/EventTypes.h"
+#include "jenlib/time/Time.h"
+#include "jenlib/time/drivers/NativeTimeDriver.h"
+#include "smoke_tests/PlatformMocks.h"
 
 //! @section Test State Tracking
 static std::atomic<int> test_event_count{0};

@@ -3,12 +3,12 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
-#include "unity.h"
-#include <jenlib/events/EventDispatcher.h>
-#include <jenlib/events/EventTypes.h>
-#include <jenlib/time/Time.h>
-#include <jenlib/time/drivers/NativeTimeDriver.h>
+#include <unity.h>
 #include <atomic>
+#include "jenlib/events/EventDispatcher.h"
+#include "jenlib/events/EventTypes.h"
+#include "jenlib/time/Time.h"
+#include "jenlib/time/drivers/NativeTimeDriver.h"
 
 //! @section Test State Tracking
 static std::atomic<int> test_callback_count{0};

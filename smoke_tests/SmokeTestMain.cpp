@@ -3,8 +3,8 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (simbachu@gmail.com)
 
-#include "unity.h"
-#include "SmokeTestSuites.h"
+#include <unity.h>
+#include "smoke_tests/SmokeTestSuites.h"
 
 // Test function declarations from smoke test files
 extern void test_event_dispatcher_initialization(void);
