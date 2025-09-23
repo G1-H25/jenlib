@@ -13,7 +13,7 @@ The goal of the library is to share code for communication and sensor readouts b
 static constexpr jenlib::gpio::ArduinoGpioDriver kArduinoDriver;
 jenlib::gpio::GPIO Gpio(kArduinoDriver);
 
-//! @section Pin defintion
+//! @section Pin definition
 enum class PinIndex : std::uint8_t {
     kLedPin = 3;
 }
