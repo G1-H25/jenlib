@@ -566,7 +566,7 @@ void test_mock_broker_message_processing(void) {
     //! ARRANGE: Simulate sensor sending reading message
     mock_driver.set_local_device_id(sensor_id);
     jenlib::ble::BlePayload reading_payload;
-    reading_payload.append_u8(0x01); // Mock reading data
+    reading_payload.append_u8(0x01);  // Mock reading data
     reading_payload.append_u8(0x02);
     reading_payload.append_u8(0x03);
 

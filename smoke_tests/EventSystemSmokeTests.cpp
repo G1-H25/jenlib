@@ -94,7 +94,6 @@ void test_event_callback_registration(void) {
     TEST_ASSERT_NOT_EQUAL(jenlib::events::kInvalidEventId, event_id);
     TEST_ASSERT_EQUAL(1, jenlib::events::EventDispatcher::get_total_callback_count());
     TEST_ASSERT_EQUAL(1, jenlib::events::EventDispatcher::get_callback_count(jenlib::events::EventType::kTimeTick));
-
 }
 
 //! @test Validates event dispatch functionality

@@ -108,8 +108,7 @@ void test_sensor_state_machine_initial_state(void) {
         state_machine,
         jenlib::state::SensorState::kDisconnected,
         false,  // session not active
-        0       // no session ID
-    );
+        0);     // no session ID
 }
 
 //! @test Validates connection transition from disconnected to waiting state
@@ -119,8 +118,7 @@ void test_sensor_state_machine_connection_transition(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kDisconnected,
-        false, 0
-    );
+        false, 0);
 
     //! ACT: Trigger connection change
     bool transitioned = state_machine.handle_connection_change(true);
@@ -131,8 +129,7 @@ void test_sensor_state_machine_connection_transition(void) {
         state_machine,
         jenlib::state::SensorState::kWaiting,
         false,  // session still not active
-        0       // no session ID yet
-    );
+        0);     // no session ID yet
 }
 
 //! @test Validates session start transition from waiting to running state
@@ -143,8 +140,7 @@ void test_sensor_state_machine_session_start_transition(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kWaiting,
-        false, 0
-    );
+        false, 0);
 
     jenlib::ble::StartBroadcastMsg start_msg{
         .device_id = jenlib::ble::DeviceId(0x12345678),
@@ -161,8 +157,7 @@ void test_sensor_state_machine_session_start_transition(void) {
         state_machine,
         jenlib::state::SensorState::kRunning,
         true,   // session now active
-        0x1234  // session ID set
-    );
+        0x1234);
 }
 
 //! @test Validates session end transition from running to waiting state
@@ -179,8 +174,7 @@ void test_sensor_state_machine_session_end_transition(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kRunning,
-        true, 0x1234
-    );
+        true, 0x1234);
 
     //! ACT: Handle session end
     bool ended = state_machine.handle_session_end();
@@ -191,8 +185,7 @@ void test_sensor_state_machine_session_end_transition(void) {
         state_machine,
         jenlib::state::SensorState::kWaiting,
         false,  // session no longer active
-        0       // session ID cleared
-    );
+        0);     // session ID cleared
 }
 
 //! @test Validates disconnection transition from waiting to disconnected state
@@ -203,8 +196,7 @@ void test_sensor_state_machine_disconnection_transition(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kWaiting,
-        false, 0
-    );
+        false, 0);
 
     //! ACT: Trigger disconnection
     bool disconnected = state_machine.handle_connection_change(false);
@@ -214,8 +206,7 @@ void test_sensor_state_machine_disconnection_transition(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kDisconnected,
-        false, 0
-    );
+        false, 0);
 }
 
 //! @section Event System Tests
@@ -386,8 +377,7 @@ void test_full_sensor_lifecycle_integration(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kDisconnected,
-        false, 0
-    );
+        false, 0);
 
     //! ACT & ASSERT: Connection Phase
     bool connected = state_machine.handle_connection_change(true);
@@ -395,8 +385,7 @@ void test_full_sensor_lifecycle_integration(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kWaiting,
-        false, 0
-    );
+        false, 0);
 
     //! ACT & ASSERT: Session Start Phase
     jenlib::ble::StartBroadcastMsg start_msg{
@@ -410,8 +399,7 @@ void test_full_sensor_lifecycle_integration(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kRunning,
-        true, 0x1234
-    );
+        true, 0x1234);
 
     //! ACT & ASSERT: Measurement Phase
     bool measurement_handled = state_machine.handle_measurement_timer();
@@ -433,8 +421,7 @@ void test_full_sensor_lifecycle_integration(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kWaiting,
-        false, 0
-    );
+        false, 0);
 
     //! ACT & ASSERT: Disconnection Phase
     bool disconnected = state_machine.handle_connection_change(false);
@@ -442,8 +429,7 @@ void test_full_sensor_lifecycle_integration(void) {
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kDisconnected,
-        false, 0
-    );
+        false, 0);
 }
 
 //! @section Error Handling Tests
@@ -461,14 +447,13 @@ void test_state_machine_invalid_transitions(void) {
 
     bool started = state_machine.handle_start_broadcast(
         jenlib::ble::DeviceId(0x87654321), start_msg);
-    TEST_ASSERT_FALSE(started);  // Should fail - not connected
+    TEST_ASSERT_FALSE(started);  //  Should fail - not connected
 
     //! ASSERT: Verify state unchanged
     validate_sensor_state_machine_state(
         state_machine,
         jenlib::state::SensorState::kDisconnected,
-        false, 0
-    );
+        false, 0);
 }
 
 //! @test Validates timer system handles invalid operations correctly
