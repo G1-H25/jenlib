@@ -10,9 +10,9 @@
 #include <Arduino.h>
 #endif
 
-//! @namespace gpio
+//! @namespace jenlib::gpio
 //! @brief GPIO namespace.
-namespace gpio {
+namespace jenlib::gpio {
 
 //! @brief Set the pin mode. Uses Arduino API.
 void ArduinoGpioDriver::set_pin_mode(PinIndex pin, PinMode mode) noexcept {
@@ -111,6 +111,6 @@ std::uint8_t ArduinoGpioDriver::get_analog_write_resolution() const noexcept {
     return analog_write_bits_;
 }
 
-} // namespace gpio
+} // namespace jenlib::gpio
 
 

@@ -6,7 +6,7 @@
 
 #include <jenlib/ble/Payload.h>
 
-using namespace ble;
+using namespace jenlib::ble;
 
 //! @test Append within capacity succeeds and size increments correctly
 void test_payload_append_within_capacity(void) {

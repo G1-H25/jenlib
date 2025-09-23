@@ -9,9 +9,9 @@
 #include <jenlib/gpio/GpioDriver.h>
 #include <unordered_map>  // OK for desktop; NativeGpioDriver doesn't run on Arduino 
 
-//! @namespace gpio
+//! @namespace jenlib::gpio
 //! @brief GPIO namespace.
-namespace gpio {
+namespace jenlib::gpio {
 
 //! @class NativeGpioDriver
 //! @brief Native GPIO driver.
@@ -110,7 +110,7 @@ class NativeGpioDriver : public GpioDriver {
         float digital_threshold_ratio_{0.5f};
 };
 
-}  // namespace gpio
+}  // namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_
 

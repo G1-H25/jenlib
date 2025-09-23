@@ -49,7 +49,7 @@ void test_measurement_serialize() {
     test_measurement.temperature_c = 23.45f;
     test_measurement.humidity_bp = 67.89f;
     
-    ble::BlePayload payload;
+    jenlib::ble::BlePayload payload;
     TEST_ASSERT_TRUE(measurement::Measurement::serialize(test_measurement, payload));
     
     // Verify payload size
@@ -61,17 +61,17 @@ void test_measurement_serialize() {
     
     // Check timestamp (little-endian)
     std::uint32_t timestamp = 0;
-    TEST_ASSERT_TRUE(ble::read_u32le(it, end, timestamp));
+    TEST_ASSERT_TRUE(jenlib::ble::read_u32le(it, end, timestamp));
     TEST_ASSERT_EQUAL_UINT32(12345678U, timestamp);
     
     // Check temperature (little-endian)
     std::int16_t temp_centi = 0;
-    TEST_ASSERT_TRUE(ble::read_i16le(it, end, temp_centi));
+    TEST_ASSERT_TRUE(jenlib::ble::read_i16le(it, end, temp_centi));
     TEST_ASSERT_EQUAL_INT16(2345, temp_centi); // 23.45 * 100
     
     // Check humidity (little-endian)
     std::uint16_t humidity_bp = 0;
-    TEST_ASSERT_TRUE(ble::read_u16le(it, end, humidity_bp));
+    TEST_ASSERT_TRUE(jenlib::ble::read_u16le(it, end, humidity_bp));
     TEST_ASSERT_EQUAL_UINT16(6789, humidity_bp); // 67.89 * 100
     
     // Should have consumed all data
@@ -81,7 +81,7 @@ void test_measurement_serialize() {
 //! @test Test deserialization of a complete measurement.
 void test_measurement_deserialize() {
     // Create a payload manually
-    ble::BlePayload payload;
+    jenlib::ble::BlePayload payload;
     payload.append_u32le(87654321U);  // timestamp
     payload.append_i16le(-1234);      // temperature (-12.34°C)
     payload.append_u16le(3456);       // humidity (34.56%)
@@ -105,7 +105,7 @@ void test_measurement_roundtrip() {
     original.temperature_c = -45.67f;
     original.humidity_bp = 89.12f;
     
-    ble::BlePayload payload;
+    jenlib::ble::BlePayload payload;
     TEST_ASSERT_TRUE(measurement::Measurement::serialize(original, payload));
     
     measurement::Measurement restored;
@@ -125,16 +125,16 @@ void test_measurement_deserialize_errors() {
     measurement::Measurement result;
     
     // Test empty payload
-    ble::BlePayload empty_payload;
+    jenlib::ble::BlePayload empty_payload;
     TEST_ASSERT_FALSE(measurement::Measurement::deserialize(std::move(empty_payload), result));
     
     // Test too small payload
-    ble::BlePayload small_payload;
+    jenlib::ble::BlePayload small_payload;
     small_payload.append_u32le(12345U);
     TEST_ASSERT_FALSE(measurement::Measurement::deserialize(std::move(small_payload), result));
     
     // Test too large payload
-    ble::BlePayload large_payload;
+    jenlib::ble::BlePayload large_payload;
     large_payload.append_u32le(12345U);
     large_payload.append_i16le(2345);
     large_payload.append_u16le(3456);
@@ -150,7 +150,7 @@ void test_payload_consumption() {
     original.humidity_bp = 60.0f;
     
     // Serialize measurement
-    ble::BlePayload payload;
+    jenlib::ble::BlePayload payload;
     TEST_ASSERT_TRUE(measurement::Measurement::serialize(original, payload));
     TEST_ASSERT_FALSE(payload.is_consumed()); // Should not be consumed yet
     

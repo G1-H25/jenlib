@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include <vector>
 
-using namespace ble;
+using namespace jenlib::ble;
 
 //! @test Test CRC-8-ATM with known test vectors
 void test_crc8_atm_known_vectors(void) {
@@ -149,7 +149,7 @@ void test_crc8_edge_cases(void) {
 }
 
 //! @brief Test helper: Local BLE driver for testing
-class TestBleDriver final : public ble::BleDriver {
+class TestBleDriver final : public jenlib::ble::BleDriver {
     public:
         bool receive(DeviceId self_id, BlePayload &out_payload) override {
             auto it = inbox.find(self_id.value());
@@ -175,6 +175,22 @@ class TestBleDriver final : public ble::BleDriver {
     void send_to(DeviceId device_id, BlePayload payload) override {
         inbox[device_id.value()].push_back(std::move(payload));
         }
+    
+    // Required BleDriver interface methods
+    bool begin() override { return true; }
+    void end() override {}
+    // initialize/cleanup removed
+    bool is_connected() const override { return true; }
+    DeviceId get_local_device_id() const override { return DeviceId(0); }
+    void poll() override {}
+    void set_message_callback(BleMessageCallback callback) override {}
+    void clear_message_callback() override {}
+    void set_start_broadcast_callback(StartBroadcastCallback callback) override {}
+    void set_reading_callback(ReadingCallback callback) override {}
+    void set_receipt_callback(ReceiptCallback callback) override {}
+    void clear_type_specific_callbacks() override {}
+    void set_connection_callback(ConnectionCallback callback) override {}
+    void clear_connection_callback() override {}
     
         std::unordered_map<std::uint32_t, std::vector<BlePayload>> inbox;
 };

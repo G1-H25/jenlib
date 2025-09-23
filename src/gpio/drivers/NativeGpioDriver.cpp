@@ -6,10 +6,10 @@
 
 #include <jenlib/gpio/drivers/NativeGpioDriver.h>
 
-//! @namespace gpio
+//! @namespace jenlib::gpio
 //! @brief GPIO namespace.
-namespace gpio {
+namespace jenlib::gpio {
 
 // All methods are inline in the header; no additional implementation needed.
 
-} // namespace gpio
+} // namespace jenlib::gpio

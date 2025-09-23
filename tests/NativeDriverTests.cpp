@@ -9,7 +9,7 @@
 #include <jenlib/gpio/drivers/NativeGpioDriver.h>
 
 
-static gpio::NativeGpioDriver native_driver;
+static jenlib::gpio::NativeGpioDriver native_driver;
 
 //! @test test_native_driver_roundtrip
 //! @brief Verifies basic digital operations with NativeGpioDriver.
@@ -19,7 +19,7 @@ void test_native_driver_roundtrip(void) {
     GPIO::Pin p(5);
     p.pinMode(GPIO::PinMode::OUTPUT);
     p.digitalWrite(GPIO::DigitalValue::HIGH);
-    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(gpio::DigitalValue::HIGH), static_cast<uint8_t>(native_driver.digital_read(5)));
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH), static_cast<uint8_t>(native_driver.digital_read(5)));
 }
 
 //! @test test_native_driver_analog
@@ -63,11 +63,11 @@ void test_voltage_levels_and_tmp36(void) {
 
     // Digital threshold behavior
     // 0.75 V < 2.5 V => LOW
-    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(gpio::DigitalValue::LOW), static_cast<uint8_t>(sensor.digitalRead()));
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::LOW), static_cast<uint8_t>(sensor.digitalRead()));
 
     // Raise to 3.3 V => HIGH
     native_driver.set_pin_voltage(7, 3.3);
-    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(gpio::DigitalValue::HIGH), static_cast<uint8_t>(sensor.digitalRead()));
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH), static_cast<uint8_t>(sensor.digitalRead()));
 }
 
 

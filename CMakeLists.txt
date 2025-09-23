@@ -10,8 +10,18 @@ add_library(jenlib_gpio
     src/onewire/drivers/NativeOneWireBus.cpp
     src/ble/Ids.cpp
     src/ble/Messages.cpp
-    src/ble/NativeBleDriver.cpp
+    src/ble/drivers/NativeBleDriver.cpp
+    src/ble/drivers/ArduinoBleDriver.cpp
+    src/ble/drivers/NativeBleCharacteristic.cpp
+    src/ble/drivers/ArduinoBleCharacteristic.cpp
+    src/ble/drivers/NativeBleService.cpp
+    src/ble/drivers/ArduinoBleService.cpp
     src/measurement/Measurement.cpp
+    src/events/EventDispatcher.cpp
+    src/time/Time.cpp
+    src/time/drivers/NativeTimeDriver.cpp
+    src/state/SensorStateMachine.cpp
+    src/state/BrokerStateMachine.cpp
 )
 target_include_directories(jenlib_gpio PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -48,12 +58,27 @@ if(BUILD_TESTING)
         tests/PayloadTests.cpp
         tests/BleTests.cpp
         tests/MeasurementTests.cpp
+        tests/StateMachineTests.cpp
+        tests/TimeDriverTests.cpp
         ${unity_SOURCE_DIR}/src/unity.c
     )
     target_include_directories(jenlib_gpio_tests PRIVATE ${unity_SOURCE_DIR}/src)
     target_link_libraries(jenlib_gpio_tests PRIVATE jenlib_gpio)
 
     add_test(NAME jenlib_gpio_tests COMMAND jenlib_gpio_tests)
+
+    # Smoke Tests - Integration tests that exercise the full example path
+    add_executable(jenlib_smoke_tests
+        smoke_tests/FinalSmokeTest.cpp
+        ${unity_SOURCE_DIR}/src/unity.c
+    )
+    target_include_directories(jenlib_smoke_tests PRIVATE 
+        ${unity_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+    target_link_libraries(jenlib_smoke_tests PRIVATE jenlib_gpio)
+
+    add_test(NAME jenlib_smoke_tests COMMAND jenlib_smoke_tests)
 endif()
 
 
