@@ -369,7 +369,7 @@ void test_interface_contract_compliance(void) {
 
     // Act - Call all interface methods
     bool begin_result = driver.begin();
-    bool init_result = false; // initialize removed
+    bool init_result = false;  // initialize removed
     bool connected = driver.is_connected();
     DeviceId local_id = driver.get_local_device_id();
 
@@ -426,11 +426,11 @@ void test_sender_id_extraction(void) {
 
     // Assert - Check that sender ID is extracted correctly
     TEST_ASSERT_TRUE(receive_success);
-    TEST_ASSERT_EQUAL_UINT8(0xFF, received.bytes[0]); // Sender ID marker
-    TEST_ASSERT_EQUAL_UINT8(0x21, received.bytes[1]); // Sender ID LSB
+    TEST_ASSERT_EQUAL_UINT8(0xFF, received.bytes[0]);  // Sender ID marker
+    TEST_ASSERT_EQUAL_UINT8(0x21, received.bytes[1]);  // Sender ID LSB
     TEST_ASSERT_EQUAL_UINT8(0x43, received.bytes[2]);
     TEST_ASSERT_EQUAL_UINT8(0x65, received.bytes[3]);
-    TEST_ASSERT_EQUAL_UINT8(0x87, received.bytes[4]); // Sender ID MSB
+    TEST_ASSERT_EQUAL_UINT8(0x87, received.bytes[4]);  // Sender ID MSB
 }
 
 //! @test Test callback error handling and recovery
@@ -456,7 +456,7 @@ void test_callback_error_handling(void) {
     try {
         driver.send_to(DeviceId(0x12345678), std::move(payload));
     } catch (...) {
-        // Driver should handle exceptions gracefully
+        //  Driver should handle exceptions gracefully
     }
 
     // Assert - Callback should have been called

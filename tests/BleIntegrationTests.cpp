@@ -33,12 +33,10 @@ class SensorSimulator {
  public:
     explicit SensorSimulator(DeviceId sensor_id, std::shared_ptr<BleDriver> driver)
         : sensor_id_(sensor_id), driver_(driver), session_active_(false), reading_count_(0) {
-
         // Set up type-specific callbacks
         driver_->set_start_broadcast_callback([this](DeviceId sender_id, const StartBroadcastMsg& msg) {
             on_start_broadcast(sender_id, msg);
         });
-
         driver_->set_receipt_callback([this](DeviceId sender_id, const ReceiptMsg& msg) {
             on_receipt(sender_id, msg);
         });
@@ -60,9 +58,9 @@ class SensorSimulator {
         ReadingMsg reading;
         reading.sender_id = sensor_id_;
         reading.session_id = current_session_id_;
-        reading.offset_ms = reading_count_ * 1000;  // 1 second intervals
-        reading.temperature_c_centi = 2300 + reading_count_ * 10;  // Simulate temperature
-        reading.humidity_bp = 5000 + reading_count_ * 50;  // Simulate humidity
+        reading.offset_ms = reading_count_ * 1000;  //  1 second intervals
+        reading.temperature_c_centi = 2300 + reading_count_ * 10;  //  Simulate temperature
+        reading.humidity_bp = 5000 + reading_count_ * 50;  //  Simulate humidity
 
         BLE::broadcast_reading(sensor_id_, reading);
         reading_count_++;
@@ -95,9 +93,8 @@ class SensorSimulator {
 //! @brief Test helper: Complete broker simulation
 class BrokerSimulator {
  public:
-    BrokerSimulator(std::shared_ptr<BleDriver> driver)
+    explicit BrokerSimulator(std::shared_ptr<BleDriver> driver)
         : driver_(driver), session_active_(false), total_readings_(0) {
-
         // Set up type-specific callback for readings
         driver_->set_reading_callback([this](DeviceId sender_id, const ReadingMsg& msg) {
             on_reading(sender_id, msg);
@@ -146,7 +143,7 @@ class BrokerSimulator {
 //! @test Test complete sensor-broker communication flow
 void test_complete_sensor_broker_communication_flow(void) {
     // Arrange
-    auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000)); // Broker
+    auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));  // Broker
     BLE::set_driver(driver.get());
     driver->begin();
 
@@ -177,7 +174,7 @@ void test_complete_sensor_broker_communication_flow(void) {
 //! @test Test multiple sensors with single broker
 void test_multiple_sensors_single_broker(void) {
     // Arrange
-    auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000)); // Broker
+    auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));  // Broker
     BLE::set_driver(driver.get());
     driver->begin();
 
@@ -205,7 +202,7 @@ void test_multiple_sensors_single_broker(void) {
         for (auto& sensor : sensors) {
             sensor.send_reading();
         }
-        driver->poll(); // Process BLE events
+        driver->poll();  //  Process BLE events
     }
 
     // Assert - Verify all sensors are active and have sent readings
@@ -215,7 +212,7 @@ void test_multiple_sensors_single_broker(void) {
     }
 
     TEST_ASSERT_TRUE(broker.is_session_active());
-    TEST_ASSERT_EQUAL_INT(15, broker.get_total_readings()); // 3 sensors * 5 readings
+    TEST_ASSERT_EQUAL_INT(15, broker.get_total_readings());  //  3 sensors * 5 readings
 }
 
 //! @test Test session management and cleanup
@@ -251,8 +248,8 @@ void test_session_management_and_cleanup(void) {
 
     // Assert - Verify session management
     TEST_ASSERT_TRUE(sensor.is_session_active());
-    TEST_ASSERT_EQUAL_INT(6, sensor.get_reading_count()); // Total readings
-    TEST_ASSERT_EQUAL_UINT32(session2.value(), sensor.get_current_session().value()); // Latest session
+    TEST_ASSERT_EQUAL_INT(6, sensor.get_reading_count());  //  Total readings
+    TEST_ASSERT_EQUAL_UINT32(session2.value(), sensor.get_current_session().value());  //  Latest session
     TEST_ASSERT_TRUE(broker.is_session_active());
 }
 
@@ -298,7 +295,7 @@ void test_callback_performance_under_load(void) {
 
     // Assert - Verify performance
     TEST_ASSERT_EQUAL_INT(message_count, callback_count.load());
-    TEST_ASSERT_TRUE(duration.count() < 1000); // Should complete within 1 second
+    TEST_ASSERT_TRUE(duration.count() < 1000);  //  Should complete within 1 second
 }
 
 //! @test Test callback reliability with message loss simulation
@@ -318,10 +315,10 @@ void test_callback_reliability_with_message_loss(void) {
 
     // Act - Send messages with simulated loss (skip some messages)
     const int total_messages = 100;
-    const int sent_messages = 75; // Simulate 25% loss
+    const int sent_messages = 75;  //  Simulate 25% loss
 
     for (int i = 0; i < total_messages; ++i) {
-        if (i % 4 != 0) { // Skip every 4th message (simulate loss)
+        if (i % 4 != 0) {  //  Skip every 4th message (simulate loss)
             ReadingMsg reading;
             reading.sender_id = sensor_id;
             reading.session_id = session_id;
@@ -341,7 +338,7 @@ void test_callback_reliability_with_message_loss(void) {
 
     // Assert - Verify reliability
     TEST_ASSERT_EQUAL_INT(sent_messages, callback_count.load());
-    TEST_ASSERT_TRUE(callback_count.load() > 0); // At least some messages should be received
+    TEST_ASSERT_TRUE(callback_count.load() > 0);  //  At least some messages should be received
 }
 
 //! @test Test callback error recovery
@@ -391,7 +388,7 @@ void test_callback_error_recovery(void) {
 
     // Assert - Verify error recovery
     TEST_ASSERT_EQUAL_INT(message_count, callback_count.load());
-    TEST_ASSERT_EQUAL_INT(5, error_count.load()); // Every 3rd message should cause error
+    TEST_ASSERT_EQUAL_INT(5, error_count.load());  //  Every 3rd message should cause error
 }
 
 //! @test Test callback with mixed message types
@@ -475,7 +472,7 @@ void test_callback_with_concurrent_access(void) {
     for (int thread = 0; thread < thread_count; ++thread) {
         for (int i = 0; i < messages_per_thread; ++i) {
             ReadingMsg reading;
-            reading.sender_id = DeviceId(sensor_id.value() + thread); // Different sender IDs
+            reading.sender_id = DeviceId(sensor_id.value() + thread);  //  Different sender IDs
             reading.session_id = session_id;
             reading.offset_ms = thread * messages_per_thread + i;
             reading.temperature_c_centi = 2500;
