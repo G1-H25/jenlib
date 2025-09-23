@@ -21,7 +21,13 @@
 #include "jenlib/ble/Messages.h"
 #include "jenlib/ble/drivers/NativeBleDriver.h"
 
-using namespace jenlib::ble;
+using jenlib::ble::BlePayload;
+using jenlib::ble::DeviceId;
+using jenlib::ble::NativeBleDriver;
+using jenlib::ble::ReadingMsg;
+using jenlib::ble::ReceiptMsg;
+using jenlib::ble::SessionId;
+using jenlib::ble::StartBroadcastMsg;
 
 //! @brief Test helper: Mock callback tracker
 class CallbackTracker {

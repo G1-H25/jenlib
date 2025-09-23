@@ -20,7 +20,13 @@
 #include "jenlib/ble/Messages.h"
 #include "jenlib/ble/drivers/NativeBleDriver.h"
 
-using namespace jenlib::ble;
+using jenlib::ble::BLE;
+using jenlib::ble::BleDriver;
+using jenlib::ble::DeviceId;
+using jenlib::ble::ReadingMsg;
+using jenlib::ble::ReceiptMsg;
+using jenlib::ble::SessionId;
+using jenlib::ble::StartBroadcastMsg;
 
 //! @brief Test helper: Complete sensor simulation
 class SensorSimulator {

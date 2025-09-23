@@ -13,7 +13,9 @@
 #include "jenlib/ble/BleDriver.h"
 #include "jenlib/ble/drivers/NativeBleDriver.h"
 
-using namespace jenlib::ble;
+using jenlib::ble::BlePayload;
+using jenlib::ble::DeviceId;
+using jenlib::ble::NativeBleDriver;
 
 //! @brief Test helper: Focused unit test utilities
 class BleDriverTestUtils {
