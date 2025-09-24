@@ -24,7 +24,7 @@ class SessionId {
     friend constexpr bool operator!=(SessionId a, SessionId b) { return a.value_ != b.value_; }
     friend constexpr bool operator<(SessionId a, SessionId b) { return a.value_ < b.value_; }
  private:
-    std::uint32_t value_; //!< Raw value.
+    std::uint32_t value_;  //!<  Raw value.
 };
 
 
@@ -62,7 +62,7 @@ class DeviceId {
     static bool deserialize(BlePayload::const_iterator &it, BlePayload::const_iterator end, DeviceId &out);
 
  private:
-    std::uint32_t value_; //!< Raw value.
+    std::uint32_t value_;  //!<  Raw value.
 };
 
 //! @brief Append a 32-bit value in little-endian to a payload buffer.
@@ -80,7 +80,7 @@ inline bool append_u32le(BlePayload &buf, std::uint32_t v) {
 //! @note Used for DeviceId integrity checking. Exposed for testing.
 std::uint8_t compute_crc8(const std::uint8_t *data, size_t len);
 
-} // namespace jenlib::ble
+}  //  namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_IDS_H_
 
