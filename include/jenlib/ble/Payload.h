@@ -29,7 +29,7 @@ struct BlePayload {
     //! @brief Move constructor - transfers ownership of payload data.
     BlePayload(BlePayload&& other) noexcept
         : bytes(std::move(other.bytes)), size(other.size) {
-        other.size = 0; // Mark as consumed
+        other.size = 0;  //  Mark as consumed
     }
 
     //! @brief Move assignment operator - transfers ownership of payload data.
@@ -37,7 +37,7 @@ struct BlePayload {
         if (this != &other) {
             bytes = std::move(other.bytes);
             size = other.size;
-            other.size = 0; // Mark as consumed
+            other.size = 0;  //  Mark as consumed
         }
         return *this;
     }
@@ -165,7 +165,7 @@ inline bool read_i16le(BlePayload::const_iterator &it, BlePayload::const_iterato
     return true;
 }
 
-} // namespace jenlib::ble
+}  //  namespace jenlib::ble
 
 
 #endif  // INCLUDE_JENLIB_BLE_PAYLOAD_H_
