@@ -1,7 +1,7 @@
 //! @file tests/TestRunners.h
 //! @brief Test runner functions for organizing tests by module
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef TESTS_TESTRUNNERS_H_
 #define TESTS_TESTRUNNERS_H_

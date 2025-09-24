@@ -1,7 +1,7 @@
 //! @file examples/arduino/ble_sensor/main.cpp
 //! @brief BLE sensor example for Arduino, using state machine and event driven architecture.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 
 #include <jenlib/ble/Roles.h>

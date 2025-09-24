@@ -1,7 +1,7 @@
 //! @file src/gpio/drivers/ArduinoGpioDriver.cpp
 //! @brief Arduino GPIO driver implementation.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 
 #include <jenlib/gpio/drivers/ArduinoGpioDriver.h>

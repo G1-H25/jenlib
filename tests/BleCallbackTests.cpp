@@ -1,7 +1,7 @@
 //! @file tests/BleCallbackTests.cpp
 //! @brief Comprehensive tests for BLE callback system and interface contract.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 //!
 //! Tests cover:
 //! - Type-specific callback functionality

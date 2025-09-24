@@ -1,7 +1,7 @@
 //! @file tests/PinTests.cpp
 //! @brief Pin tests.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <cstdint>
 #include "unity.h"

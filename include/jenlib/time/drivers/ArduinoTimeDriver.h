@@ -1,7 +1,7 @@
 //! @file include/jenlib/time/drivers/ArduinoTimeDriver.h
 //! @brief Arduino-specific time driver implementation
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_TIME_DRIVERS_ARDUINOTIMEDRIVER_H_
 #define INCLUDE_JENLIB_TIME_DRIVERS_ARDUINOTIMEDRIVER_H_

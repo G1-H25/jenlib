@@ -1,7 +1,7 @@
 //! @file smoke_tests/SmokeTestMain.cpp
 //! @brief Main smoke test runner for jenlib
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <unity.h>
 #include "smoke_tests/SmokeTestSuites.h"

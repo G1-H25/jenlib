@@ -1,7 +1,7 @@
 //! @file include/jenlib/state/SensorStateMachine.h
 //! @brief Sensor state machine for BLE sensor applications
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_STATE_SENSORSTATEMACHINE_H_
 #define INCLUDE_JENLIB_STATE_SENSORSTATEMACHINE_H_

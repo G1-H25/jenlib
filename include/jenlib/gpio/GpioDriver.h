@@ -1,7 +1,7 @@
 //! @file jenlib/gpio/GpioDriver.h
 //! @brief GPIO driver interface.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_GPIO_GPIODRIVER_H_
 #define INCLUDE_JENLIB_GPIO_GPIODRIVER_H_

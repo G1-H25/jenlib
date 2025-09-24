@@ -1,7 +1,7 @@
 //! @file tests/AllTests_Clean.cpp
 //! @brief All tests for the jenlib library - clean organized version
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <unity.h>
 #include "tests/TestRunners.h"

@@ -1,7 +1,7 @@
 //! @file include/jenlib/time/TimeDriver.h
 //! @brief Abstract interface for time drivers
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_TIME_TIMEDRIVER_H_
 #define INCLUDE_JENLIB_TIME_TIMEDRIVER_H_

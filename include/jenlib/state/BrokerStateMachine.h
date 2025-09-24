@@ -1,7 +1,7 @@
 //! @file include/jenlib/state/BrokerStateMachine.h
 //! @brief Broker state machine for BLE broker applications
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_STATE_BROKERSTATEMACHINE_H_
 #define INCLUDE_JENLIB_STATE_BROKERSTATEMACHINE_H_

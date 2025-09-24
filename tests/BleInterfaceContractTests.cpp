@@ -1,7 +1,7 @@
 //! @file tests/BleInterfaceContractTests.cpp
 //! @brief Interface contract compliance tests for BleDriver implementations.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <unity.h>
 #include <cstdint>

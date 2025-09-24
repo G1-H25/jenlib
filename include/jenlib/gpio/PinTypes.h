@@ -1,7 +1,7 @@
 //! @file jenlib/gpio/PinTypes.h
 //! @brief Type-safe pin wrappers for different use cases.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_GPIO_PINTYPES_H_
 #define INCLUDE_JENLIB_GPIO_PINTYPES_H_

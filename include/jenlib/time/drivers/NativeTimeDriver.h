@@ -1,7 +1,7 @@
 //! @file include/jenlib/time/drivers/NativeTimeDriver.h
 //! @brief Native (desktop) time driver implementation
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_
 #define INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_

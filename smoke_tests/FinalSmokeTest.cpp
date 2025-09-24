@@ -1,7 +1,7 @@
 //! @file smoke_tests/FinalSmokeTest.cpp
 //! @brief Comprehensive smoke test suite following AAA patterns with enhanced correctness validation
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <unity.h>
 #include <atomic>

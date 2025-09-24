@@ -1,7 +1,7 @@
 //! @file smoke_tests/DebugSmokeTest.cpp
 //! @brief Debug smoke test to isolate event processing issues
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <unity.h>
 #include <atomic>

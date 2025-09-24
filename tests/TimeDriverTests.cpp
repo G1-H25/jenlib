@@ -1,7 +1,7 @@
 //! @file tests/TimeDriverTests.cpp
 //! @brief Tests for Time service driver injection
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include "jenlib/time/Time.h"
 #include "jenlib/time/drivers/NativeTimeDriver.h"

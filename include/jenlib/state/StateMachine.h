@@ -1,7 +1,7 @@
 //! @file include/jenlib/state/StateMachine.h
 //! @brief Base state machine interface and utilities
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_STATE_STATEMACHINE_H_
 #define INCLUDE_JENLIB_STATE_STATEMACHINE_H_

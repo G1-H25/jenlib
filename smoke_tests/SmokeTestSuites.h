@@ -1,7 +1,7 @@
 //! @file smoke_tests/SmokeTestSuites.h
 //! @brief Smoke test suite organization macros for jenlib
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef SMOKE_TESTS_SMOKETESTSUITES_H_
 #define SMOKE_TESTS_SMOKETESTSUITES_H_

@@ -1,7 +1,7 @@
 //! @file jenlib/gpio/drivers/NativeGpioDriver.h
 //! @brief Native GPIO driver implementation.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_
 #define INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_

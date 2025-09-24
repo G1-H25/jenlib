@@ -1,7 +1,7 @@
 //! @file include/jenlib/ble/Ble.h
 //! @brief Simple BLE facade to set driver and send/receive typed messages.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_BLE_H_
 #define INCLUDE_JENLIB_BLE_BLE_H_

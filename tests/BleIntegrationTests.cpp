@@ -1,7 +1,7 @@
 //! @file tests/BleIntegrationTests.cpp
 //! @brief Integration tests for complete BLE callback message flow.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 //!
 //! Tests cover:
 //! - Complete sensor-broker communication flow

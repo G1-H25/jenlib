@@ -1,7 +1,7 @@
 //! @file smoke_tests/PlatformMocks.h
 //! @brief Platform mocks for smoke testing jenlib on Native platform
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef SMOKE_TESTS_PLATFORMMOCKS_H_
 #define SMOKE_TESTS_PLATFORMMOCKS_H_

@@ -1,7 +1,7 @@
 //! @file include/jenlib/ble/Payload.h
 //! @brief Fixed-size BLE payload buffer for Arduino compatibility.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_PAYLOAD_H_
 #define INCLUDE_JENLIB_BLE_PAYLOAD_H_

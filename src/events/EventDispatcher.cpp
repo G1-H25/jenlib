@@ -1,7 +1,7 @@
 //! @file src/events/EventDispatcher.cpp
 //! @brief Event dispatcher implementation
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include "jenlib/events/EventDispatcher.h"
 #include <algorithm>

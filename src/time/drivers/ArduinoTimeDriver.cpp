@@ -1,7 +1,7 @@
 //! @file src/time/drivers/ArduinoTimeDriver.cpp
 //! @brief Arduino-specific time driver implementation
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 
 #ifdef ARDUINO

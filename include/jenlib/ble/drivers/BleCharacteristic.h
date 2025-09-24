@@ -1,7 +1,7 @@
 //! @file include/jenlib/ble/drivers/BleCharacteristic.h
 //! @brief Agnostic BLE characteristic interface for cross-platform compatibility.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_DRIVERS_BLECHARACTERISTIC_H_
 #define INCLUDE_JENLIB_BLE_DRIVERS_BLECHARACTERISTIC_H_

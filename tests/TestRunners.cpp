@@ -1,7 +1,7 @@
 //! @file tests/TestRunners.cpp
 //! @brief Test runner implementations for organizing tests by module
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include "tests/TestRunners.h"
 #include <unity.h>

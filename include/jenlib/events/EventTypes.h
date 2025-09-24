@@ -1,7 +1,7 @@
 //! @file include/jenlib/events/EventTypes.h
 //! @brief Event system types and structures for jenlib
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_EVENTS_EVENTTYPES_H_
 #define INCLUDE_JENLIB_EVENTS_EVENTTYPES_H_

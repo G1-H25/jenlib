@@ -1,7 +1,7 @@
 //! @file tests/TestSuites.h
 //! @brief Test suite organization macros for jenlib
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef TESTS_TESTSUITES_H_
 #define TESTS_TESTSUITES_H_

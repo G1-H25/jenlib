@@ -1,7 +1,7 @@
 //! @file jenlib/measurement/Measurement.h
 //! @brief Measurement type, shared between sensor and broker, with serialization and deserialization functions.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 
 #ifndef INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_

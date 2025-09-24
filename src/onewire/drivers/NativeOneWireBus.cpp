@@ -1,7 +1,7 @@
 //! @file src/onewire/drivers/NativeOneWireBus.cpp
 //! @brief Native OneWire bus implementation for testing and development.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/onewire/OneWireBus.h>
 #include <jenlib/gpio/GPIO.h>

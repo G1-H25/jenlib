@@ -1,7 +1,7 @@
 //! @file src/ble/drivers/ArduinoBleDriver.cpp
 //! @brief Arduino BLE driver implementation using ArduinoBLE library.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/ble/drivers/ArduinoBleDriver.h>
 #include <jenlib/ble/Messages.h>
