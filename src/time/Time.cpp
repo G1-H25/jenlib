@@ -4,9 +4,10 @@
 //! @author Jennifer Gott (simbachu@gmail.com)
 
 #include "jenlib/time/Time.h"
-#include "jenlib/time/drivers/NativeTimeDriver.h"
 #include <algorithm>
 #include <cassert>
+#include <utility>
+#include "jenlib/time/drivers/NativeTimeDriver.h"
 
 namespace jenlib::time {
 
@@ -49,7 +50,7 @@ TimerId Time::schedule_callback(std::uint32_t interval_ms, TimerCallback callbac
         }
     }
 
-    return kInvalidTimerId; // Should not reach here if timer_count_ < kMaxTimers
+    return kInvalidTimerId;  //  Should not reach here if timer_count_ < kMaxTimers
 }
 
 bool Time::cancel_callback(TimerId timer_id) {
@@ -179,5 +180,5 @@ TimeDriver* Time::getDriver() noexcept {
     return driver_;
 }
 
-} // namespace jenlib::time
+}  // namespace jenlib::time
 
