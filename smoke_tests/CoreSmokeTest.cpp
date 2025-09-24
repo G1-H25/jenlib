@@ -6,12 +6,12 @@
 #include <unity.h>
 #include <atomic>
 #include <vector>
-#include <jenlib/events/EventDispatcher.h>
-#include <jenlib/events/EventTypes.h>
-#include <jenlib/time/Time.h>
-#include <jenlib/time/drivers/NativeTimeDriver.h>
-#include <jenlib/state/SensorStateMachine.h>
-#include <jenlib/measurement/Measurement.h>
+#include "jenlib/events/EventDispatcher.h"
+#include "jenlib/events/EventTypes.h"
+#include "jenlib/time/Time.h"
+#include "jenlib/time/drivers/NativeTimeDriver.h"
+#include "jenlib/state/SensorStateMachine.h"
+#include "jenlib/measurement/Measurement.h"
 
 //! @section Test State Tracking
 static std::atomic<int> connection_events{0};
@@ -168,12 +168,16 @@ void test_sensor_state_machine_disconnection_transition(void) {
 void test_event_driven_connection_flow(void) {
     //! ARRANGE: Create state machine and register event handlers
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kConnectionStateChange, test_handle_connection_state_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kConnectionStateChange,
+        test_handle_connection_state_event);
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kDisconnected, sensor_state_machine.get_current_state());
 
     //! ACT: Simulate connection event and handle connection change
-    jenlib::events::Event connection_event(jenlib::events::EventType::kConnectionStateChange,
-                                          jenlib::time::Time::now(), 1);
+    jenlib::events::Event connection_event(
+        jenlib::events::EventType::kConnectionStateChange,
+        jenlib::time::Time::now(),
+        1);
     jenlib::events::EventDispatcher::dispatch_event(connection_event);
     jenlib::events::EventDispatcher::process_events();
     sensor_state_machine.handle_connection_change(true);
@@ -187,7 +191,9 @@ void test_event_driven_connection_flow(void) {
 void test_event_driven_session_start_flow(void) {
     //! ARRANGE: Create state machine, register handlers, and connect
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kBleMessage, test_handle_ble_message_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kBleMessage,
+        test_handle_ble_message_event);
     sensor_state_machine.handle_connection_change(true);
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kWaiting, sensor_state_machine.get_current_state());
 
@@ -198,9 +204,10 @@ void test_event_driven_session_start_flow(void) {
     };
 
     //! ACT: Simulate BLE message event and handle start broadcast
-    jenlib::events::Event ble_event(jenlib::events::EventType::kBleMessage,
-                                   jenlib::time::Time::now(),
-                                   static_cast<std::uint32_t>(jenlib::ble::MessageType::StartBroadcast));
+    jenlib::events::Event ble_event(
+        jenlib::events::EventType::kBleMessage,
+        jenlib::time::Time::now(),
+        static_cast<std::uint32_t>(jenlib::ble::MessageType::StartBroadcast));
     jenlib::events::EventDispatcher::dispatch_event(ble_event);
     jenlib::events::EventDispatcher::process_events();
     bool started = sensor_state_machine.handle_start_broadcast(jenlib::ble::DeviceId(0x87654321), start_msg);
@@ -216,12 +223,16 @@ void test_event_driven_session_start_flow(void) {
 //! @test Validates event-driven time tick processing
 void test_event_driven_time_tick_processing(void) {
     //! ARRANGE: Register time tick event handler
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kTimeTick, test_handle_time_tick_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kTimeTick,
+        test_handle_time_tick_event);
     TEST_ASSERT_EQUAL(1, jenlib::events::EventDispatcher::get_callback_count(jenlib::events::EventType::kTimeTick));
 
     //! ACT: Dispatch and process time tick event
-    jenlib::events::Event time_event(jenlib::events::EventType::kTimeTick,
-                                    jenlib::time::Time::now(), 0);
+    jenlib::events::Event time_event(
+        jenlib::events::EventType::kTimeTick,
+        jenlib::time::Time::now(),
+        0);
     auto dispatched_count = jenlib::events::EventDispatcher::dispatch_event(time_event);
     auto processed_count = jenlib::events::EventDispatcher::process_events();
 
@@ -236,10 +247,14 @@ void test_event_driven_time_tick_processing(void) {
 void test_event_driven_session_end(void) {
     //! ARRANGE: Create state machine, register handlers, connect, and start session
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kConnectionStateChange, test_handle_connection_state_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kConnectionStateChange,
+        test_handle_connection_state_event);
 
-    jenlib::events::Event connect_event(jenlib::events::EventType::kConnectionStateChange,
-                                       jenlib::time::Time::now(), 1);
+    jenlib::events::Event connect_event(
+        jenlib::events::EventType::kConnectionStateChange,
+        jenlib::time::Time::now(),
+        1);
     jenlib::events::EventDispatcher::dispatch_event(connect_event);
     jenlib::events::EventDispatcher::process_events();
     sensor_state_machine.handle_connection_change(true);
@@ -258,18 +273,22 @@ void test_event_driven_session_end(void) {
     TEST_ASSERT_TRUE(ended);
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kWaiting, sensor_state_machine.get_current_state());
     TEST_ASSERT_FALSE(sensor_state_machine.is_session_active());
-    TEST_ASSERT_EQUAL(1, connection_events.load()); // Only connection event processed
+    TEST_ASSERT_EQUAL(1, connection_events.load());  //  Only connection event processed
 }
 
 //! @test Validates event-driven disconnection functionality
 void test_event_driven_disconnection(void) {
     //! ARRANGE: Create state machine and register handlers
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kConnectionStateChange, test_handle_connection_state_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kConnectionStateChange,
+        test_handle_connection_state_event);
 
     //! ARRANGE: Connect and start session
-    jenlib::events::Event connect_event(jenlib::events::EventType::kConnectionStateChange,
-                                       jenlib::time::Time::now(), 1);
+    jenlib::events::Event connect_event(
+        jenlib::events::EventType::kConnectionStateChange,
+        jenlib::time::Time::now(),
+        1);
     jenlib::events::EventDispatcher::dispatch_event(connect_event);
     jenlib::events::EventDispatcher::process_events();
     sensor_state_machine.handle_connection_change(true);
@@ -282,15 +301,17 @@ void test_event_driven_disconnection(void) {
 
     //! ACT: End session and simulate disconnection
     sensor_state_machine.handle_session_end();
-    jenlib::events::Event disconnect_event(jenlib::events::EventType::kConnectionStateChange,
-                                          jenlib::time::Time::now(), 0);
+    jenlib::events::Event disconnect_event(
+        jenlib::events::EventType::kConnectionStateChange,
+        jenlib::time::Time::now(),
+        0);
     jenlib::events::EventDispatcher::dispatch_event(disconnect_event);
     jenlib::events::EventDispatcher::process_events();
     sensor_state_machine.handle_connection_change(false);
 
     //! ASSERT: Verify disconnection processed
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kDisconnected, sensor_state_machine.get_current_state());
-    TEST_ASSERT_EQUAL(2, connection_events.load()); // Both connection and disconnection events processed
+    TEST_ASSERT_EQUAL(2, connection_events.load());  //  Both connection and disconnection events processed
 }
 
 //! @test Validates temperature conversion functionality
