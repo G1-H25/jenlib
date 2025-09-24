@@ -30,12 +30,12 @@ enum class TimerState : std::uint8_t {
 
 //! @brief Timer entry structure for internal timer management
 struct TimerEntry {
-    TimerId id;                 //!< Unique timer identifier
-    std::uint32_t interval_ms;  //!< Timer interval in milliseconds
-    std::uint32_t next_fire_time; //!< Next fire time (platform-specific)
-    TimerCallback callback;     //!< Callback function to invoke
-    bool repeat;                //!< Whether timer repeats
-    TimerState state;           //!< Current timer state
+    TimerId id;                   //!<  Unique timer identifier
+    std::uint32_t interval_ms;    //!<  Timer interval in milliseconds
+    std::uint32_t next_fire_time;  //!<  Next fire time (platform-specific)
+    TimerCallback callback;       //!<  Callback function to invoke
+    bool repeat;                  //!<  Whether timer repeats
+    TimerState state;             //!<  Current timer state
 
     //! @brief Default constructor
     TimerEntry()
@@ -56,7 +56,7 @@ struct TimerEntry {
         , state(TimerState::kActive) {}
 };
 
-}  // namespace jenlib::time
+}  //  namespace jenlib::time
 
-#endif // INCLUDE_JENLIB_TIME_TIMETYPES_H_
+#endif  // INCLUDE_JENLIB_TIME_TIMETYPES_H_
 

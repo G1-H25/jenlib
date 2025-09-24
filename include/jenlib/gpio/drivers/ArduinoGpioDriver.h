@@ -6,8 +6,8 @@
 #ifndef INCLUDE_JENLIB_GPIO_DRIVERS_ARDUINOGPIODRIVER_H_
 #define INCLUDE_JENLIB_GPIO_DRIVERS_ARDUINOGPIODRIVER_H_
 
-#include <jenlib/gpio/GpioDriver.h>
 #include <cstdint>
+#include "jenlib/gpio/GpioDriver.h"
 
 namespace jenlib::gpio {
 
@@ -32,7 +32,7 @@ class ArduinoGpioDriver : public GpioDriver {
     std::uint8_t analog_write_bits_{8};
 };
 
-} // namespace jenlib::gpio
+}  //  namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_DRIVERS_ARDUINOGPIODRIVER_H_
 

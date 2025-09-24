@@ -130,11 +130,11 @@ class Pin {
     GpioDriver* driver() const noexcept { return driver_; }
 
  private:
-    GpioDriver* driver_; //!< The driver.
-    PinIndex pin_; //!< The pin index.
+    GpioDriver* driver_;  //!<  The driver.
+    PinIndex pin_;        //!<  The pin index.
 };
 
-} // namespace jenlib::gpio
+}  //  namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_GPIODRIVER_H_
 
