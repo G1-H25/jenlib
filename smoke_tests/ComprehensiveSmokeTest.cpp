@@ -84,8 +84,8 @@ void test_handle_measurement_timer() {
     measurements_taken++;
 
     //! Simulate taking a measurement and broadcasting it
-    float temperature_c = 22.5f; // Mock temperature
-    float humidity_pct = 45.0f;  // Mock humidity
+    float temperature_c = 22.5f;  //  Mock temperature
+    float humidity_pct = 45.0f;   //  Mock humidity
 
     jenlib::ble::ReadingMsg reading_msg{
         .sender_id = jenlib::ble::DeviceId(0x12345678),
@@ -280,7 +280,9 @@ void test_event_driven_connection_flow_with_callbacks(void) {
 void test_event_driven_session_start_flow_with_callbacks(void) {
     //! ARRANGE: Create state machine, register handlers, and connect
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kBleMessage, test_handle_ble_message_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kBleMessage,
+        test_handle_ble_message_event);
     jenlib::ble::BLE::set_start_broadcast_callback(test_callback_start);
     sensor_state_machine.handle_connection_change(true);
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kWaiting, sensor_state_machine.get_current_state());
@@ -307,7 +309,9 @@ void test_event_driven_session_start_flow_with_callbacks(void) {
 //! @test Validates event-driven measurement timer functionality
 void test_event_driven_measurement_timer_functionality(void) {
     //! ARRANGE: Register time tick event handler
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kTimeTick, test_handle_time_tick_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kTimeTick,
+        test_handle_time_tick_event);
 
     //! ACT: Schedule measurement timer and advance time
     jenlib::time::schedule_repeating_timer(100, test_handle_measurement_timer);

@@ -38,9 +38,10 @@ void test_callback_connection(bool connected) {
     connection_events++;
 
     //! Dispatch connection state change event
-    jenlib::events::Event event(jenlib::events::EventType::kConnectionStateChange,
-                               jenlib::time::Time::now(),
-                               connected ? 1 : 0);
+    jenlib::events::Event event(
+        jenlib::events::EventType::kConnectionStateChange,
+        jenlib::time::Time::now(),
+        connected ? 1 : 0);
     jenlib::events::EventDispatcher::dispatch_event(event);
 }
 
@@ -49,9 +50,10 @@ void test_callback_connection(bool connected) {
 //! @param msg Start broadcast message content
 void test_callback_start(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBroadcastMsg &msg) {
     //! Dispatch BLE message event
-    jenlib::events::Event event(jenlib::events::EventType::kBleMessage,
-                               jenlib::time::Time::now(),
-                               static_cast<std::uint32_t>(jenlib::ble::MessageType::StartBroadcast));
+    jenlib::events::Event event(
+        jenlib::events::EventType::kBleMessage,
+        jenlib::time::Time::now(),
+        static_cast<std::uint32_t>(jenlib::ble::MessageType::StartBroadcast));
     jenlib::events::EventDispatcher::dispatch_event(event);
 }
 
@@ -63,9 +65,10 @@ void test_callback_receipt(jenlib::ble::DeviceId sender_id, const jenlib::ble::R
     received_receipts.push_back(msg);
 
     //! Dispatch BLE message event
-    jenlib::events::Event event(jenlib::events::EventType::kBleMessage,
-                               jenlib::time::Time::now(),
-                               static_cast<std::uint32_t>(jenlib::ble::MessageType::Receipt));
+    jenlib::events::Event event(
+        jenlib::events::EventType::kBleMessage,
+        jenlib::time::Time::now(),
+        static_cast<std::uint32_t>(jenlib::ble::MessageType::Receipt));
     jenlib::events::EventDispatcher::dispatch_event(event);
 }
 
@@ -74,9 +77,10 @@ void test_callback_receipt(jenlib::ble::DeviceId sender_id, const jenlib::ble::R
 //! @param payload Generic message payload
 void test_callback_generic(jenlib::ble::DeviceId sender_id, const jenlib::ble::BlePayload &payload) {
     //! Dispatch generic BLE message event
-    jenlib::events::Event event(jenlib::events::EventType::kBleMessage,
-                               jenlib::time::Time::now(),
-                               static_cast<std::uint32_t>(jenlib::ble::MessageType::Reading));
+    jenlib::events::Event event(
+        jenlib::events::EventType::kBleMessage,
+        jenlib::time::Time::now(),
+        static_cast<std::uint32_t>(jenlib::ble::MessageType::Reading));
     jenlib::events::EventDispatcher::dispatch_event(event);
 }
 
@@ -159,9 +163,9 @@ void setUp(void) {
     jenlib::ble::BLE::set_message_callback(nullptr);
 
     //! Register devices
-    mock_ble_driver.register_device(jenlib::ble::DeviceId(0x12345678)); // Sensor
-    mock_ble_driver.register_device(jenlib::ble::DeviceId(0x87654321)); // Broker
-    mock_ble_driver.set_local_device_id(jenlib::ble::DeviceId(0x12345678)); // We are the sensor
+    mock_ble_driver.register_device(jenlib::ble::DeviceId(0x12345678));  //  Sensor
+    mock_ble_driver.register_device(jenlib::ble::DeviceId(0x87654321));  //  Broker
+    mock_ble_driver.set_local_device_id(jenlib::ble::DeviceId(0x12345678));  //  We are the sensor
 }
 
 //! @brief Unity test teardown function - cleans up after each test
@@ -189,9 +193,15 @@ void test_full_sensor_lifecycle(void) {
     jenlib::state::SensorStateMachine sensor_state_machine;
 
     //! ARRANGE: Register event handlers (simulating the example main.cpp setup)
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kBleMessage, test_handle_ble_message_event);
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kConnectionStateChange, test_handle_connection_state_event);
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kTimeTick, test_handle_time_tick_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kBleMessage,
+        test_handle_ble_message_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kConnectionStateChange,
+        test_handle_connection_state_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kTimeTick,
+        test_handle_time_tick_event);
 
     //! ARRANGE: Configure BLE callbacks (simulating the example main.cpp setup)
     jenlib::ble::BLE::set_connection_callback(test_callback_connection);
@@ -202,14 +212,15 @@ void test_full_sensor_lifecycle(void) {
     //! ASSERT: Verify initial state
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kDisconnected, sensor_state_machine.get_current_state());
     TEST_ASSERT_FALSE(sensor_state_machine.is_session_active());
-
 }
 
 //! @test Validates sensor connection flow integration
 void test_sensor_connection_flow(void) {
     //! ARRANGE: Create state machine and configure callbacks
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kConnectionStateChange, test_handle_connection_state_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kConnectionStateChange,
+        test_handle_connection_state_event);
     jenlib::ble::BLE::set_connection_callback(test_callback_connection);
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kDisconnected, sensor_state_machine.get_current_state());
 
@@ -226,7 +237,9 @@ void test_sensor_connection_flow(void) {
 void test_sensor_session_start_flow(void) {
     //! ARRANGE: Create state machine, configure callbacks, and connect
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kBleMessage, test_handle_ble_message_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kBleMessage,
+        test_handle_ble_message_event);
     jenlib::ble::BLE::set_start_broadcast_callback(test_callback_start);
     test_callback_connection(true);
     sensor_state_machine.handle_connection_change(true);
@@ -240,7 +253,7 @@ void test_sensor_session_start_flow(void) {
 
     //! ACT: Simulate start broadcast message (simulating broker starting a session)
     test_callback_start(jenlib::ble::DeviceId(0x87654321), start_msg);
-    jenlib::events::EventDispatcher::process_events(); // Process the dispatched event
+    jenlib::events::EventDispatcher::process_events();  //  Process the dispatched event
     bool started = sensor_state_machine.handle_start_broadcast(jenlib::ble::DeviceId(0x87654321), start_msg);
 
     //! ASSERT: Verify session started successfully
@@ -255,7 +268,9 @@ void test_sensor_session_start_flow(void) {
 void test_sensor_measurement_flow(void) {
     //! ARRANGE: Create state machine, configure callbacks, connect, and start session
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kBleMessage, test_handle_ble_message_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kBleMessage,
+        test_handle_ble_message_event);
     jenlib::ble::BLE::set_start_broadcast_callback(test_callback_start);
     test_callback_connection(true);
     sensor_state_machine.handle_connection_change(true);
@@ -286,7 +301,9 @@ void test_sensor_measurement_flow(void) {
 void test_sensor_receipt_handling_flow(void) {
     //! ARRANGE: Create state machine, configure callbacks, connect, and start session
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kBleMessage, test_handle_ble_message_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kBleMessage,
+        test_handle_ble_message_event);
     jenlib::ble::BLE::set_start_broadcast_callback(test_callback_start);
     jenlib::ble::BLE::set_receipt_callback(test_callback_receipt);
     test_callback_connection(true);
@@ -320,7 +337,9 @@ void test_sensor_receipt_handling_flow(void) {
 void test_sensor_session_end_flow(void) {
     //! ARRANGE: Create state machine, configure callbacks, connect, and start session
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kConnectionStateChange, test_handle_connection_state_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kConnectionStateChange,
+        test_handle_connection_state_event);
     jenlib::ble::BLE::set_connection_callback(test_callback_connection);
     jenlib::ble::BLE::set_start_broadcast_callback(test_callback_start);
     test_callback_connection(true);
@@ -347,7 +366,9 @@ void test_sensor_session_end_flow(void) {
 void test_sensor_disconnection_flow(void) {
     //! ARRANGE: Create state machine, configure callbacks, and connect
     jenlib::state::SensorStateMachine sensor_state_machine;
-    jenlib::events::EventDispatcher::register_callback(jenlib::events::EventType::kConnectionStateChange, test_handle_connection_state_event);
+    jenlib::events::EventDispatcher::register_callback(
+        jenlib::events::EventType::kConnectionStateChange,
+        test_handle_connection_state_event);
     jenlib::ble::BLE::set_connection_callback(test_callback_connection);
     test_callback_connection(true);
     sensor_state_machine.handle_connection_change(true);
@@ -520,7 +541,7 @@ void test_connection_loss_recovery(void) {
     TEST_ASSERT_TRUE(sensor_state_machine.is_session_active());
 
     // Simulate connection loss (end session first, then disconnect)
-    sensor_state_machine.handle_session_end(); // Clear session data while still running
+    sensor_state_machine.handle_session_end();  //  Clear session data while still running
     test_callback_connection(false);
     sensor_state_machine.handle_connection_change(false);
 

@@ -3,16 +3,16 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
-#include "unity.h"
-#include "SmokeTestSuites.h"
-#include <jenlib/state/SensorStateMachine.h>
-#include <jenlib/events/EventDispatcher.h>
-#include <jenlib/events/EventTypes.h>
-#include <jenlib/time/Time.h>
-#include <jenlib/time/drivers/NativeTimeDriver.h>
-#include <smoke_tests/PlatformMocks.h>
+#include <unity.h>
 #include <atomic>
 #include <vector>
+#include "smoke_tests/SmokeTestSuites.h"
+#include "jenlib/state/SensorStateMachine.h"
+#include "jenlib/events/EventDispatcher.h"
+#include "jenlib/events/EventTypes.h"
+#include "jenlib/time/Time.h"
+#include "jenlib/time/drivers/NativeTimeDriver.h"
+#include "smoke_tests/PlatformMocks.h"
 
 //! @section Test State Tracking
 static std::atomic<int> state_entry_count{0};
@@ -146,7 +146,6 @@ void test_sensor_session_start(void) {
     TEST_ASSERT_TRUE(state_machine.is_in_state(jenlib::state::SensorState::kRunning));
     TEST_ASSERT_TRUE(state_machine.is_session_active());
     TEST_ASSERT_EQUAL(0x1234, state_machine.get_current_session_id().value());
-
 }
 
 //! @test Validates sensor session end functionality
@@ -197,7 +196,6 @@ void test_sensor_measurement_handling(void) {
     TEST_ASSERT_TRUE(measurement_handled);
     //! Note: The actual measurement taking is implemented by the application
     //! The state machine just manages the timing and state
-
 }
 
 //! @test Validates sensor receipt handling functionality
@@ -275,9 +273,8 @@ void test_sensor_invalid_transitions(void) {
     bool started = state_machine.handle_start_broadcast(jenlib::ble::DeviceId(0x87654321), start_msg);
 
     //! ASSERT: Verify start broadcast failed when disconnected
-    TEST_ASSERT_FALSE(started); // Should fail when disconnected
+    TEST_ASSERT_FALSE(started);  //  Should fail when disconnected
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kDisconnected, state_machine.get_current_state());
-
 }
 
 //! @test Validates sensor invalid receipt handling
@@ -297,7 +294,7 @@ void test_sensor_invalid_receipt_handling(void) {
 
     //! ARRANGE: Prepare receipt message with wrong session ID
     jenlib::ble::ReceiptMsg wrong_receipt{
-        .session_id = jenlib::ble::SessionId(0x5678), // Wrong session ID
+        .session_id = jenlib::ble::SessionId(0x5678),  //  Wrong session ID
         .up_to_offset_ms = 1000
     };
 
@@ -305,7 +302,7 @@ void test_sensor_invalid_receipt_handling(void) {
     bool receipt_handled = state_machine.handle_receipt(jenlib::ble::DeviceId(0x87654321), wrong_receipt);
 
     //! ASSERT: Verify receipt handling failed with wrong session ID
-    TEST_ASSERT_FALSE(receipt_handled); // Should fail with wrong session ID
+    TEST_ASSERT_FALSE(receipt_handled);  //  Should fail with wrong session ID
 }
 
 //! @section Test Runner

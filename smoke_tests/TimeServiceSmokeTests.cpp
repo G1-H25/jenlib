@@ -3,14 +3,15 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
-#include "unity.h"
-#include "SmokeTestSuites.h"
-#include <jenlib/time/Time.h>
-#include <jenlib/time/drivers/NativeTimeDriver.h>
-#include <smoke_tests/PlatformMocks.h>
+#include <unity.h>
 #include <atomic>
 #include <thread>
+#include <vector>
 #include <chrono>
+#include "smoke_tests/SmokeTestSuites.h"
+#include "jenlib/time/Time.h"
+#include "jenlib/time/drivers/NativeTimeDriver.h"
+#include "smoke_tests/PlatformMocks.h"
 
 //! @section Test State Tracking
 static std::atomic<int> timer_callback_count{0};
@@ -114,7 +115,7 @@ void test_timer_processing_loop(void) {
     //! ASSERT: Verify timer fired and callback was called
     TEST_ASSERT_EQUAL(1, fired_count);
     TEST_ASSERT_EQUAL(1, timer_callback_count.load());
-    TEST_ASSERT_EQUAL(0, jenlib::time::Time::get_active_timer_count()); // One-shot timer should be inactive
+    TEST_ASSERT_EQUAL(0, jenlib::time::Time::get_active_timer_count());  //  One-shot timer should be inactive
 }
 
 //! @test Validates repeating timer functionality
@@ -132,7 +133,7 @@ void test_repeating_timer_functionality(void) {
         auto fired_count = jenlib::time::Time::process_timers();
 
         TEST_ASSERT_EQUAL(1, fired_count);
-        TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count()); // Repeating timer should stay active
+        TEST_ASSERT_EQUAL(1, jenlib::time::Time::get_active_timer_count());  //  Repeating timer should stay active
     }
 
     //! ASSERT: Verify repeating timer fired multiple times
@@ -169,7 +170,7 @@ void test_one_shot_timer_functionality(void) {
     //! ASSERT: Verify one-shot timer fired and became inactive
     TEST_ASSERT_EQUAL(1, fired_count);
     TEST_ASSERT_TRUE(one_shot_timer_fired.load());
-    TEST_ASSERT_EQUAL(0, jenlib::time::Time::get_active_timer_count()); // One-shot should be inactive
+    TEST_ASSERT_EQUAL(0, jenlib::time::Time::get_active_timer_count());  //  One-shot should be inactive
 
     //! ACT: Try to process again - should not fire
     fired_count = jenlib::time::Time::process_timers();
