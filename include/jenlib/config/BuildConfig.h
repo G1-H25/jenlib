@@ -16,8 +16,8 @@ namespace jenlib::config {
 inline constexpr bool kSensorOnly = true;
 #else
 inline constexpr bool kSensorOnly = false;
-#endif // JENLIB_BLE_SENSOR_ONLY
+#endif  // JENLIB_BLE_SENSOR_ONLY
 
-} // namespace jenlib::config
+}  //  namespace jenlib::config
 
-#endif // INCLUDE_JENLIB_CONFIG_BUILDCONFIG_H_
+#endif  // INCLUDE_JENLIB_CONFIG_BUILDCONFIG_H_
