@@ -7,10 +7,10 @@
 #include <atomic>
 #include <vector>
 #include "smoke_tests/SmokeTestSuites.h"
-#include <jenlib/ble/Ble.h>
-#include <jenlib/ble/Messages.h>
-#include <jenlib/ble/Ids.h>
-#include <smoke_tests/PlatformMocks.h>
+#include "smoke_tests/PlatformMocks.h"
+#include "jenlib/ble/Ble.h"
+#include "jenlib/ble/Messages.h"
+#include "jenlib/ble/Ids.h"
 
 //! @section Test State Tracking
 static std::atomic<int> connection_callback_count{0};
@@ -128,7 +128,7 @@ void test_ble_connection_loss_simulation(void) {
     //! ARRANGE: Initialize BLE and set connection callback
     jenlib::ble::BLE::begin();
     jenlib::ble::BLE::set_connection_callback(test_connection_callback);
-    TEST_ASSERT_TRUE(jenlib::ble::BLE::is_connected()); // Verify initial state
+    TEST_ASSERT_TRUE(jenlib::ble::BLE::is_connected());  //  Verify initial state
 
     //! ACT: Simulate connection loss
     static_cast<smoke_tests::MockBleDriver*>(jenlib::ble::BLE::driver())->simulate_connection_loss();
@@ -145,7 +145,7 @@ void test_ble_connection_restore_simulation(void) {
     jenlib::ble::BLE::begin();
     jenlib::ble::BLE::set_connection_callback(test_connection_callback);
     static_cast<smoke_tests::MockBleDriver*>(jenlib::ble::BLE::driver())->simulate_connection_loss();
-    TEST_ASSERT_FALSE(jenlib::ble::BLE::is_connected()); // Verify loss state
+    TEST_ASSERT_FALSE(jenlib::ble::BLE::is_connected());  //  Verify loss state
 
     //! ACT: Simulate connection restore
     static_cast<smoke_tests::MockBleDriver*>(jenlib::ble::BLE::driver())->simulate_connection_restore();
@@ -191,7 +191,7 @@ void test_ble_device_registration_and_setup(void) {
     mock_driver->set_local_device_id(sensor_id);
 
     //! ASSERT: Verify devices are registered (indirectly by testing message sending)
-    TEST_ASSERT_TRUE(true); // If we get here without errors, registration succeeded
+    TEST_ASSERT_TRUE(true);  //  If we get here without errors, registration succeeded
 }
 
 //! @test Validates BLE start broadcast message sending and receiving
@@ -237,7 +237,7 @@ void test_ble_reading_message_flow(void) {
 
     mock_driver->register_device(sensor_id);
     mock_driver->register_device(broker_id);
-    mock_driver->set_local_device_id(broker_id); // Set broker as local device to receive the broadcast
+    mock_driver->set_local_device_id(broker_id);  //  Set broker as local device to receive the broadcast
 
     jenlib::ble::BLE::set_reading_callback(test_reading_callback);
 
@@ -246,8 +246,8 @@ void test_ble_reading_message_flow(void) {
         .sender_id = sensor_id,
         .session_id = jenlib::ble::SessionId(0x1234),
         .offset_ms = 100,
-        .temperature_c_centi = 2250, // 22.5°C
-        .humidity_bp = 4500 // 45%
+        .temperature_c_centi = 2250,  //  22.5°C
+        .humidity_bp = 4500  //  45%
     };
 
     //! ACT: Send reading message and process events
@@ -309,7 +309,7 @@ void test_ble_event_processing(void) {
     }
 
     //! ASSERT: Verify no exceptions were thrown (test completes successfully)
-    TEST_ASSERT_TRUE(true); // If we get here, no exceptions were thrown
+    TEST_ASSERT_TRUE(true);  //  If we get here, no exceptions were thrown
 }
 
 //! @section Test Runner
