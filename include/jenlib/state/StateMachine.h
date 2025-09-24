@@ -9,8 +9,8 @@
 #include <cstdint>
 #include <functional>
 #include <string_view>
-#include <jenlib/events/EventTypes.h>
 #include <utility>
+#include "jenlib/events/EventTypes.h"
 
 namespace jenlib::state {
 
@@ -27,7 +27,7 @@ enum class StateAction : std::uint8_t {
 //! Handles event processing, state transitions, and error recovery.
 template<typename StateType>
 class StateMachine {
-public:
+ public:
     using State = StateType;
     using StateCallback = std::function<void(StateAction action, State state)>;
     using ErrorCallback = std::function<void(std::string_view error)>;
@@ -74,17 +74,17 @@ public:
 
     //! @brief Handle recovery from error
     virtual void handle_recovery() {
-        // Default recovery - return to initial state
-        // Subclasses should override this
+        //  Default recovery - return to initial state
+        //  Subclasses should override this
     }
 
-protected:
+ protected:
     //! @brief Transition to new state
     //! @param new_state The state to transition to
     //! @return true if transition was successful, false otherwise
     bool transition_to(State new_state) {
         if (new_state == current_state_) {
-            return true; // Already in target state
+            return true;  //  Already in target state
         }
 
         // Call exit action for current state
@@ -113,7 +113,7 @@ protected:
     //! @brief Get initial state
     virtual State get_initial_state() const = 0;
 
-private:
+ private:
     State current_state_;
     State previous_state_;
     StateCallback state_callback_;
@@ -122,4 +122,4 @@ private:
 
 }  // namespace jenlib::state
 
-#endif // INCLUDE_JENLIB_STATE_STATEMACHINE_H_
+#endif  // INCLUDE_JENLIB_STATE_STATEMACHINE_H_

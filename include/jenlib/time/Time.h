@@ -6,9 +6,9 @@
 #ifndef INCLUDE_JENLIB_TIME_TIME_H_
 #define INCLUDE_JENLIB_TIME_TIME_H_
 
+#include <utility>
 #include "jenlib/time/TimeDriver.h"
 #include "jenlib/time/TimeTypes.h"
-#include <utility>
 
 //! @namespace jenlib::time
 //! @brief Abstracting time handling away from hardware bound libraries

@@ -6,9 +6,9 @@
 #ifndef INCLUDE_JENLIB_BLE_DRIVERS_BLECHARACTERISTIC_H_
 #define INCLUDE_JENLIB_BLE_DRIVERS_BLECHARACTERISTIC_H_
 
+#include <jenlib/ble/Payload.h>
 #include <cstdint>
 #include <functional>
-#include <jenlib/ble/Payload.h>
 
 namespace jenlib::ble {
 
@@ -70,7 +70,7 @@ class BleCharacteristic {
     virtual std::size_t get_max_payload_size() const = 0;
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_BLECHARACTERISTIC_H_
 

@@ -1,5 +1,6 @@
 //! @file include/jenlib/ble/BleRoles.h
 //! @brief Minimal role-based API for student-facing apps (Sensor/Broker).
+//! Copyright 2025 Jennifer Gott
 
 #ifndef INCLUDE_JENLIB_BLE_ROLES_H_
 #define INCLUDE_JENLIB_BLE_ROLES_H_
@@ -15,7 +16,7 @@ namespace jenlib::ble {
 
 //! @brief Simple Sensor application facade.
 class Sensor {
-public:
+ public:
     explicit Sensor(DeviceId self_id) : self_id_(self_id) {}
 
     //! @brief Start BLE (forwards to driver).
@@ -41,13 +42,13 @@ public:
     //! @brief Process events (call in loop).
     void process_events() { BLE::process_events(); }
 
-private:
+ private:
     DeviceId self_id_;
 };
 
 //! @brief Simple Broker application facade.
 class Broker {
-public:
+ public:
     Broker() = default;
 
     bool begin() { return BLE::begin(); }
