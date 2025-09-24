@@ -15,9 +15,9 @@ namespace jenlib::state {
 
 //! @brief Broker state enumeration
 enum class BrokerState : std::uint8_t {
-    kNoSession = 0x01,     //!< No active session
-    kSessionStarted = 0x02, //!< Session started, collecting readings
-    kError = 0x03          //!< Error state
+    kNoSession = 0x01,      //!< No active session
+    kSessionStarted = 0x02,  //!< Session started, collecting readings
+    kError = 0x03           //!< Error state
 };
 
 //! @brief Broker state machine
@@ -25,7 +25,7 @@ enum class BrokerState : std::uint8_t {
 //! Manages the lifecycle of a BLE broker from session initiation through data collection.
 //! Handles state transitions based on backend commands and sensor responses.
 class BrokerStateMachine : public StateMachine<BrokerState> {
-public:
+ public:
     //! @brief Constructor
     BrokerStateMachine();
 
@@ -73,14 +73,14 @@ public:
     //! @brief Get session start time
     std::uint32_t get_session_start_time_ms() const { return session_start_time_ms_; }
 
-protected:
+ protected:
     //! @brief Check if transition is valid
     bool is_valid_transition(BrokerState from_state, BrokerState to_state) const override;
 
     //! @brief Get initial state
     BrokerState get_initial_state() const override { return BrokerState::kNoSession; }
 
-private:
+ private:
     //! @brief Handle state entry actions
     void on_state_entry(BrokerState state);
 
@@ -111,7 +111,7 @@ private:
     bool session_active_;
 };
 
-} // namespace jenlib::state
+}  // namespace jenlib::state
 
-#endif // INCLUDE_JENLIB_STATE_BROKERSTATEMACHINE_H_
+#endif  // INCLUDE_JENLIB_STATE_BROKERSTATEMACHINE_H_
 

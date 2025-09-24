@@ -20,9 +20,9 @@
 namespace measurement {
 
 struct Measurement {
-    std::uint32_t timestamp_ms; //!< Offset since start of session in milliseconds.
-    float temperature_c; //!< Temperature in Celsius.
-    float humidity_bp; //!< Humidity in percentage.
+    std::uint32_t timestamp_ms;  //!< Offset since start of session in milliseconds.
+    float temperature_c;         //!< Temperature in Celsius.
+    float humidity_bp;           //!< Humidity in percentage.
 
     //! @brief Serialize a Measurement to a BLE payload.
     //! @param measurement The measurement to serialize.
@@ -70,6 +70,6 @@ inline float humidity_from_basis_points(std::uint16_t humidity_bp) {
     return static_cast<float>(humidity_bp) / 100.0f;
 }
 
-} // namespace measurement
+}  // namespace measurement
 
-#endif // INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_
+#endif  // INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_

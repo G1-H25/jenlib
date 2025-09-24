@@ -30,9 +30,9 @@ constexpr std::string_view kChrReceipt = "6e400012-b5a3-f393-e0a9-e50e24dcca9e";
 //! @brief Session: Read (optional)
 constexpr std::string_view kChrSession = "6e400013-b5a3-f393-e0a9-e50e24dcca9e";
 
-} // namespace gatt
+}  // namespace gatt
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_GATTPROFILE_H_
 

@@ -1,3 +1,6 @@
+//! @file include/jenlib/onewire/OneWireBus.h
+//! @brief Type-safe OneWire bus interface
+//! Copyright 2025 Jennifer Gott
 #ifndef INCLUDE_JENLIB_ONEWIRE_ONEWIREBUS_H_
 #define INCLUDE_JENLIB_ONEWIRE_ONEWIREBUS_H_
 
@@ -19,18 +22,18 @@ namespace OneWire {
 //! All multi-byte data uses little-endian byte order as sent on the wire (LSB first)
 //! consistent with 1-Wire protocol.
 class OneWireBus {
-    public:
+ public:
         using byte = std::uint8_t;
         //! 64-bit ROM code, LSB first as transmitted on the wire.
         using rom_code_t = std::array<byte, 8>;
 
         //! @brief Standard ROM-level commands.
         enum class Command : byte {
-            ReadRom    = 0x33,  //  Single-drop only
-            MatchRom   = 0x55,
-            SearchRom  = 0xF0,
-            AlarmSearch= 0xEC,
-            SkipRom    = 0xCC
+            ReadRom     = 0x33,  //  Single-drop only
+            MatchRom    = 0x55,
+            SearchRom   = 0xF0,
+            AlarmSearch = 0xEC,
+            SkipRom     = 0xCC
         };
 
         //! @brief Constructor with type-safe pin.
@@ -106,7 +109,7 @@ class OneWireBus {
         template <typename InputIt>
         static std::uint8_t crc8(InputIt first, InputIt last);
 
-    private:
+ private:
         //! @brief The pin used for this OneWire bus.
         std::uint8_t pin_;
 
@@ -138,13 +141,13 @@ inline std::uint8_t OneWireBus::crc8(InputIt first, InputIt last) {
         for (int i = 0; i < 8; ++i) {
             std::uint8_t mix = (crc ^ in) & 0x01;
             crc >>= 1;
-            if (mix) crc ^= 0x8C; // reversed 0x31
+            if (mix) crc ^= 0x8C;  //  reversed 0x31
             in >>= 1;
         }
     }
     return crc;
 }
 
-} // namespace OneWire
+}  // namespace OneWire
 
-#endif // INCLUDE_JENLIB_ONEWIRE_ONEWIREBUS_H_
+#endif  // INCLUDE_JENLIB_ONEWIRE_ONEWIREBUS_H_

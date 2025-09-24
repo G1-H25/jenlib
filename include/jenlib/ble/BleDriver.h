@@ -6,8 +6,8 @@
 #ifndef INCLUDE_JENLIB_BLE_BLEDRIVER_H_
 #define INCLUDE_JENLIB_BLE_BLEDRIVER_H_
 
-#include <cstdint> //!< For uint8_t
-#include <functional> //!< For function callbacks
+#include <cstdint>  //!< For uint8_t
+#include <functional>  //!< For function callbacks
 #include <initializer_list>
 #include "jenlib/ble/Payload.h"
 #include "jenlib/ble/Ids.h"
@@ -125,7 +125,7 @@ class BleDriver {
     virtual void clear_connection_callback() = 0;
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_BLEDRIVER_H_
 
