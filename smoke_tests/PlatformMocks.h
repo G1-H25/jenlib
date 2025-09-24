@@ -17,13 +17,14 @@
 #include <mutex>
 #include <thread>
 #include <atomic>
+#include <utility>
 
 namespace smoke_tests {
 
 //! @brief Mock time driver for smoke testing
 //! @details Simulates time advancement for deterministic testing
 class MockTimeDriver : public jenlib::time::TimeDriver {
-public:
+ public:
     MockTimeDriver() : start_time_(std::chrono::steady_clock::now()), current_time_ms_(0) {}
 
     std::uint32_t now() override {
@@ -54,7 +55,7 @@ public:
         current_time_ms_ = 0;
     }
 
-private:
+ private:
     std::chrono::steady_clock::time_point start_time_;
     std::uint32_t current_time_ms_;
     std::mutex time_mutex_;
@@ -63,7 +64,7 @@ private:
 //! @brief Mock BLE driver for smoke testing
 //! @details Simulates BLE communication using in-memory message queues
 class MockBleDriver : public jenlib::ble::BleDriver {
-public:
+ public:
     MockBleDriver() : initialized_(false), connected_(false), local_device_id_(0) {}
 
     bool begin() override {
@@ -102,7 +103,7 @@ public:
         std::lock_guard<std::mutex> lock(message_mutex_);
         // Simulate broadcast - add to all device inboxes
         for (auto& [target_id, inbox] : device_inboxes_) {
-            if (target_id != device_id) { // Don't send to self
+            if (target_id != device_id) {  //  Don't send to self
                 inbox.emplace(device_id, std::move(payload));
             }
         }
@@ -254,7 +255,7 @@ public:
         return 0;
     }
 
-private:
+ private:
     struct Message {
         jenlib::ble::DeviceId sender_id;
         jenlib::ble::BlePayload payload;
@@ -297,7 +298,7 @@ private:
 
 //! @brief Mock sensor reading functions for smoke testing
 class MockSensorReadings {
-public:
+ public:
     static float read_temperature_sensor() {
         static float base_temp = 22.5f;
         static float variation = 0.0f;
@@ -323,7 +324,7 @@ public:
 
 //! @brief Mock broker behavior for smoke testing
 class MockBroker {
-public:
+ public:
     MockBroker(jenlib::ble::DeviceId broker_id, MockBleDriver* ble_driver)
         : broker_id_(broker_id), ble_driver_(ble_driver), session_active_(false) {
         ble_driver_->register_device(broker_id_);
@@ -332,7 +333,7 @@ public:
 
     void start_session(jenlib::ble::DeviceId sensor_id, jenlib::ble::SessionId session_id) {
         if (session_active_) {
-            return; // Already have an active session
+            return;  //  Already have an active session
         }
 
         jenlib::ble::StartBroadcastMsg msg{
@@ -363,7 +364,7 @@ public:
             if (session_active_) {
                 jenlib::ble::ReceiptMsg receipt{
                     .session_id = current_session_id_,
-                    .up_to_offset_ms = 1000 // Acknowledge up to 1 second
+                    .up_to_offset_ms = 1000  //  Acknowledge up to 1 second
                 };
 
                 jenlib::ble::BlePayload receipt_payload;
@@ -378,7 +379,7 @@ public:
     jenlib::ble::SessionId get_current_session_id() const { return current_session_id_; }
     jenlib::ble::DeviceId get_current_sensor_id() const { return current_sensor_id_; }
 
-private:
+ private:
     jenlib::ble::DeviceId broker_id_;
     MockBleDriver* ble_driver_;
     bool session_active_;
@@ -386,7 +387,7 @@ private:
     jenlib::ble::DeviceId current_sensor_id_;
 };
 
-} // namespace smoke_tests
+}  // namespace smoke_tests
 
-#endif // SMOKE_TESTS_PLATFORMMOCKS_H_
+#endif  // SMOKE_TESTS_PLATFORMMOCKS_H_
 
