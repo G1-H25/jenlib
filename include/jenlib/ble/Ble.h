@@ -7,6 +7,7 @@
 #define INCLUDE_JENLIB_BLE_BLE_H_
 
 #include <memory>
+#include <utility>
 #include "jenlib/ble/BleDriver.h"
 #include "jenlib/ble/Messages.h"
 
@@ -125,7 +126,7 @@ class BLE {
     static inline BleDriver *driver_ = nullptr;
 };
 
-}  // namespace ble
+}  // namespace jenlib::ble
 
 
 #endif  // INCLUDE_JENLIB_BLE_BLE_H_

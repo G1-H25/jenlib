@@ -10,6 +10,7 @@
 #include <functional>
 #include <string_view>
 #include <jenlib/events/EventTypes.h>
+#include <utility>
 
 namespace jenlib::state {
 
@@ -32,7 +33,7 @@ public:
     using ErrorCallback = std::function<void(std::string_view error)>;
 
     //! @brief Constructor
-    StateMachine(State initial_state) : current_state_(initial_state), previous_state_(initial_state) {}
+    explicit StateMachine(State initial_state) : current_state_(initial_state), previous_state_(initial_state) {}
 
     //! @brief Virtual destructor
     virtual ~StateMachine() = default;
@@ -119,6 +120,6 @@ private:
     ErrorCallback error_callback_;
 };
 
-} // namespace jenlib::state
+}  // namespace jenlib::state
 
 #endif // INCLUDE_JENLIB_STATE_STATEMACHINE_H_

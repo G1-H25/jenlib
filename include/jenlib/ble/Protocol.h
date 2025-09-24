@@ -10,6 +10,7 @@
 
 #include <cstdint>
 #include <string_view>
+#include <utility>
 
 namespace jenlib::ble::protocol {
 
@@ -48,7 +49,7 @@ namespace contract {
     inline constexpr bool kReceiptBrokerToSensor = true;
 }
 
-} // namespace jenlib::ble::protocol
+}  // namespace jenlib::ble::protocol
 
 #endif // INCLUDE_JENLIB_BLE_PROTOCOL_H_
 

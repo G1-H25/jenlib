@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <utility>
 
 namespace jenlib::time {
 
@@ -55,7 +56,7 @@ struct TimerEntry {
         , state(TimerState::kActive) {}
 };
 
-} // namespace jenlib::time
+}  // namespace jenlib::time
 
 #endif // INCLUDE_JENLIB_TIME_TIMETYPES_H_
 

@@ -8,6 +8,7 @@
 
 #include "jenlib/time/TimeDriver.h"
 #include "jenlib/time/TimeTypes.h"
+#include <utility>
 
 //! @namespace jenlib::time
 //! @brief Abstracting time handling away from hardware bound libraries
@@ -109,7 +110,7 @@ inline TimerId schedule_one_shot(std::uint32_t delay_ms, TimerCallback callback)
     return Time::schedule_callback(delay_ms, std::move(callback), false);
 }
 
-} // namespace jenlib::time
+}  // namespace jenlib::time
 
 #endif // INCLUDE_JENLIB_TIME_TIME_H_
 

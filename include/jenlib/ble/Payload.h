@@ -7,6 +7,7 @@
 #define INCLUDE_JENLIB_BLE_PAYLOAD_H_
 
 #include <array>
+#include <utility>
 #include <cstdint>
 
 namespace jenlib::ble {

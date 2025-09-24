@@ -1,8 +1,8 @@
 //! @file include/jenlib/ble/BleRoles.h
 //! @brief Minimal role-based API for student-facing apps (Sensor/Broker).
 
-#ifndef INCLUDE_JENLIB_BLE_BLEROLES_H_
-#define INCLUDE_JENLIB_BLE_BLEROLES_H_
+#ifndef INCLUDE_JENLIB_BLE_ROLES_H_
+#define INCLUDE_JENLIB_BLE_ROLES_H_
 
 #include <cstdint>
 #include <string_view>
@@ -73,9 +73,9 @@ public:
     void process_events() { BLE::process_events(); }
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 
-#endif // INCLUDE_JENLIB_BLE_BLEROLES_H_
+#endif  // INCLUDE_JENLIB_BLE_ROLES_H_
 
 
 
