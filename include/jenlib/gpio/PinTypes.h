@@ -17,7 +17,7 @@ namespace GPIO {
 //! when needed for compatibility with existing libraries like OneWire, SPI, I2C, etc.
 template<typename Tag>
 class TypedPin {
-public:
+ public:
     //! @brief Construct from a GPIO::Pin.
     explicit TypedPin(const Pin& pin) noexcept : pin_(pin) {}
 
@@ -42,19 +42,19 @@ public:
     //! @brief Access GPIO operations through the underlying pin.
     const Pin& operator*() const noexcept { return pin_; }
 
-private:
+ private:
     Pin pin_;
 };
 
 //! @brief Tag types for different pin uses.
 namespace PinTags {
-    struct OneWire {};
-    struct SPI {};
-    struct I2C {};
-    struct UART {};
-    struct PWM {};
-    struct ADC {};
-    struct Digital {};
+struct OneWire {};
+struct SPI {};
+struct I2C {};
+struct UART {};
+struct PWM {};
+struct ADC {};
+struct Digital {};
 }
 
 //! @brief Type aliases for common pin types.

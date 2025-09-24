@@ -6,9 +6,9 @@
 #ifndef INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_
 #define INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_
 
+#include <chrono>
 #include "jenlib/time/TimeDriver.h"
 #include "jenlib/time/TimeTypes.h"
-#include <chrono>
 
 namespace jenlib::time {
 
@@ -17,7 +17,7 @@ namespace jenlib::time {
 //! Provides time functionality using std::chrono for native desktop environments.
 //! Uses steady_clock for consistent timing across different platforms.
 class NativeTimeDriver : public TimeDriver {
-public:
+ public:
     //! @brief Get current time in milliseconds using std::chrono
     //! @return Current time in milliseconds
     std::uint32_t now() override;
@@ -37,7 +37,7 @@ public:
     //! @return Time since epoch in milliseconds
     static std::uint64_t get_epoch_time_ms();
 
-private:
+ private:
     //! @brief Time point when the driver was initialized
     static std::chrono::steady_clock::time_point start_time_;
 
@@ -45,7 +45,7 @@ private:
     static bool initialized_;
 };
 
-} // namespace jenlib::time
+}  // namespace jenlib::time
 
-#endif // INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_
+#endif  // INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_
 

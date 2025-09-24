@@ -15,7 +15,7 @@ namespace jenlib::time {
 //! Defines the contract that all time drivers must implement.
 //! Provides platform-agnostic time functionality for the Time service.
 class TimeDriver {
-public:
+ public:
     virtual ~TimeDriver() = default;
 
     //! @brief Get current time in milliseconds
@@ -27,7 +27,7 @@ public:
     virtual void delay(std::uint32_t delay_ms) = 0;
 };
 
-} // namespace jenlib::time
+}  // namespace jenlib::time
 
-#endif // INCLUDE_JENLIB_TIME_TIMEDRIVER_H_
+#endif  // INCLUDE_JENLIB_TIME_TIMEDRIVER_H_
 

@@ -1,13 +1,13 @@
 #ifndef INCLUDE_JENLIB_ONEWIRE_ONEWIREBUS_H_
 #define INCLUDE_JENLIB_ONEWIRE_ONEWIREBUS_H_
 
-#include "../gpio/GPIO.h"
-#include "../gpio/PinTypes.h"
+#include <cstddef>
 #include <cstdint>
 #include <array>
 #include <iterator>
 #include <type_traits>
-#include <cstddef>
+#include "../gpio/GPIO.h"
+#include "../gpio/PinTypes.h"
 
 //! @namespace OneWire
 //! @brief Public wrapper API for OneWire bus operations.
@@ -26,7 +26,7 @@ class OneWireBus {
 
         //! @brief Standard ROM-level commands.
         enum class Command : byte {
-            ReadRom    = 0x33, // Single-drop only
+            ReadRom    = 0x33,  //  Single-drop only
             MatchRom   = 0x55,
             SearchRom  = 0xF0,
             AlarmSearch= 0xEC,

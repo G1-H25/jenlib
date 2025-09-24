@@ -20,7 +20,7 @@ namespace jenlib::time {
 //! Supports timer scheduling, cancellation, and processing across different
 //! platforms (Arduino, ESP-IDF, native).
 class Time {
-public:
+ public:
     //! @brief Schedule a timer callback
     //! @param interval_ms Timer interval in milliseconds
     //! @param callback Function to call when timer expires
@@ -71,7 +71,7 @@ public:
     //! @return Pointer to the current time driver, or nullptr if none set
     static TimeDriver* getDriver() noexcept;
 
-private:
+ private:
     //! @brief Get the next available timer ID
     static TimerId get_next_timer_id();
 
@@ -112,5 +112,5 @@ inline TimerId schedule_one_shot(std::uint32_t delay_ms, TimerCallback callback)
 
 }  // namespace jenlib::time
 
-#endif // INCLUDE_JENLIB_TIME_TIME_H_
+#endif  // INCLUDE_JENLIB_TIME_TIME_H_
 

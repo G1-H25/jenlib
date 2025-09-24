@@ -19,7 +19,7 @@ namespace jenlib::events {
 //! Supports event registration, dispatch, and processing with thread-safe
 //! operations where supported by the platform.
 class EventDispatcher {
-public:
+ public:
     //! @brief Register a callback for a specific event type
     //! @param event_type The type of event to register for
     //! @param callback The callback function to invoke
@@ -64,7 +64,7 @@ public:
     //! @brief Initialize the event dispatcher (called automatically on first use)
     static void initialize();
 
-private:
+ private:
     //! @brief Internal callback entry structure
     struct CallbackEntry {
         EventId id;
@@ -120,7 +120,7 @@ private:
 
     //! @brief Circular buffer iterator for events
     class CircularBufferIterator {
-    public:
+     public:
         using iterator_category = std::forward_iterator_tag;
         using value_type = Event;
         using difference_type = std::ptrdiff_t;
@@ -158,7 +158,7 @@ private:
             return pos_ != other.pos_;
         }
 
-    private:
+     private:
         std::array<Event, kMaxEventQueueSize>& buffer_;
         std::size_t head_;
         std::size_t size_;
@@ -183,5 +183,5 @@ private:
 
 }  // namespace jenlib::events
 
-#endif // INCLUDE_JENLIB_EVENTS_EVENTDISPATCHER_H_
+#endif  // INCLUDE_JENLIB_EVENTS_EVENTDISPATCHER_H_
 
