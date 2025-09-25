@@ -1,0 +1,53 @@
+{
+  "batch_id": "batch-1",
+  "generated_at": 1758643200,
+  "sensors": [
+    {
+      "sensor_id": 1,
+      "measurements": [
+        { "timestamp": 1758643200, "temperature_c": -19.8, "humidity_pct": 41.2 },
+        { "timestamp": 1758643260, "temperature_c": -19.5, "humidity_pct": 42.0 },
+        { "timestamp": 1758643320, "temperature_c": -18.9, "humidity_pct": 43.7 },
+        { "timestamp": 1758643380, "temperature_c": -18.4, "humidity_pct": 45.1 },
+        { "timestamp": 1758643440, "temperature_c": -17.9, "humidity_pct": 46.3 },
+        { "timestamp": 1758643500, "temperature_c": -17.6, "humidity_pct": 47.5 },
+        { "timestamp": 1758643560, "temperature_c": -17.1, "humidity_pct": 48.2 },
+        { "timestamp": 1758643620, "temperature_c": -16.7, "humidity_pct": 49.0 },
+        { "timestamp": 1758643680, "temperature_c": -16.2, "humidity_pct": 50.4 },
+        { "timestamp": 1758643740, "temperature_c": -15.6, "humidity_pct": 51.1 }
+      ]
+    },
+    {
+      "sensor_id": 2,
+      "measurements": [
+        { "timestamp": 1758643210, "temperature_c": -20.0, "humidity_pct": 55.0 },
+        { "timestamp": 1758643270, "temperature_c": -19.6, "humidity_pct": 54.2 },
+        { "timestamp": 1758643330, "temperature_c": -19.0, "humidity_pct": 53.5 },
+        { "timestamp": 1758643390, "temperature_c": -18.5, "humidity_pct": 52.8 },
+        { "timestamp": 1758643450, "temperature_c": -18.0, "humidity_pct": 52.0 },
+        { "timestamp": 1758643510, "temperature_c": -17.4, "humidity_pct": 51.3 },
+        { "timestamp": 1758643570, "temperature_c": -16.9, "humidity_pct": 50.7 },
+        { "timestamp": 1758643630, "temperature_c": -16.4, "humidity_pct": 49.9 },
+        { "timestamp": 1758643690, "temperature_c": -15.9, "humidity_pct": 49.2 },
+        { "timestamp": 1758643750, "temperature_c": -15.3, "humidity_pct": 48.6 }
+      ]
+    },
+    {
+      "sensor_id": 3,
+      "measurements": [
+        { "timestamp": 1758643220, "temperature_c": -19.7, "humidity_pct": 36.4 },
+        { "timestamp": 1758643280, "temperature_c": -19.2, "humidity_pct": 37.1 },
+        { "timestamp": 1758643340, "temperature_c": -18.8, "humidity_pct": 38.0 },
+        { "timestamp": 1758643400, "temperature_c": -18.3, "humidity_pct": 38.6 },
+        { "timestamp": 1758643460, "temperature_c": -17.8, "humidity_pct": 39.3 },
+        { "timestamp": 1758643520, "temperature_c": -17.2, "humidity_pct": 40.1 },
+        { "timestamp": 1758643580, "temperature_c": -16.8, "humidity_pct": 41.0 },
+        { "timestamp": 1758643640, "temperature_c": -16.3, "humidity_pct": 41.7 },
+        { "timestamp": 1758643700, "temperature_c": -15.8, "humidity_pct": 42.5 },
+        { "timestamp": 1758643760, "temperature_c": -15.1, "humidity_pct": 43.2 }
+      ]
+    }
+  ]
+}
+
+

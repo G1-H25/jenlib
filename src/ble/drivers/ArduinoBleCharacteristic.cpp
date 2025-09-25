@@ -121,5 +121,5 @@ class ArduinoBleCharacteristic : public BleCharacteristic {
 #endif
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 

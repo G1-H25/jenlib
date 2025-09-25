@@ -62,5 +62,5 @@ class NativeBleService : public jenlib::ble::BleService {
     bool advertising_;
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 

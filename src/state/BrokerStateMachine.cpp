@@ -40,7 +40,7 @@ bool BrokerStateMachine::handle_event(const jenlib::events::Event& event) {
 
 bool BrokerStateMachine::handle_start_command(jenlib::ble::DeviceId sensor_id, jenlib::ble::SessionId session_id) {
     if (!is_in_state(BrokerState::kNoSession)) {
-        return false; // Can only start new session when no session is active
+        return false;  // Can only start new session when no session is active
     }
 
     start_session(sensor_id, session_id);
@@ -51,7 +51,7 @@ bool BrokerStateMachine::handle_reading(jenlib::ble::DeviceId sender_id, const j
     if (!is_in_state(BrokerState::kSessionStarted) ||
         sender_id != target_sensor_id_ ||
         msg.session_id != current_session_id_) {
-        return false; // Can only receive readings when session is active and IDs match
+        return false;  // Can only receive readings when session is active and IDs match
     }
 
     process_reading(msg);
@@ -60,7 +60,7 @@ bool BrokerStateMachine::handle_reading(jenlib::ble::DeviceId sender_id, const j
 
 bool BrokerStateMachine::handle_session_end() {
     if (!is_in_state(BrokerState::kSessionStarted)) {
-        return false; // Can only end session when session is active
+        return false;  // Can only end session when session is active
     }
 
     end_session();
@@ -69,7 +69,7 @@ bool BrokerStateMachine::handle_session_end() {
 
 bool BrokerStateMachine::handle_backend_timeout() {
     if (!is_in_state(BrokerState::kSessionStarted)) {
-        return false; // Can only timeout when session is active
+        return false;  // Can only timeout when session is active
     }
 
     // Handle timeout - could end session or retry
@@ -181,5 +181,5 @@ void BrokerStateMachine::process_reading(const jenlib::ble::ReadingMsg& msg) {
     // For now, just track the reading
 }
 
-} // namespace jenlib::state
+}  // namespace jenlib::state
 

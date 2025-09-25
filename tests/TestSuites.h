@@ -138,5 +138,5 @@
         RUN_TEST(test_conversion_boundaries); \
     )
 
-#endif // TESTS_TESTSUITES_H_
+#endif  // TESTS_TESTSUITES_H_
 

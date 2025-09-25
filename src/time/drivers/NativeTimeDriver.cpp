@@ -51,5 +51,5 @@ std::uint64_t NativeTimeDriver::get_epoch_time_ms() {
     return static_cast<std::uint64_t>(duration.count());
 }
 
-} // namespace jenlib::time
+}  // namespace jenlib::time
 

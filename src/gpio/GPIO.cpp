@@ -1,6 +1,8 @@
-
 //! @file src/gpio/GPIO.cpp
 //! @brief GPIO wrapper implementation
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
+
 #include <jenlib/gpio/GPIO.h>
 
 //! @namespace anonymous namespace
@@ -77,7 +79,7 @@ jenlib::gpio::GpioDriver* getDriver() noexcept {
     return g_driver;
 }
 
-} // namespace GPIO
+}  // namespace GPIO
 
 
 

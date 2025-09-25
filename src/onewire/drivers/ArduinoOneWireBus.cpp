@@ -112,9 +112,9 @@ bool OneWireBus::read_bit() {
     return ow.read_bit() == 1;
 }
 
-} // namespace OneWire
+}  // namespace OneWire
 
-#endif // JENLIB_ENABLE_ARDUINO_ONEWIRE
+#endif  // JENLIB_ENABLE_ARDUINO_ONEWIRE
 
 
 

@@ -50,9 +50,11 @@ bool SensorStateMachine::handle_connection_change(bool connected) {
     return false;
 }
 
-bool SensorStateMachine::handle_start_broadcast(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBroadcastMsg& msg) {
+bool SensorStateMachine::handle_start_broadcast(
+    jenlib::ble::DeviceId sender_id,
+    const jenlib::ble::StartBroadcastMsg& msg) {
     if (!is_in_state(SensorState::kWaiting)) {
-        return false; // Can only start broadcast when waiting
+        return false;  // Can only start broadcast when waiting
     }
 
     start_measurement_session(msg);
@@ -61,7 +63,7 @@ bool SensorStateMachine::handle_start_broadcast(jenlib::ble::DeviceId sender_id,
 
 bool SensorStateMachine::handle_receipt(jenlib::ble::DeviceId sender_id, const jenlib::ble::ReceiptMsg& msg) {
     if (!is_in_state(SensorState::kRunning) || msg.session_id != current_session_id_) {
-        return false; // Can only receive receipts when running and session matches
+        return false;  // Can only receive receipts when running and session matches
     }
 
     // Process receipt - could purge buffered readings here
@@ -70,7 +72,7 @@ bool SensorStateMachine::handle_receipt(jenlib::ble::DeviceId sender_id, const j
 
 bool SensorStateMachine::handle_session_end() {
     if (!is_in_state(SensorState::kRunning)) {
-        return false; // Can only end session when running
+        return false;  // Can only end session when running
     }
 
     stop_measurement_session();
@@ -79,7 +81,7 @@ bool SensorStateMachine::handle_session_end() {
 
 bool SensorStateMachine::handle_measurement_timer() {
     if (!is_in_state(SensorState::kRunning)) {
-        return false; // Can only take measurements when running
+        return false;  // Can only take measurements when running
     }
 
     take_measurement();
@@ -103,10 +105,14 @@ bool SensorStateMachine::is_valid_transition(SensorState from_state, SensorState
             return to_state == SensorState::kWaiting || to_state == SensorState::kError;
 
         case SensorState::kWaiting:
-            return to_state == SensorState::kRunning || to_state == SensorState::kDisconnected || to_state == SensorState::kError;
+            return to_state == SensorState::kRunning ||
+                   to_state == SensorState::kDisconnected ||
+                   to_state == SensorState::kError;
 
         case SensorState::kRunning:
-            return to_state == SensorState::kWaiting || to_state == SensorState::kDisconnected || to_state == SensorState::kError;
+            return to_state == SensorState::kWaiting ||
+                   to_state == SensorState::kDisconnected ||
+                   to_state == SensorState::kError;
 
         case SensorState::kError:
             return to_state == SensorState::kDisconnected;
@@ -184,5 +190,5 @@ void SensorStateMachine::take_measurement() {
     // The state machine just manages the timing and state
 }
 
-} // namespace jenlib::state
+}  // namespace jenlib::state
 

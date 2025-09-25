@@ -77,5 +77,5 @@ class NativeBleCharacteristic : public jenlib::ble::BleCharacteristic {
     jenlib::ble::BleCharacteristicCallback callback_;
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 

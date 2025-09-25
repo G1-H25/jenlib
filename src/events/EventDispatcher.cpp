@@ -200,5 +200,5 @@ EventDispatcher::CircularBufferIterator EventDispatcher::event_queue_end() {
     return CircularBufferIterator(event_queue_, queue_head_, queue_size_, queue_size_);
 }
 
-} // namespace jenlib::events
+}  // namespace jenlib::events
 

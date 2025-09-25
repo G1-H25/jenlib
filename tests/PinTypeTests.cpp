@@ -67,7 +67,7 @@ void test_onewire_type_safety(void) {
     GPIO::OneWirePin onewire_pin(17);
     OneWire::OneWireBus bus1(onewire_pin);
     bus1.begin();
-    TEST_ASSERT_TRUE(bus1.reset()); // Should work with our mock implementation
+    TEST_ASSERT_TRUE(bus1.reset());  // Should work with our mock implementation
 
     // Test construction with GPIO::Pin
     GPIO::Pin base_pin(18);

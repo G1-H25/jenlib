@@ -69,12 +69,12 @@ void test_measurement_serialize() {
     // Check temperature (little-endian)
     std::int16_t temp_centi = 0;
     TEST_ASSERT_TRUE(jenlib::ble::read_i16le(it, end, temp_centi));
-    TEST_ASSERT_EQUAL_INT16(2345, temp_centi); // 23.45 * 100
+    TEST_ASSERT_EQUAL_INT16(2345, temp_centi);  // 23.45 * 100
 
     // Check humidity (little-endian)
     std::uint16_t humidity_bp = 0;
     TEST_ASSERT_TRUE(jenlib::ble::read_u16le(it, end, humidity_bp));
-    TEST_ASSERT_EQUAL_UINT16(6789, humidity_bp); // 67.89 * 100
+    TEST_ASSERT_EQUAL_UINT16(6789, humidity_bp);  // 67.89 * 100
 
     // Should have consumed all data
     TEST_ASSERT_TRUE(it == end);
@@ -140,7 +140,7 @@ void test_measurement_deserialize_errors() {
     large_payload.append_u32le(12345U);
     large_payload.append_i16le(2345);
     large_payload.append_u16le(3456);
-    large_payload.append_u8(0xFF); // Extra byte
+    large_payload.append_u8(0xFF);  // Extra byte
     TEST_ASSERT_FALSE(measurement::Measurement::deserialize(std::move(large_payload), result));
 }
 
@@ -154,12 +154,12 @@ void test_payload_consumption() {
     // Serialize measurement
     jenlib::ble::BlePayload payload;
     TEST_ASSERT_TRUE(measurement::Measurement::serialize(original, payload));
-    TEST_ASSERT_FALSE(payload.is_consumed()); // Should not be consumed yet
+    TEST_ASSERT_FALSE(payload.is_consumed());  // Should not be consumed yet
 
     // Deserialize (should consume the payload)
     measurement::Measurement result;
     TEST_ASSERT_TRUE(measurement::Measurement::deserialize(std::move(payload), result));
-    TEST_ASSERT_TRUE(payload.is_consumed()); // Should be consumed now
+    TEST_ASSERT_TRUE(payload.is_consumed());  // Should be consumed now
 
     // Verify data integrity
     TEST_ASSERT_EQUAL_UINT32(original.timestamp_ms, result.timestamp_ms);
@@ -182,7 +182,7 @@ void test_conversion_boundaries() {
     TEST_ASSERT_EQUAL_UINT16(65535, measurement::humidity_to_basis_points(655.35f));
 }
 
-} // anonymous namespace
+}  // anonymous namespace
 
 //! @brief Run all Measurement tests.
 void run_measurement_tests() {

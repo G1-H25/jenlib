@@ -100,5 +100,5 @@ class ArduinoBleService : public BleService {
 #endif
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 

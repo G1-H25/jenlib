@@ -45,6 +45,6 @@ std::uint32_t ArduinoTimeDriver::time_difference(std::uint32_t current_time, std
     return current_time - previous_time;
 }
 
-} // namespace jenlib::time
+}  // namespace jenlib::time
 #endif
 

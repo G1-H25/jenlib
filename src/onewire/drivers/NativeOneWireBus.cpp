@@ -174,5 +174,5 @@ bool OneWireBus::read_bit() {
     return bit_value;
 }
 
-} // namespace OneWire
+}  // namespace OneWire
 

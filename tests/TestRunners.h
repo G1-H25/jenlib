@@ -30,5 +30,5 @@ void run_time_driver_tests(void);
 //! @brief Run all measurement tests (defined in MeasurementTests.cpp)
 void run_measurement_tests(void);
 
-#endif // TESTS_TESTRUNNERS_H_
+#endif  // TESTS_TESTRUNNERS_H_
 

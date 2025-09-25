@@ -23,7 +23,7 @@ void test_driver_injection_native(void) {
 
     // Verify the driver is being used
     std::uint32_t time1 = Time::now();
-    Time::delay(10); // Small delay
+    Time::delay(10);  // Small delay
     std::uint32_t time2 = Time::now();
 
     // Time should have advanced by at least 10ms

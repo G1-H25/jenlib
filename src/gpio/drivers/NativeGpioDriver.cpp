@@ -12,5 +12,5 @@ namespace jenlib::gpio {
 
 // All methods are inline in the header; no additional implementation needed.
 
-} // namespace jenlib::gpio
+}  // namespace jenlib::gpio
 

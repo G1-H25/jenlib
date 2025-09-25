@@ -161,7 +161,7 @@ class NativeBleDriver : public BleDriver {
 
         // Try type-specific callbacks first
         if (try_type_specific_callbacks(sender_id, payload)) {
-            return; // Handled by type-specific callback
+            return;  // Handled by type-specific callback
         }
 
         // Fallback to generic callback
@@ -201,7 +201,7 @@ class NativeBleDriver : public BleDriver {
                                        (static_cast<std::uint32_t>(payload.bytes[4]) << 24);
             return DeviceId(sender_value);
         }
-        return DeviceId(0); // Unknown sender
+        return DeviceId(0);  // Unknown sender
     }
 
     //! @brief Try to handle payload with type-specific callbacks.
@@ -236,7 +236,7 @@ class NativeBleDriver : public BleDriver {
             }
         }
 
-        return false; // No type-specific callback handled this message
+        return false;  // No type-specific callback handled this message
     }
 
     DeviceId local_device_id_;  //!< Local device identifier.
@@ -250,7 +250,7 @@ class NativeBleDriver : public BleDriver {
     std::mutex mutex_;  //!< Mutex for inbox.
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 
 
 
