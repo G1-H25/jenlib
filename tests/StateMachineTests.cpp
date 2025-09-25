@@ -219,7 +219,7 @@ void test_state_machine_error_transition(void) {
 void test_state_machine_error_recovery(void) {
     //! @section Arrange
     jenlib::state::SensorStateMachine sensor_sm;
-    sensor_sm.handle_error("Test error"); // Put in error state first
+    sensor_sm.handle_error("Test error");  // Put in error state first
 
     //! @section Act
     sensor_sm.handle_recovery();

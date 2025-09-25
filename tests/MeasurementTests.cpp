@@ -1,6 +1,8 @@
 
 //! @file tests/MeasurementTests.cpp
 //! @brief Unit tests for Measurement serialization/deserialization.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 //! @test Serialization and deserialization of Measurement structs to/from BLE payloads.
 //! @test Unit conversion functions for temperature and humidity.
 

@@ -1,6 +1,8 @@
 
 //! @file src/measurement/Measurement.cpp
 //! @brief Implementation of Measurement serialization/deserialization.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include "jenlib/measurement/Measurement.h"
 

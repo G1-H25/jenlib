@@ -1,6 +1,8 @@
 
 //! @file tests/PayloadTests.cpp
 //! @brief Tests for BlePayload bounds and access safety.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <unity.h>
 #include <cstdint>
