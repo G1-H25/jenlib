@@ -24,10 +24,13 @@ jobs:
           pip install cpplint
 
       - name: Run cpplint (include/src only)
+        id: cpplint
+        shell: bash
         run: |
-          set -e
+          set -o pipefail
           mkdir -p reports
           python -m cpplint --recursive include src 2>&1 | tee reports/cpplint_report.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
 
       - name: Upload cpplint report
         if: always()
@@ -35,5 +38,13 @@ jobs:
         with:
           name: cpplint-report
           path: reports/cpplint_report.txt
+
+      - name: Fail if cpplint found issues
+        if: steps.cpplint.outputs.exit_code != '0'
+        env:
+          CPPLINT_EXIT: ${{ steps.cpplint.outputs.exit_code }}
+        run: |
+          echo "cpplint found issues (exit $CPPLINT_EXIT)"
+          exit 1
 
 
