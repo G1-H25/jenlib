@@ -1,0 +1,39 @@
+name: cpplint
+
+on:
+  push:
+    branches: [ development, main ]
+  pull_request:
+    branches: [ development, main ]
+
+jobs:
+  cpplint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install cpplint
+        run: |
+          python -m pip install --upgrade pip
+          pip install cpplint
+
+      - name: Run cpplint (include/src only)
+        run: |
+          set -e
+          mkdir -p reports
+          python -m cpplint --recursive include src 2>&1 | tee reports/cpplint_report.txt
+
+      - name: Upload cpplint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpplint-report
+          path: reports/cpplint_report.txt
+
+
