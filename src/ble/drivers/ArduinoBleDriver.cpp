@@ -111,21 +111,21 @@ class ArduinoBleServiceImpl : public jenlib::ble::BleService {
 // Static protocol objects
 ArduinoBleServiceImpl g_service{jenlib::ble::gatt::kServiceSensor};
 ArduinoBleCharacteristicImpl g_control{
-jenlib::ble::gatt::kChrControl,
-static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Write),
-jenlib::ble::kMaxPayload};
+    jenlib::ble::gatt::kChrControl,
+    static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Write),
+    jenlib::ble::kMaxPayload};
 ArduinoBleCharacteristicImpl g_reading{
-jenlib::ble::gatt::kChrReading,
-static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Notify),
-jenlib::ble::kMaxPayload};
+    jenlib::ble::gatt::kChrReading,
+    static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Notify),
+    jenlib::ble::kMaxPayload};
 ArduinoBleCharacteristicImpl g_receipt{
-jenlib::ble::gatt::kChrReceipt,
-static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Write),
-jenlib::ble::kMaxPayload};
+    jenlib::ble::gatt::kChrReceipt,
+    static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Write),
+    jenlib::ble::kMaxPayload};
 ArduinoBleCharacteristicImpl g_session{
-jenlib::ble::gatt::kChrSession,
-static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Read),
-jenlib::ble::kMaxPayload};
+    jenlib::ble::gatt::kChrSession,
+    static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Read),
+    jenlib::ble::kMaxPayload};
 
 inline jenlib::ble::BleService* make_arduino_service(std::string_view) {
 return &g_service;
