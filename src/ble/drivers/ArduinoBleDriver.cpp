@@ -3,16 +3,16 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
-#include <jenlib/ble/drivers/ArduinoBleDriver.h>
-#include <jenlib/ble/Messages.h>
-#include <jenlib/ble/GattProfile.h>
 #include <utility>
-#include <vector>
-
+#include <array>
 #ifdef ARDUINO
 #include <ArduinoBLE.h>
 #include <Arduino.h>
 #endif
+#include "jenlib/ble/drivers/ArduinoBleDriver.h"
+#include "jenlib/ble/Messages.h"
+#include "jenlib/ble/GattProfile.h"
+
 
 #ifdef ARDUINO
 namespace {
@@ -82,13 +82,16 @@ class ArduinoBleServiceImpl : public jenlib::ble::BleService {
         if (arduino_char) {
             service_.addCharacteristic(arduino_char->arduino());
         }
-        characteristics_.push_back(characteristic);
+        if (characteristic_count_ >= kMaxCharacteristics) {
+            return false;
+        }
+        characteristics_[characteristic_count_++] = characteristic;
         return true;
     }
 
     jenlib::ble::BleCharacteristic* get_characteristic(std::string_view uuid) override {
         (void)uuid;
-        return characteristics_.empty() ? nullptr : characteristics_.front();
+        return characteristic_count_ == 0 ? nullptr : characteristics_[0];
     }
 
     std::string_view get_uuid() const override { return uuid_; }
@@ -104,7 +107,9 @@ class ArduinoBleServiceImpl : public jenlib::ble::BleService {
 
  private:
     std::string_view uuid_;
-    std::vector<jenlib::ble::BleCharacteristic*> characteristics_;
+    static constexpr std::size_t kMaxCharacteristics = 4;
+    std::array<jenlib::ble::BleCharacteristic*, kMaxCharacteristics> characteristics_{};
+    std::size_t characteristic_count_ {0};
     BLEService service_;
 };
 
@@ -128,15 +133,16 @@ ArduinoBleCharacteristicImpl g_session{
     jenlib::ble::kMaxPayload};
 
 inline jenlib::ble::BleService* make_arduino_service(std::string_view) {
-return &g_service;
+    return &g_service;
 }
+
 inline jenlib::ble::BleCharacteristic* make_arduino_characteristic(
-std::string_view uuid, std::uint8_t, std::size_t) {
-if (uuid == jenlib::ble::gatt::kChrControl) return &g_control;
-if (uuid == jenlib::ble::gatt::kChrReading) return &g_reading;
-if (uuid == jenlib::ble::gatt::kChrReceipt) return &g_receipt;
-if (uuid == jenlib::ble::gatt::kChrSession) return &g_session;
-return nullptr;
+    std::string_view uuid, std::uint8_t, std::size_t) {
+    if (uuid == jenlib::ble::gatt::kChrControl) return &g_control;
+    if (uuid == jenlib::ble::gatt::kChrReading) return &g_reading;
+    if (uuid == jenlib::ble::gatt::kChrReceipt) return &g_receipt;
+    if (uuid == jenlib::ble::gatt::kChrSession) return &g_session;
+    return nullptr;
 }
 
 }  // namespace
