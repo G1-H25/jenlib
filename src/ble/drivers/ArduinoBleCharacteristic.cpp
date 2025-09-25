@@ -1,7 +1,9 @@
+
 //! @file src/ble/drivers/ArduinoBleCharacteristic.cpp
 //! @brief Arduino implementation of BLE characteristic using ArduinoBLE library.
 
 #include <jenlib/ble/drivers/BleCharacteristic.h>
+#include <utility>
 
 #ifdef ARDUINO
 #include <ArduinoBLE.h>

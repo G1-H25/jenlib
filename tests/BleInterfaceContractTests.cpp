@@ -291,7 +291,7 @@ void test_messaging_with_normal_device_id(void) {
 
 //! @test Test callback parameters are passed correctly
 void test_callback_parameters_passed_correctly(void) {
-    // Arrange
+    //! @section Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
 
@@ -302,7 +302,7 @@ void test_callback_parameters_passed_correctly(void) {
     BlePayload actual_payload;
     bool callback_called = false;
 
-    // Act - Set callback and send message
+    //! @section Act - Set callback and send message
     driver.set_message_callback([&](DeviceId sender_id, const BlePayload& payload) {
         actual_sender = sender_id;
         actual_payload = payload;
@@ -311,7 +311,7 @@ void test_callback_parameters_passed_correctly(void) {
 
     driver.send_to(expected_sender, expected_payload);
 
-    // Assert
+    //! @section Assert
     TEST_ASSERT_TRUE(callback_called);
     TEST_ASSERT_EQUAL_UINT32(expected_sender.value(), actual_sender.value());
     BleDriverTestUtils::verify_test_payload(actual_payload);

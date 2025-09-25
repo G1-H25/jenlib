@@ -1,8 +1,10 @@
+
 //! @file src/ble/drivers/ArduinoBleService.cpp
 //! @brief Arduino implementation of BLE service using ArduinoBLE library.
 
 #include <jenlib/ble/drivers/BleService.h>
 #include <jenlib/ble/drivers/BleCharacteristic.h>
+#include <vector>
 
 #ifdef ARDUINO
 #include <ArduinoBLE.h>

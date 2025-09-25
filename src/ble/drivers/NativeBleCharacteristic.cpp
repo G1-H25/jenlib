@@ -1,9 +1,11 @@
+
 //! @file src/ble/drivers/NativeBleCharacteristic.cpp
 //! @brief Native implementation of BLE characteristic for testing/simulation.
 
 #include <jenlib/ble/drivers/BleCharacteristic.h>
 #include <array>
 #include <cstring>
+#include <utility>
 
 namespace jenlib::ble {
 

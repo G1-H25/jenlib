@@ -83,12 +83,12 @@ class CallbackTracker {
 
 //! @test Test type-specific callback registration and invocation
 void test_type_specific_callback_registration(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
 
-    // Act - Register type-specific callbacks
+    //! @section Act - Register type-specific callbacks
     driver.set_start_broadcast_callback([&tracker](DeviceId sender_id, const StartBroadcastMsg& msg) {
         tracker.on_start_broadcast(sender_id, msg);
     });
@@ -99,13 +99,13 @@ void test_type_specific_callback_registration(void) {
         tracker.on_receipt(sender_id, msg);
     });
 
-    // Assert - Callbacks should be registered successfully
+    //! @section Assert - Callbacks should be registered successfully
     TEST_ASSERT_TRUE(true);
 }
 
 //! @test Test StartBroadcast message routing to type-specific callback
 void test_start_broadcast_callback_routing(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -122,10 +122,10 @@ void test_start_broadcast_callback_routing(void) {
     BlePayload payload;
     StartBroadcastMsg::serialize(start_msg, payload);
 
-    // Act - Send message to driver
+    //! @section Act - Send message to driver
     driver.send_to(DeviceId(0x12345678), std::move(payload));
 
-    // Assert - Callback should be invoked
+    //! @section Assert - Callback should be invoked
     TEST_ASSERT_EQUAL_UINT32(1, tracker.start_broadcast_calls.size());
     TEST_ASSERT_EQUAL_UINT32(0x87654321, tracker.start_broadcast_calls[0].sender_id.value());
     TEST_ASSERT_EQUAL_UINT32(0x11111111, tracker.start_broadcast_calls[0].session_id);
@@ -134,7 +134,7 @@ void test_start_broadcast_callback_routing(void) {
 
 //! @test Test Reading message routing to type-specific callback
 void test_reading_callback_routing(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -154,10 +154,10 @@ void test_reading_callback_routing(void) {
     BlePayload payload;
     ReadingMsg::serialize(reading_msg, payload);
 
-    // Act - Send message to driver
+    //! @section Act - Send message to driver
     driver.send_to(DeviceId(0x12345678), std::move(payload));
 
-    // Assert - Callback should be invoked
+    //! @section Assert - Callback should be invoked
     TEST_ASSERT_EQUAL_UINT32(1, tracker.reading_calls.size());
     TEST_ASSERT_EQUAL_UINT32(0x87654321, tracker.reading_calls[0].sender_id.value());
     TEST_ASSERT_EQUAL_UINT32(0x22222222, tracker.reading_calls[0].session_id);
@@ -169,7 +169,7 @@ void test_reading_callback_routing(void) {
 
 //! @test Test Receipt message routing to type-specific callback
 void test_receipt_callback_routing(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -186,10 +186,10 @@ void test_receipt_callback_routing(void) {
     BlePayload payload;
     ReceiptMsg::serialize(receipt_msg, payload);
 
-    // Act - Send message to driver
+    //! @section Act - Send message to driver
     driver.send_to(DeviceId(0x12345678), std::move(payload));
 
-    // Assert - Callback should be invoked
+    //! @section Assert - Callback should be invoked
     TEST_ASSERT_EQUAL_UINT32(1, tracker.receipt_calls.size());
     TEST_ASSERT_EQUAL_UINT32(0x33333333, tracker.receipt_calls[0].session_id);
     TEST_ASSERT_EQUAL_UINT32(10000, tracker.receipt_calls[0].offset_ms);
@@ -198,7 +198,7 @@ void test_receipt_callback_routing(void) {
 
 //! @test Test callback priority: type-specific over generic
 void test_callback_priority_type_specific_over_generic(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -219,17 +219,17 @@ void test_callback_priority_type_specific_over_generic(void) {
     BlePayload payload;
     StartBroadcastMsg::serialize(start_msg, payload);
 
-    // Act - Send message to driver
+    //! @section Act - Send message to driver
     driver.send_to(DeviceId(0x12345678), std::move(payload));
 
-    // Assert - Only type-specific callback should be invoked
+    //! @section Assert - Only type-specific callback should be invoked
     TEST_ASSERT_EQUAL_UINT32(1, tracker.start_broadcast_calls.size());
     TEST_ASSERT_EQUAL_UINT32(0, tracker.generic_calls.size());
 }
 
 //! @test Test fallback to generic callback when no type-specific callback
 void test_fallback_to_generic_callback(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -247,17 +247,17 @@ void test_fallback_to_generic_callback(void) {
     BlePayload payload;
     StartBroadcastMsg::serialize(start_msg, payload);
 
-    // Act - Send message to driver
+    //! @section Act - Send message to driver
     driver.send_to(DeviceId(0x12345678), std::move(payload));
 
-    // Assert - Generic callback should be invoked
+    //! @section Assert - Generic callback should be invoked
     TEST_ASSERT_EQUAL_UINT32(0, tracker.start_broadcast_calls.size());
     TEST_ASSERT_EQUAL_UINT32(1, tracker.generic_calls.size());
 }
 
 //! @test Test callback clearing functionality
 void test_callback_clearing(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -273,7 +273,7 @@ void test_callback_clearing(void) {
         tracker.on_receipt(sender_id, msg);
     });
 
-    // Act - Clear type-specific callbacks
+    //! @section Act - Clear type-specific callbacks
     driver.clear_type_specific_callbacks();
 
     // Create and send messages
@@ -285,7 +285,7 @@ void test_callback_clearing(void) {
     StartBroadcastMsg::serialize(start_msg, payload);
     driver.send_to(DeviceId(0x12345678), std::move(payload));
 
-    // Assert - No callbacks should be invoked
+    //! @section Assert - No callbacks should be invoked
     TEST_ASSERT_EQUAL_UINT32(0, tracker.start_broadcast_calls.size());
     TEST_ASSERT_EQUAL_UINT32(0, tracker.reading_calls.size());
     TEST_ASSERT_EQUAL_UINT32(0, tracker.receipt_calls.size());
@@ -293,7 +293,7 @@ void test_callback_clearing(void) {
 
 //! @test Test multiple message types with different callbacks
 void test_multiple_message_types_different_callbacks(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -323,7 +323,7 @@ void test_multiple_message_types_different_callbacks(void) {
     receipt_msg.session_id = SessionId(0x99999999);
     receipt_msg.up_to_offset_ms = 2000;
 
-    // Act - Send all messages
+    //! @section Act - Send all messages
     BlePayload start_payload, reading_payload, receipt_payload;
     StartBroadcastMsg::serialize(start_msg, start_payload);
     ReadingMsg::serialize(reading_msg, reading_payload);
@@ -333,7 +333,7 @@ void test_multiple_message_types_different_callbacks(void) {
     driver.send_to(DeviceId(0x12345678), std::move(reading_payload));
     driver.send_to(DeviceId(0x12345678), std::move(receipt_payload));
 
-    // Assert - Only registered callbacks should be invoked
+    //! @section Assert - Only registered callbacks should be invoked
     TEST_ASSERT_EQUAL_UINT32(1, tracker.start_broadcast_calls.size());
     TEST_ASSERT_EQUAL_UINT32(1, tracker.reading_calls.size());
     TEST_ASSERT_EQUAL_UINT32(0, tracker.receipt_calls.size());
@@ -341,7 +341,7 @@ void test_multiple_message_types_different_callbacks(void) {
 
 //! @test Test callback with invalid message data
 void test_callback_with_invalid_message_data(void) {
-    // Arrange
+    //! @section Arrange
     CallbackTracker tracker;
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -355,19 +355,19 @@ void test_callback_with_invalid_message_data(void) {
     invalid_payload.append_u8(0x01);  // Message type
     invalid_payload.append_u8(0x12);  // Only partial device ID
 
-    // Act - Send invalid message
+    //! @section Act - Send invalid message
     driver.send_to(DeviceId(0x12345678), std::move(invalid_payload));
 
-    // Assert - Callback should not be invoked due to deserialization failure
+    //! @section Assert - Callback should not be invoked due to deserialization failure
     TEST_ASSERT_EQUAL_UINT32(0, tracker.start_broadcast_calls.size());
 }
 
 //! @test Test interface contract compliance: all virtual methods implemented
 void test_interface_contract_compliance(void) {
-    // Arrange
+    //! @section Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
 
-    // Act - Call all interface methods
+    //! @section Act - Call all interface methods
     bool begin_result = driver.begin();
     bool init_result = false;  // initialize removed
     bool connected = driver.is_connected();
@@ -394,7 +394,7 @@ void test_interface_contract_compliance(void) {
     BlePayload received;
     bool receive_result = driver.receive(DeviceId(0x12345678), received);
 
-    // Assert - All methods should return expected values
+    //! @section Assert - All methods should return expected values
     TEST_ASSERT_FALSE(begin_result);
     TEST_ASSERT_FALSE(init_result);
     TEST_ASSERT_FALSE(connected);
@@ -404,7 +404,7 @@ void test_interface_contract_compliance(void) {
 
 //! @test Test sender ID extraction from payload
 void test_sender_id_extraction(void) {
-    // Arrange
+    //! @section Arrange
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
 
@@ -418,13 +418,13 @@ void test_sender_id_extraction(void) {
     BlePayload payload;
     ReadingMsg::serialize(reading_msg, payload);
 
-    // Act - Send message (this will add sender ID marker)
+    //! @section Act - Send message (this will add sender ID marker)
     driver.advertise(DeviceId(0x87654321), std::move(payload));
 
     BlePayload received;
     bool receive_success = driver.receive(DeviceId(0), received);  // Broker receives broadcasts
 
-    // Assert - Check that sender ID is extracted correctly
+    //! @section Assert - Check that sender ID is extracted correctly
     TEST_ASSERT_TRUE(receive_success);
     TEST_ASSERT_EQUAL_UINT8(0xFF, received.bytes[0]);  // Sender ID marker
     TEST_ASSERT_EQUAL_UINT8(0x21, received.bytes[1]);  // Sender ID LSB
@@ -435,7 +435,7 @@ void test_sender_id_extraction(void) {
 
 //! @test Test callback error handling and recovery
 void test_callback_error_handling(void) {
-    // Arrange
+    //! @section Arrange
     std::atomic<int> callback_count{0};
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -452,20 +452,20 @@ void test_callback_error_handling(void) {
     BlePayload payload;
     StartBroadcastMsg::serialize(start_msg, payload);
 
-    // Act - Send message (callback should throw)
+    //! @section Act - Send message (callback should throw)
     try {
         driver.send_to(DeviceId(0x12345678), std::move(payload));
     } catch (...) {
         //  Driver should handle exceptions gracefully
     }
 
-    // Assert - Callback should have been called
+    //! @section Assert - Callback should have been called
     TEST_ASSERT_EQUAL_INT(1, callback_count.load());
 }
 
 //! @test Test concurrent callback access
 void test_concurrent_callback_access(void) {
-    // Arrange
+    //! @section Arrange
     std::atomic<int> callback_count{0};
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
@@ -488,12 +488,12 @@ void test_concurrent_callback_access(void) {
         payloads.push_back(std::move(payload));
     }
 
-    // Act - Send all messages
+    //! @section Act - Send all messages
     for (auto& payload : payloads) {
         driver.send_to(DeviceId(0x12345678), std::move(payload));
     }
 
-    // Assert - All callbacks should be invoked
+    //! @section Assert - All callbacks should be invoked
     TEST_ASSERT_EQUAL_INT(10, callback_count.load());
 }
 

@@ -15,7 +15,7 @@
         UNITY_PRINT(suite_name); \
         UNITY_PRINT_EOL(); \
         __VA_ARGS__; \
-    } while(0)
+    } while (0)
 
 //! @brief Macro to run GPIO tests
 #define RUN_GPIO_TESTS() \

@@ -142,7 +142,7 @@ class BrokerSimulator {
 
 //! @test Test complete sensor-broker communication flow
 void test_complete_sensor_broker_communication_flow(void) {
-    // Arrange
+    //! @section Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));  // Broker
     BLE::set_driver(driver.get());
     driver->begin();
@@ -153,7 +153,7 @@ void test_complete_sensor_broker_communication_flow(void) {
     SensorSimulator sensor(sensor_id, driver);
     BrokerSimulator broker(driver);
 
-    // Act - Start session
+    //! @section Act - Start session
     broker.start_session(sensor_id, session_id);
 
     // Send multiple readings
@@ -162,7 +162,7 @@ void test_complete_sensor_broker_communication_flow(void) {
         driver->poll();  //  Process BLE events
     }
 
-    // Assert - Verify complete flow
+    //! @section Assert - Verify complete flow
     TEST_ASSERT_TRUE(sensor.is_session_active());
     TEST_ASSERT_EQUAL_INT(10, sensor.get_reading_count());
     TEST_ASSERT_TRUE(broker.is_session_active());
@@ -173,7 +173,7 @@ void test_complete_sensor_broker_communication_flow(void) {
 
 //! @test Test multiple sensors with single broker
 void test_multiple_sensors_single_broker(void) {
-    // Arrange
+    //! @section Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));  // Broker
     BLE::set_driver(driver.get());
     driver->begin();
@@ -191,7 +191,7 @@ void test_multiple_sensors_single_broker(void) {
 
     BrokerSimulator broker(driver);
 
-    // Act - Start sessions for all sensors
+    //! @section Act - Start sessions for all sensors
     for (size_t i = 0; i < sensor_ids.size(); ++i) {
         SessionId session_id(0x10000000 + i);
         broker.start_session(sensor_ids[i], session_id);
@@ -205,7 +205,7 @@ void test_multiple_sensors_single_broker(void) {
         driver->poll();  //  Process BLE events
     }
 
-    // Assert - Verify all sensors are active and have sent readings
+    //! @section Assert - Verify all sensors are active and have sent readings
     for (const auto& sensor : sensors) {
         TEST_ASSERT_TRUE(sensor.is_session_active());
         TEST_ASSERT_EQUAL_INT(5, sensor.get_reading_count());
@@ -217,7 +217,7 @@ void test_multiple_sensors_single_broker(void) {
 
 //! @test Test session management and cleanup
 void test_session_management_and_cleanup(void) {
-    // Arrange
+    //! @section Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
     driver->begin();
@@ -226,7 +226,7 @@ void test_session_management_and_cleanup(void) {
     SensorSimulator sensor(sensor_id, driver);
     BrokerSimulator broker(driver);
 
-    // Act - Start first session
+    //! @section Act - Start first session
     SessionId session1(0x11111111);
     broker.start_session(sensor_id, session1);
 
@@ -246,7 +246,7 @@ void test_session_management_and_cleanup(void) {
         driver->poll();
     }
 
-    // Assert - Verify session management
+    //! @section Assert - Verify session management
     TEST_ASSERT_TRUE(sensor.is_session_active());
     TEST_ASSERT_EQUAL_INT(6, sensor.get_reading_count());  //  Total readings
     TEST_ASSERT_EQUAL_UINT32(session2.value(), sensor.get_current_session().value());  //  Latest session
@@ -255,7 +255,7 @@ void test_session_management_and_cleanup(void) {
 
 //! @test Test callback performance under load
 void test_callback_performance_under_load(void) {
-    // Arrange
+    //! @section Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
     driver->begin();
@@ -268,7 +268,7 @@ void test_callback_performance_under_load(void) {
     DeviceId sensor_id(0x12345678);
     SessionId session_id(0x87654321);
 
-    // Act - Send many messages rapidly
+    //! @section Act - Send many messages rapidly
     const int message_count = 1000;
     auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -293,14 +293,14 @@ void test_callback_performance_under_load(void) {
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 
-    // Assert - Verify performance
+    //! @section Assert - Verify performance
     TEST_ASSERT_EQUAL_INT(message_count, callback_count.load());
     TEST_ASSERT_TRUE(duration.count() < 1000);  //  Should complete within 1 second
 }
 
 //! @test Test callback reliability with message loss simulation
 void test_callback_reliability_with_message_loss(void) {
-    // Arrange
+    //! @section Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
     driver->begin();
@@ -313,7 +313,7 @@ void test_callback_reliability_with_message_loss(void) {
     DeviceId sensor_id(0x12345678);
     SessionId session_id(0x87654321);
 
-    // Act - Send messages with simulated loss (skip some messages)
+    //! @section Act - Send messages with simulated loss (skip some messages)
     const int total_messages = 100;
     const int sent_messages = 75;  //  Simulate 25% loss
 
@@ -336,14 +336,14 @@ void test_callback_reliability_with_message_loss(void) {
 
     driver->poll();
 
-    // Assert - Verify reliability
+    //! @section Assert - Verify reliability
     TEST_ASSERT_EQUAL_INT(sent_messages, callback_count.load());
     TEST_ASSERT_TRUE(callback_count.load() > 0);  //  At least some messages should be received
 }
 
 //! @test Test callback error recovery
 void test_callback_error_recovery(void) {
-    // Arrange
+    //! @section Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
     driver->begin();
@@ -363,7 +363,7 @@ void test_callback_error_recovery(void) {
     DeviceId sensor_id(0x12345678);
     SessionId session_id(0x87654321);
 
-    // Act - Send messages (some will cause callback errors)
+    //! @section Act - Send messages (some will cause callback errors)
     const int message_count = 15;
     for (int i = 0; i < message_count; ++i) {
         ReadingMsg reading;
@@ -386,14 +386,14 @@ void test_callback_error_recovery(void) {
 
     driver->poll();
 
-    // Assert - Verify error recovery
+    //! @section Assert - Verify error recovery
     TEST_ASSERT_EQUAL_INT(message_count, callback_count.load());
     TEST_ASSERT_EQUAL_INT(5, error_count.load());  //  Every 3rd message should cause error
 }
 
 //! @test Test callback with mixed message types
 void test_callback_with_mixed_message_types(void) {
-    // Arrange
+    //! @section Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
     driver->begin();
@@ -418,7 +418,7 @@ void test_callback_with_mixed_message_types(void) {
     DeviceId sensor_id(0x12345678);
     SessionId session_id(0x87654321);
 
-    // Act - Send mixed message types
+    //! @section Act - Send mixed message types
     // Start broadcast
     StartBroadcastMsg start_msg;
     start_msg.device_id = sensor_id;
@@ -444,7 +444,7 @@ void test_callback_with_mixed_message_types(void) {
 
     driver->poll();
 
-    // Assert - Verify all message types were handled
+    //! @section Assert - Verify all message types were handled
     TEST_ASSERT_EQUAL_INT(1, start_broadcast_count.load());
     TEST_ASSERT_EQUAL_INT(3, reading_count.load());
     TEST_ASSERT_EQUAL_INT(1, receipt_count.load());
@@ -452,7 +452,7 @@ void test_callback_with_mixed_message_types(void) {
 
 //! @test Test callback with concurrent access
 void test_callback_with_concurrent_access(void) {
-    // Arrange
+    //! @section Arrange
     auto driver = std::make_shared<NativeBleDriver>(DeviceId(0x00000000));
     BLE::set_driver(driver.get());
     driver->begin();
@@ -465,7 +465,7 @@ void test_callback_with_concurrent_access(void) {
     DeviceId sensor_id(0x12345678);
     SessionId session_id(0x87654321);
 
-    // Act - Send messages from multiple "threads" (simulated)
+    //! @section Act - Send messages from multiple "threads" (simulated)
     const int messages_per_thread = 50;
     const int thread_count = 4;
 
@@ -484,7 +484,7 @@ void test_callback_with_concurrent_access(void) {
 
     driver->poll();
 
-    // Assert - Verify all messages were processed
+    //! @section Assert - Verify all messages were processed
     TEST_ASSERT_EQUAL_INT(thread_count * messages_per_thread, callback_count.load());
 }
 

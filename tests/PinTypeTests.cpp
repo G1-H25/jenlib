@@ -3,18 +3,16 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
+#include <unity.h>
 #include <cstdint>
-#include "unity.h"
+#include "jenlib/gpio/GpioDriver.h"
+#include "jenlib/gpio/drivers/NativeGpioDriver.h"
+#include "jenlib/gpio/GPIO.h"
+#include "jenlib/gpio/PinTypes.h"
+#include "jenlib/onewire/OneWireBus.h"
+// Use fully-qualified names instead of using-directives
 
-#include <jenlib/gpio/GpioDriver.h>
-#include <jenlib/gpio/drivers/NativeGpioDriver.h>
-#include <jenlib/gpio/GPIO.h>
-#include <jenlib/gpio/PinTypes.h>
-#include <jenlib/onewire/OneWireBus.h>
-
-using namespace jenlib::gpio;
-
-static NativeGpioDriver driver;
+static jenlib::gpio::NativeGpioDriver driver;
 
 //! @test test_typed_pin_construction
 //! @brief Verifies typed pin construction from GPIO::Pin and raw index.
@@ -56,7 +54,7 @@ void test_typed_pin_conversion(void) {
     onewire_pin->pinMode(GPIO::PinMode::OUTPUT);
     onewire_pin->digitalWrite(GPIO::DigitalValue::HIGH);
     TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH),
-                           static_cast<uint8_t>(driver.digital_read(16)));
+                            static_cast<uint8_t>(driver.digital_read(16)));
 }
 
 //! @test test_onewire_type_safety
@@ -103,7 +101,7 @@ void test_pin_operations_through_typed_pin(void) {
     // Test digital write/read
     onewire_pin->digitalWrite(GPIO::DigitalValue::HIGH);
     TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH),
-                           static_cast<uint8_t>(driver.digital_read(20)));
+                            static_cast<uint8_t>(driver.digital_read(20)));
 
     // Test analog operations
     onewire_pin->analogWrite(1024);

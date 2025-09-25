@@ -3,16 +3,14 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
+#include <unity.h>
 #include <cstdint>
-#include "unity.h"
+#include "jenlib/gpio/GpioDriver.h"
+#include "jenlib/gpio/drivers/NativeGpioDriver.h"
+#include "jenlib/gpio/GPIO.h"
+// Use fully-qualified names instead of using-directives
 
-#include <jenlib/gpio/GpioDriver.h>
-#include <jenlib/gpio/drivers/NativeGpioDriver.h>
-#include <jenlib/gpio/GPIO.h>
-
-using namespace jenlib::gpio;
-
-static NativeGpioDriver driver;
+static jenlib::gpio::NativeGpioDriver driver;
 
 //! @test test_digital_roundtrip
 //! @brief Verifies digital write/read roundtrip through GPIO wrapper.
@@ -22,7 +20,8 @@ void test_digital_roundtrip(void) {
     GPIO::Pin led(13);
     led.pinMode(GPIO::PinMode::OUTPUT);
     led.digitalWrite(GPIO::DigitalValue::HIGH);
-    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH), static_cast<uint8_t>(driver.digital_read(13)));
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH),
+                            static_cast<uint8_t>(driver.digital_read(13)));
 }
 
 //! @test test_analog_roundtrip

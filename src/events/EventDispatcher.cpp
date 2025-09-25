@@ -6,6 +6,7 @@
 #include "jenlib/events/EventDispatcher.h"
 #include <algorithm>
 #include <cassert>
+#include <utility>
 
 namespace jenlib::events {
 
@@ -32,7 +33,7 @@ EventId EventDispatcher::register_callback(EventType event_type, EventCallback c
     // Find available slot
     CallbackEntry* entry = find_available_slot();
     if (!entry) {
-        return kInvalidEventId; // No available slots
+        return kInvalidEventId;  // No available slots
     }
 
     // Store callback in available slot
@@ -98,7 +99,6 @@ std::size_t EventDispatcher::process_events() {
 
     // Process all events in the queue using range-based for loop
     for (const Event& event : event_queue_range()) {
-
         // Find all callbacks for this event type
         for (const auto& entry : callbacks_) {
             if (entry.active && entry.type == event.type && entry.callback) {
@@ -180,7 +180,7 @@ EventDispatcher::CallbackEntry* EventDispatcher::find_available_slot() {
             return &entry;
         }
     }
-    return nullptr; // No available slots
+    return nullptr;  // No available slots
 }
 
 EventDispatcher::CallbackEntry* EventDispatcher::find_callback_entry(EventId event_id) {
@@ -189,7 +189,7 @@ EventDispatcher::CallbackEntry* EventDispatcher::find_callback_entry(EventId eve
             return &entry;
         }
     }
-    return nullptr; // Not found
+    return nullptr;  // Not found
 }
 
 EventDispatcher::CircularBufferIterator EventDispatcher::event_queue_begin() {

@@ -1,10 +1,13 @@
+
+//! @file src/gpio/GPIO.cpp
+//! @brief GPIO wrapper implementation
 #include <jenlib/gpio/GPIO.h>
 
 //! @namespace anonymous namespace
 namespace {
-    jenlib::gpio::GpioDriver* g_driver = nullptr;
-    std::uint8_t g_ar_bits = 10;
-    std::uint8_t g_aw_bits = 8;
+jenlib::gpio::GpioDriver* g_driver = nullptr;
+std::uint8_t g_ar_bits = 10;
+std::uint8_t g_aw_bits = 8;
 }
 
 //! @namespace GPIO

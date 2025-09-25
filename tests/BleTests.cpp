@@ -108,49 +108,49 @@ void test_crc8_device_id_max(void) {
 
 //! @test CRC detects a single-bit flip (byte 0, bit 0)
 void test_crc8_detects_single_bit_flip_b0_bit0(void) {
-    // Arrange
+    //! @section Arrange
     const std::uint8_t original[] = {0x12, 0x34, 0x56, 0x78};
     const std::uint8_t original_crc = compute_crc8(original, 4);
     std::uint8_t corrupted[4];
     std::memcpy(corrupted, original, 4);
     corrupted[0] ^= (1 << 0);
 
-    // Act
+    //! @section Act
     const std::uint8_t corrupted_crc = compute_crc8(corrupted, 4);
 
-    // Assert
+    //! @section Assert
     TEST_ASSERT_NOT_EQUAL_UINT8(original_crc, corrupted_crc);
 }
 
 //! @test CRC detects a byte swap (swap byte 0 and 3)
 void test_crc8_detects_byte_swap_0_3(void) {
-    // Arrange
+    //! @section Arrange
     const std::uint8_t original[] = {0x12, 0x34, 0x56, 0x78};
     const std::uint8_t original_crc = compute_crc8(original, 4);
     std::uint8_t corrupted[4];
     std::memcpy(corrupted, original, 4);
     std::swap(corrupted[0], corrupted[3]);
 
-    // Act
+    //! @section Act
     const std::uint8_t swapped_crc = compute_crc8(corrupted, 4);
 
-    // Assert
+    //! @section Assert
     TEST_ASSERT_NOT_EQUAL_UINT8(original_crc, swapped_crc);
 }
 
 //! @test CRC detects an adjacent byte swap (swap byte 1 and 2)
 void test_crc8_detects_adjacent_swap_1_2(void) {
-    // Arrange
+    //! @section Arrange
     const std::uint8_t original[] = {0x12, 0x34, 0x56, 0x78};
     const std::uint8_t original_crc = compute_crc8(original, 4);
     std::uint8_t corrupted[4];
     std::memcpy(corrupted, original, 4);
     std::swap(corrupted[1], corrupted[2]);
 
-    // Act
+    //! @section Act
     const std::uint8_t adjacent_crc = compute_crc8(corrupted, 4);
 
-    // Assert
+    //! @section Assert
     TEST_ASSERT_NOT_EQUAL_UINT8(original_crc, adjacent_crc);
 }
 
@@ -225,19 +225,19 @@ class TestBleDriver final : public jenlib::ble::BleDriver {
 
 //! @test Test StartBroadcastMsg serialization and deserialization roundtrip
 void test_startbroadcast_serialization_roundtrip(void) {
-    // Arrange
+    //! @section Arrange
     const DeviceId expected_device_id(42u);
     const SessionId expected_session_id(123u);
     StartBroadcastMsg original_msg{ .device_id = expected_device_id, .session_id = expected_session_id };
 
-    // Act
+    //! @section Act
     BlePayload serialized_buf;
     const bool serialize_success = StartBroadcastMsg::serialize(original_msg, serialized_buf);
 
     StartBroadcastMsg deserialized_msg{};
     const bool deserialize_success = StartBroadcastMsg::deserialize(serialized_buf, deserialized_msg);
 
-    // Assert
+    //! @section Assert
     TEST_ASSERT_TRUE(serialize_success);
     TEST_ASSERT_TRUE(deserialize_success);
     TEST_ASSERT_EQUAL_UINT32(expected_device_id.value(), deserialized_msg.device_id.value());
@@ -246,7 +246,7 @@ void test_startbroadcast_serialization_roundtrip(void) {
 
 //! @test Test ReadingMsg serialization and deserialization roundtrip
 void test_reading_serialization_roundtrip(void) {
-    // Arrange
+    //! @section Arrange
     const DeviceId expected_sender_id(99u);
     const SessionId expected_session_id(123u);
     const std::uint32_t expected_offset_ms = 5000u;
@@ -261,14 +261,14 @@ void test_reading_serialization_roundtrip(void) {
         .humidity_bp = expected_humidity
     };
 
-    // Act
+    //! @section Act
     BlePayload serialized_buf;
     const bool serialize_success = ReadingMsg::serialize(original_msg, serialized_buf);
 
     ReadingMsg deserialized_msg{};
     const bool deserialize_success = ReadingMsg::deserialize(serialized_buf, deserialized_msg);
 
-    // Assert
+    //! @section Assert
     TEST_ASSERT_TRUE(serialize_success);
     TEST_ASSERT_TRUE(deserialize_success);
     TEST_ASSERT_EQUAL_UINT32(expected_sender_id.value(), deserialized_msg.sender_id.value());
@@ -280,20 +280,20 @@ void test_reading_serialization_roundtrip(void) {
 
 //! @test Test ReceiptMsg serialization and deserialization roundtrip
 void test_receipt_serialization_roundtrip(void) {
-    // Arrange
+    //! @section Arrange
     const SessionId expected_session_id(123u);
     const std::uint32_t expected_up_to_offset = 6000u;
 
     ReceiptMsg original_msg{ .session_id = expected_session_id, .up_to_offset_ms = expected_up_to_offset };
 
-    // Act
+    //! @section Act
     BlePayload serialized_buf;
     const bool serialize_success = ReceiptMsg::serialize(original_msg, serialized_buf);
 
     ReceiptMsg deserialized_msg{};
     const bool deserialize_success = ReceiptMsg::deserialize(serialized_buf, deserialized_msg);
 
-    // Assert
+    //! @section Assert
     TEST_ASSERT_TRUE(serialize_success);
     TEST_ASSERT_TRUE(deserialize_success);
     TEST_ASSERT_EQUAL_UINT32(expected_session_id.value(), deserialized_msg.session_id.value());
@@ -302,7 +302,7 @@ void test_receipt_serialization_roundtrip(void) {
 
 //! @test Test that tampering with DeviceId CRC8 checksum is detected
 void test_ble_checksum_tamper_detection(void) {
-    // Arrange
+    //! @section Arrange
     const DeviceId original_device_id(5u);
     ReadingMsg original_msg{
         .sender_id = original_device_id,
@@ -315,7 +315,7 @@ void test_ble_checksum_tamper_detection(void) {
     BlePayload serialized_buf;
     const bool serialize_success = ReadingMsg::serialize(original_msg, serialized_buf);
 
-    // Act - Tamper with CRC8 checksum in DeviceId
+    //! @section Act - Tamper with CRC8 checksum in DeviceId
     // Layout: [type][device_id(4)][crc(1)][session(4)][offset(4)][temp(2)][hum(2)]
     // Flip CRC at index 1+4 (after message type and device_id bytes)
     const size_t crc_index = 1 + 4;
@@ -326,14 +326,14 @@ void test_ble_checksum_tamper_detection(void) {
     ReadingMsg tampered_result{};
     const bool deserialize_succeeded = ReadingMsg::deserialize(serialized_buf, tampered_result);
 
-    // Assert - Serialization should succeed, but deserialization should fail due to CRC mismatch
+    //! @section Assert - Serialization should succeed, but deserialization should fail due to CRC mismatch
     TEST_ASSERT_TRUE(serialize_success);
     TEST_ASSERT_FALSE(deserialize_succeeded);
 }
 
 //! @test Test point-to-point message delivery through BLE facade
 void test_ble_point_to_point_delivery(void) {
-    // Arrange
+    //! @section Arrange
     TestBleDriver driver;
     BLE::set_driver(&driver);
 
@@ -342,10 +342,10 @@ void test_ble_point_to_point_delivery(void) {
     const SessionId expected_session_id(777u);
     StartBroadcastMsg start_msg{ .device_id = expected_device_id, .session_id = expected_session_id };
 
-    // Act
+    //! @section Act
     BLE::send_start(target_device, start_msg);
 
-    // Assert
+    //! @section Assert
     BlePayload received_payload;
     const bool receive_success = BLE::receive(target_device, received_payload);
 
@@ -360,7 +360,7 @@ void test_ble_point_to_point_delivery(void) {
 
 //! @test Test broadcast message delivery with sender ID shim header
 void test_ble_broadcast_delivery_with_sender_id(void) {
-    // Arrange
+    //! @section Arrange
     TestBleDriver driver;
     BLE::set_driver(&driver);
 
@@ -377,10 +377,10 @@ void test_ble_broadcast_delivery_with_sender_id(void) {
         .humidity_bp = expected_humidity
     };
 
-    // Act
+    //! @section Act
     BLE::broadcast_reading(sender_device, reading_msg);
 
-    // Assert - Check broker receives message with sender shim header
+    //! @section Assert - Check broker receives message with sender shim header
     BlePayload received_payload;
     const bool receive_success = BLE::receive(DeviceId(0u), received_payload);
 
@@ -406,7 +406,7 @@ void test_ble_broadcast_delivery_with_sender_id(void) {
 
 //! @test Test receipt message delivery for acknowledgment flow
 void test_ble_receipt_acknowledgment_flow(void) {
-    // Arrange
+    //! @section Arrange
     TestBleDriver driver;
     BLE::set_driver(&driver);
 
@@ -416,10 +416,10 @@ void test_ble_receipt_acknowledgment_flow(void) {
 
     ReceiptMsg receipt_msg{ .session_id = expected_session_id, .up_to_offset_ms = expected_up_to_offset };
 
-    // Act
+    //! @section Act
     BLE::send_receipt(target_device, receipt_msg);
 
-    // Assert
+    //! @section Assert
     BlePayload received_payload;
     const bool receive_success = BLE::receive(target_device, received_payload);
 
@@ -434,7 +434,7 @@ void test_ble_receipt_acknowledgment_flow(void) {
 
 //! @test Test multiple broadcast messages are received in order
 void test_ble_multiple_broadcast_ordering(void) {
-    // Arrange
+    //! @section Arrange
     TestBleDriver driver;
     BLE::set_driver(&driver);
 
@@ -450,11 +450,11 @@ void test_ble_multiple_broadcast_ordering(void) {
                            .temperature_c_centi = 2310,
                            .humidity_bp = 5050 };
 
-    // Act
+    //! @section Act
     BLE::broadcast_reading(sender_device, first_msg);
     BLE::broadcast_reading(sender_device, second_msg);
 
-    // Assert - Messages should be received in order
+    //! @section Assert - Messages should be received in order
     BlePayload first_payload, second_payload;
     const bool first_receive_success = BLE::receive(DeviceId(0u), first_payload);
     const bool second_receive_success = BLE::receive(DeviceId(0u), second_payload);

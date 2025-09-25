@@ -3,8 +3,8 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
+#include <unity.h>
 #include <cstdint>
-#include "unity.h"
 
 
 // Local conversion function (example-style) to avoid embedding sensor logic in the lib
