@@ -13,9 +13,7 @@ add_library(jenlib_gpio
     src/ble/drivers/NativeBleDriver.cpp
     src/ble/drivers/ArduinoBleDriver.cpp
     src/ble/drivers/NativeBleCharacteristic.cpp
-    src/ble/drivers/ArduinoBleCharacteristic.cpp
     src/ble/drivers/NativeBleService.cpp
-    src/ble/drivers/ArduinoBleService.cpp
     src/measurement/Measurement.cpp
     src/events/EventDispatcher.cpp
     src/time/Time.cpp
@@ -72,7 +70,7 @@ if(BUILD_TESTING)
         smoke_tests/FinalSmokeTest.cpp
         ${unity_SOURCE_DIR}/src/unity.c
     )
-    target_include_directories(jenlib_smoke_tests PRIVATE 
+    target_include_directories(jenlib_smoke_tests PRIVATE
         ${unity_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}
     )

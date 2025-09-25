@@ -13,8 +13,7 @@
 #include "jenlib/ble/BleDriver.h"
 #include "jenlib/ble/Payload.h"
 #include "jenlib/ble/Ids.h"
-#include "jenlib/ble/drivers/BleCharacteristic.h"
-#include "jenlib/ble/drivers/BleService.h"
+// No service/characteristic adapter includes: Arduino path uses ArduinoBLE directly in .cpp
 
 #ifdef ARDUINO
 #include <ArduinoBLE.h>
@@ -126,18 +125,9 @@ class ArduinoBleDriver : public BleDriver {
     //! @brief Process incoming BLE events.
     void process_ble_events();
 
-    //! @brief Handle characteristic write events.
-    //! @param characteristic The characteristic that was written to.
-    void handle_characteristic_write(BleCharacteristic& characteristic);
-
     //! @brief Send payload via advertising.
     //! @param payload The payload to advertise.
     void send_via_advertising(const BlePayload& payload);
-
-    //! @brief Send payload via GATT characteristic.
-    //! @param characteristic The characteristic to write to.
-    //! @param payload The payload to send.
-    void send_via_gatt(BleCharacteristic& characteristic, const BlePayload& payload);
 
     //! @brief Queue a received payload for polling.
     //! @param payload The received payload.
@@ -154,10 +144,9 @@ class ArduinoBleDriver : public BleDriver {
     //! @return true if a payload was retrieved, false otherwise.
     bool get_pending_payload(DeviceId device_id, BlePayload& out_payload);
 
-    //! @brief Extract sender ID from BLE connection context.
-    //! @param characteristic The characteristic that was written to.
+    //! @brief Extract sender ID from BLE connection context (Arduino placeholder).
     //! @return The sender device ID.
-    DeviceId extract_sender_id_from_connection(BleCharacteristic& characteristic);
+    DeviceId extract_sender_id_from_connection();
 
     //! @brief Try to handle payload with type-specific callbacks.
     //! @param sender_id The sender device ID.
@@ -190,11 +179,7 @@ class ArduinoBleDriver : public BleDriver {
     ReceiptCallback receipt_callback_;  //!<  Callback for Receipt messages.
     ConnectionCallback connection_callback_;  //!<  Callback for connection state changes.
 
-    BleService* gatt_service_;  //!<  Main GATT service (static lifetime on Arduino).
-    BleCharacteristic* control_char_;  //!<  Control characteristic (StartBroadcast).
-    BleCharacteristic* reading_char_;  //!<  Reading characteristic (notifications).
-    BleCharacteristic* receipt_char_;  //!<  Receipt characteristic (writes).
-    BleCharacteristic* session_char_;  //!<  Session characteristic (read).
+    // ArduinoBLE service/characteristics are defined as function-local statics in the .cpp.
     bool initialized_;  //!<  Initialization state.
     bool last_connected_state_ = false;  //!<  Track last connection state for edge detection.
 };
