@@ -1,5 +1,8 @@
+
 //! @file src/ble/drivers/NativeBleService.cpp
 //! @brief Native implementation of BLE service for testing/simulation.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/ble/drivers/BleService.h>
 #include <jenlib/ble/drivers/BleCharacteristic.h>
@@ -61,4 +64,5 @@ class NativeBleService : public jenlib::ble::BleService {
     bool advertising_;
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
+

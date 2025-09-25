@@ -1,12 +1,12 @@
 //! @file tests/TestSuites.h
 //! @brief Test suite organization macros for jenlib
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef TESTS_TESTSUITES_H_
 #define TESTS_TESTSUITES_H_
 
-#include "unity.h"
+#include <unity.h>
 
 //! @brief Macro to run a group of tests with a suite name
 #define RUN_TEST_SUITE(suite_name, ...) \
@@ -15,7 +15,7 @@
         UNITY_PRINT(suite_name); \
         UNITY_PRINT_EOL(); \
         __VA_ARGS__; \
-    } while(0)
+    } while (0)
 
 //! @brief Macro to run GPIO tests
 #define RUN_GPIO_TESTS() \
@@ -138,4 +138,5 @@
         RUN_TEST(test_conversion_boundaries); \
     )
 
-#endif // TESTS_TESTSUITES_H_
+#endif  // TESTS_TESTSUITES_H_
+

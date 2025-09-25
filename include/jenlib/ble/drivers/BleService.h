@@ -1,14 +1,14 @@
 //! @file include/jenlib/ble/drivers/BleService.h
 //! @brief Agnostic BLE service interface for cross-platform compatibility.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_DRIVERS_BLESERVICE_H_
 #define INCLUDE_JENLIB_BLE_DRIVERS_BLESERVICE_H_
 
+#include <jenlib/ble/drivers/BleCharacteristic.h>
 #include <memory>
 #include <string_view>
-#include <jenlib/ble/drivers/BleCharacteristic.h>
 
 namespace jenlib::ble {
 
@@ -41,6 +41,7 @@ class BleService {
     virtual void stop_advertising() = 0;
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_BLESERVICE_H_
+

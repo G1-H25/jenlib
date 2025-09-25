@@ -1,5 +1,7 @@
 //! @file src/ble/Messages.cpp
 //! @brief Implementations for BLE message serialization.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/ble/Messages.h>
 
@@ -72,6 +74,7 @@ bool ReceiptMsg::deserialize(const BlePayload &buf, ReceiptMsg &out) {
     return it == end;
 }
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
+
 
 

@@ -1,10 +1,15 @@
+//! @file src/gpio/GPIO.cpp
+//! @brief GPIO wrapper implementation
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
+
 #include <jenlib/gpio/GPIO.h>
 
 //! @namespace anonymous namespace
 namespace {
-    jenlib::gpio::GpioDriver* g_driver = nullptr;
-    std::uint8_t g_ar_bits = 10;
-    std::uint8_t g_aw_bits = 8;
+jenlib::gpio::GpioDriver* g_driver = nullptr;
+std::uint8_t g_ar_bits = 10;
+std::uint8_t g_aw_bits = 8;
 }
 
 //! @namespace GPIO
@@ -18,7 +23,7 @@ Pin::Pin(PinIndex pin_index) noexcept : raw_pin_(pin_index) {}
 
 
 void Pin::pinMode(PinMode mode) const noexcept {
-    if (!g_driver) return; 
+    if (!g_driver) return;
     g_driver->set_pin_mode(raw_pin_, static_cast<jenlib::gpio::PinMode>(mode));
 }
 
@@ -74,6 +79,7 @@ jenlib::gpio::GpioDriver* getDriver() noexcept {
     return g_driver;
 }
 
-} // namespace GPIO
+}  // namespace GPIO
+
 
 

@@ -1,12 +1,13 @@
 //! @file include/jenlib/ble/Payload.h
 //! @brief Fixed-size BLE payload buffer for Arduino compatibility.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_PAYLOAD_H_
 #define INCLUDE_JENLIB_BLE_PAYLOAD_H_
 
 #include <array>
+#include <utility>
 #include <cstdint>
 
 namespace jenlib::ble {
@@ -24,30 +25,30 @@ struct BlePayload {
 
     //! @brief Default constructor.
     BlePayload() = default;
-    
+
     //! @brief Move constructor - transfers ownership of payload data.
-    BlePayload(BlePayload&& other) noexcept 
+    BlePayload(BlePayload&& other) noexcept
         : bytes(std::move(other.bytes)), size(other.size) {
-        other.size = 0; // Mark as consumed
+        other.size = 0;  //  Mark as consumed
     }
-    
+
     //! @brief Move assignment operator - transfers ownership of payload data.
     BlePayload& operator=(BlePayload&& other) noexcept {
         if (this != &other) {
             bytes = std::move(other.bytes);
             size = other.size;
-            other.size = 0; // Mark as consumed
+            other.size = 0;  //  Mark as consumed
         }
         return *this;
     }
-    
+
     //! @brief Disable copy constructor to prevent accidental copies.
     BlePayload(const BlePayload&) = delete;
     BlePayload& operator=(const BlePayload&) = delete;
 
     //! @brief Reset the buffer to empty.
     void clear() { size = 0; }
-    
+
     //! @brief Check if the payload has been consumed (moved from).
     //! @return true if payload is empty (either never filled or consumed).
     bool is_consumed() const { return size == 0; }
@@ -164,7 +165,8 @@ inline bool read_i16le(BlePayload::const_iterator &it, BlePayload::const_iterato
     return true;
 }
 
-} // namespace jenlib::ble
+}  //  namespace jenlib::ble
 
 
 #endif  // INCLUDE_JENLIB_BLE_PAYLOAD_H_
+

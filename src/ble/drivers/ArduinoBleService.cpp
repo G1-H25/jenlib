@@ -1,8 +1,12 @@
+
 //! @file src/ble/drivers/ArduinoBleService.cpp
 //! @brief Arduino implementation of BLE service using ArduinoBLE library.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/ble/drivers/BleService.h>
 #include <jenlib/ble/drivers/BleCharacteristic.h>
+#include <vector>
 
 #ifdef ARDUINO
 #include <ArduinoBLE.h>
@@ -98,4 +102,5 @@ class ArduinoBleService : public BleService {
 #endif
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
+

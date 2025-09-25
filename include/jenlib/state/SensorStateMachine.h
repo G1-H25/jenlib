@@ -1,7 +1,7 @@
 //! @file include/jenlib/state/SensorStateMachine.h
 //! @brief Sensor state machine for BLE sensor applications
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_STATE_SENSORSTATEMACHINE_H_
 #define INCLUDE_JENLIB_STATE_SENSORSTATEMACHINE_H_
@@ -26,7 +26,7 @@ enum class SensorState : std::uint8_t {
 //! Manages the lifecycle of a BLE sensor from connection through measurement broadcasting.
 //! Handles state transitions based on BLE events and timer events.
 class SensorStateMachine : public StateMachine<SensorState> {
-public:
+ public:
     //! @brief Constructor
     SensorStateMachine();
 
@@ -77,14 +77,14 @@ public:
     //! @brief Set measurement interval
     void set_measurement_interval_ms(std::uint32_t interval_ms) { measurement_interval_ms_ = interval_ms; }
 
-protected:
+ protected:
     //! @brief Check if transition is valid
     bool is_valid_transition(SensorState from_state, SensorState to_state) const override;
 
     //! @brief Get initial state
     SensorState get_initial_state() const override { return SensorState::kDisconnected; }
 
-private:
+ private:
     //! @brief Handle state entry actions
     void on_state_entry(SensorState state);
 
@@ -111,6 +111,7 @@ private:
     bool session_active_;
 };
 
-} // namespace jenlib::state
+}  // namespace jenlib::state
 
-#endif // INCLUDE_JENLIB_STATE_SENSORSTATEMACHINE_H_
+#endif  // INCLUDE_JENLIB_STATE_SENSORSTATEMACHINE_H_
+

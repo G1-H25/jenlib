@@ -1,7 +1,7 @@
 //! @file include/jenlib/ble/Messages.h
 //! @brief BLE-friendly message formats and serialization utilities.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_MESSAGES_H_
 #define INCLUDE_JENLIB_BLE_MESSAGES_H_
@@ -31,8 +31,8 @@ enum class MessageType : std::uint8_t {
 //! "DeviceId". Targeting should be based on messages from backend server.
 //!  Sensors store the session and begin broadcasting readings.
 struct StartBroadcastMsg {
-    DeviceId device_id;    //!< target sensor id
-    SessionId session_id;  //!< session identifier
+    DeviceId device_id;     //!<  target sensor id
+    SessionId session_id;   //!<  session identifier
 
     static bool serialize(const StartBroadcastMsg &msg, BlePayload &out);
     static bool deserialize(const BlePayload &buf, StartBroadcastMsg &out);
@@ -44,11 +44,11 @@ struct StartBroadcastMsg {
 //! Humidity is encoded in basis points (0..10000 => 0%..100.00%). The
 //! "offset_ms" is the elapsed time since the start message was accepted.
 struct ReadingMsg {
-    DeviceId sender_id;            //!< sensor id
-    SessionId session_id;          //!< session identifier
-    std::uint32_t offset_ms;       //!< time from start in milliseconds
-    std::int16_t temperature_c_centi;  //!< temperature in centi-degrees C
-    std::uint16_t humidity_bp;  //!< humidity in basis points (0..10000)
+    DeviceId sender_id;              //!<  sensor id
+    SessionId session_id;            //!<  session identifier
+    std::uint32_t offset_ms;         //!<  time from start in milliseconds
+    std::int16_t temperature_c_centi;  //!<  temperature in centi-degrees C
+    std::uint16_t humidity_bp;       //!<  humidity in basis points (0..10000)
 
     static bool serialize(const ReadingMsg &msg, BlePayload &out);
     static bool deserialize(const BlePayload &buf, ReadingMsg &out);
@@ -59,13 +59,14 @@ struct ReadingMsg {
 //! Allows a sensor to purge buffered readings up to (and including)
 //! "up_to_offset_ms" within the current "SessionId".
 struct ReceiptMsg {
-    SessionId session_id; //!< session identifier
-    std::uint32_t up_to_offset_ms; //!< ack up to (inclusive)
+    SessionId session_id;        //!<  session identifier
+    std::uint32_t up_to_offset_ms;  //!<  ack up to (inclusive)
 
     static bool serialize(const ReceiptMsg &msg, BlePayload &out);
     static bool deserialize(const BlePayload &buf, ReceiptMsg &out);
 };
 
-} // namespace jenlib::ble
+}  //  namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_MESSAGES_H_
+

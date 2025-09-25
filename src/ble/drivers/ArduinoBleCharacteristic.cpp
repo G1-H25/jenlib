@@ -1,7 +1,11 @@
+
 //! @file src/ble/drivers/ArduinoBleCharacteristic.cpp
 //! @brief Arduino implementation of BLE characteristic using ArduinoBLE library.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/ble/drivers/BleCharacteristic.h>
+#include <utility>
 
 #ifdef ARDUINO
 #include <ArduinoBLE.h>
@@ -119,4 +123,5 @@ class ArduinoBleCharacteristic : public BleCharacteristic {
 #endif
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
+

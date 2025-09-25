@@ -1,7 +1,7 @@
 //! @file jenlib/gpio/GPIO.h
 //! @brief Public wrapper API for GPIO operations.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 
 #ifndef INCLUDE_JENLIB_GPIO_GPIO_H_
@@ -80,5 +80,6 @@ class PinMap {
 }  // namespace GPIO
 
 #endif  // INCLUDE_JENLIB_GPIO_GPIO_H_
+
 
 

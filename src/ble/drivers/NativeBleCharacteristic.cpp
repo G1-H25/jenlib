@@ -1,9 +1,13 @@
+
 //! @file src/ble/drivers/NativeBleCharacteristic.cpp
 //! @brief Native implementation of BLE characteristic for testing/simulation.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/ble/drivers/BleCharacteristic.h>
 #include <array>
 #include <cstring>
+#include <utility>
 
 namespace jenlib::ble {
 
@@ -75,4 +79,5 @@ class NativeBleCharacteristic : public jenlib::ble::BleCharacteristic {
     jenlib::ble::BleCharacteristicCallback callback_;
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
+

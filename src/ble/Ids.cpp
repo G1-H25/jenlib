@@ -1,7 +1,10 @@
 //! @file src/ble/Ids.cpp
 //! @brief Implementations for strong ID types with CRC8.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/ble/Ids.h>
+#include <utility>
 
 namespace {
 // CRC-8-ATM constants
@@ -21,7 +24,7 @@ static std::uint8_t crc8(const std::uint8_t *data, size_t len) {
     }
     return crc;
 }
-}
+}  // namespace
 
 namespace jenlib::ble {
 
@@ -76,6 +79,7 @@ std::uint8_t compute_crc8(const std::uint8_t *data, size_t len) {
     return crc8(data, len);
 }
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
+
 
 

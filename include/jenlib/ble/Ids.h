@@ -1,7 +1,7 @@
 //! @file include/jenlib/ble/Ids.h
 //! @brief Strongly-typed identifiers for BLE with checksum support.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_IDS_H_
 #define INCLUDE_JENLIB_BLE_IDS_H_
@@ -24,14 +24,14 @@ class SessionId {
     friend constexpr bool operator!=(SessionId a, SessionId b) { return a.value_ != b.value_; }
     friend constexpr bool operator<(SessionId a, SessionId b) { return a.value_ < b.value_; }
  private:
-    std::uint32_t value_; //!< Raw value.
+    std::uint32_t value_;  //!<  Raw value.
 };
 
 
 //! @brief Device identifier type
 //! @details Type for passing to arguments and returning from functions.
 //! Should be created using some device specific identifier, like MAC address.
-//! Stored in the sensor and in backend server using a registration process. 
+//! Stored in the sensor and in backend server using a registration process.
 //! Paired using app QR scan when packing sensor in box.
 class DeviceId {
  public:
@@ -62,7 +62,7 @@ class DeviceId {
     static bool deserialize(BlePayload::const_iterator &it, BlePayload::const_iterator end, DeviceId &out);
 
  private:
-    std::uint32_t value_; //!< Raw value.
+    std::uint32_t value_;  //!<  Raw value.
 };
 
 //! @brief Append a 32-bit value in little-endian to a payload buffer.
@@ -80,6 +80,7 @@ inline bool append_u32le(BlePayload &buf, std::uint32_t v) {
 //! @note Used for DeviceId integrity checking. Exposed for testing.
 std::uint8_t compute_crc8(const std::uint8_t *data, size_t len);
 
-} // namespace jenlib::ble
+}  //  namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_IDS_H_
+

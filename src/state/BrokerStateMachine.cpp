@@ -1,7 +1,7 @@
 //! @file src/state/BrokerStateMachine.cpp
 //! @brief Broker state machine implementation
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/state/BrokerStateMachine.h>
 #include <jenlib/events/EventTypes.h>
@@ -24,54 +24,54 @@ bool BrokerStateMachine::handle_event(const jenlib::events::Event& event) {
         case jenlib::events::EventType::kBleMessage:
             // BLE messages are handled by specific methods
             break;
-        
+
         case jenlib::events::EventType::kTimeTick:
             if (is_in_state(BrokerState::kSessionStarted)) {
                 // Could implement session timeout here
             }
             break;
-        
+
         default:
             break;
     }
-    
+
     return false;
 }
 
 bool BrokerStateMachine::handle_start_command(jenlib::ble::DeviceId sensor_id, jenlib::ble::SessionId session_id) {
     if (!is_in_state(BrokerState::kNoSession)) {
-        return false; // Can only start new session when no session is active
+        return false;  // Can only start new session when no session is active
     }
-    
+
     start_session(sensor_id, session_id);
     return transition_to(BrokerState::kSessionStarted);
 }
 
 bool BrokerStateMachine::handle_reading(jenlib::ble::DeviceId sender_id, const jenlib::ble::ReadingMsg& msg) {
-    if (!is_in_state(BrokerState::kSessionStarted) || 
-        sender_id != target_sensor_id_ || 
+    if (!is_in_state(BrokerState::kSessionStarted) ||
+        sender_id != target_sensor_id_ ||
         msg.session_id != current_session_id_) {
-        return false; // Can only receive readings when session is active and IDs match
+        return false;  // Can only receive readings when session is active and IDs match
     }
-    
+
     process_reading(msg);
     return true;
 }
 
 bool BrokerStateMachine::handle_session_end() {
     if (!is_in_state(BrokerState::kSessionStarted)) {
-        return false; // Can only end session when session is active
+        return false;  // Can only end session when session is active
     }
-    
+
     end_session();
     return transition_to(BrokerState::kNoSession);
 }
 
 bool BrokerStateMachine::handle_backend_timeout() {
     if (!is_in_state(BrokerState::kSessionStarted)) {
-        return false; // Can only timeout when session is active
+        return false;  // Can only timeout when session is active
     }
-    
+
     // Handle timeout - could end session or retry
     end_session();
     return transition_to(BrokerState::kNoSession);
@@ -92,13 +92,13 @@ bool BrokerStateMachine::is_valid_transition(BrokerState from_state, BrokerState
     switch (from_state) {
         case BrokerState::kNoSession:
             return to_state == BrokerState::kSessionStarted || to_state == BrokerState::kError;
-        
+
         case BrokerState::kSessionStarted:
             return to_state == BrokerState::kNoSession || to_state == BrokerState::kError;
-        
+
         case BrokerState::kError:
             return to_state == BrokerState::kNoSession;
-        
+
         default:
             return false;
     }
@@ -110,14 +110,14 @@ void BrokerStateMachine::on_state_entry(BrokerState state) {
             // Register for reading messages from target sensor
             session_active_ = true;
             break;
-        
+
         case BrokerState::kNoSession:
             // Clean up session data
             if (session_active_) {
                 end_session();
             }
             break;
-        
+
         case BrokerState::kError:
             // Stop all activities
             if (session_active_) {
@@ -133,7 +133,7 @@ void BrokerStateMachine::on_state_exit(BrokerState state) {
             // Unregister from reading messages
             session_active_ = false;
             break;
-        
+
         default:
             break;
     }
@@ -145,7 +145,7 @@ void BrokerStateMachine::on_state_do(BrokerState state) {
             // Periodic actions while session is active
             // Could implement periodic receipt sending here
             break;
-        
+
         default:
             break;
     }
@@ -176,9 +176,10 @@ void BrokerStateMachine::send_receipt(jenlib::ble::DeviceId sensor_id, std::uint
 
 void BrokerStateMachine::process_reading(const jenlib::ble::ReadingMsg& msg) {
     reading_count_++;
-    
+
     // Could implement receipt sending logic here
     // For now, just track the reading
 }
 
-} // namespace jenlib::state
+}  // namespace jenlib::state
+

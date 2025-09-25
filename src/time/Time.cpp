@@ -1,12 +1,13 @@
 //! @file src/time/Time.cpp
 //! @brief Time service implementation
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include "jenlib/time/Time.h"
-#include "jenlib/time/drivers/NativeTimeDriver.h"
 #include <algorithm>
 #include <cassert>
+#include <utility>
+#include "jenlib/time/drivers/NativeTimeDriver.h"
 
 namespace jenlib::time {
 
@@ -21,25 +22,25 @@ TimerId Time::schedule_callback(std::uint32_t interval_ms, TimerCallback callbac
     if (!callback || interval_ms == 0) {
         return kInvalidTimerId;
     }
-    
+
     initialize();
-    
+
     // Check if we have space for another timer
     if (timer_count_ >= kMaxTimers) {
         return kInvalidTimerId;
     }
-    
+
     TimerId timer_id = get_next_timer_id();
     if (timer_id == kInvalidTimerId) {
         return kInvalidTimerId;
     }
-    
+
     std::uint32_t current_time = now();
     std::uint32_t fire_time = current_time + interval_ms;
-    
+
     // Create timer entry
     TimerEntry entry(timer_id, interval_ms, fire_time, std::move(callback), repeat);
-    
+
     // Find available slot and create timer entry
     for (auto& timer : timers_) {
         if (timer.state == TimerState::kInactive) {
@@ -48,15 +49,15 @@ TimerId Time::schedule_callback(std::uint32_t interval_ms, TimerCallback callbac
             return timer_id;
         }
     }
-    
-    return kInvalidTimerId; // Should not reach here if timer_count_ < kMaxTimers
+
+    return kInvalidTimerId;  //  Should not reach here if timer_count_ < kMaxTimers
 }
 
 bool Time::cancel_callback(TimerId timer_id) {
     if (timer_id == kInvalidTimerId) {
         return false;
     }
-    
+
     for (auto& timer : timers_) {
         if (timer.id == timer_id && timer.state == TimerState::kActive) {
             timer.state = TimerState::kInactive;
@@ -64,7 +65,7 @@ bool Time::cancel_callback(TimerId timer_id) {
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -72,16 +73,16 @@ std::size_t Time::process_timers() {
     if (timer_count_ == 0) {
         return 0;
     }
-    
+
     std::uint32_t current_time = now();
     std::size_t fired_count = 0;
-    
+
     // Process all active timers
     for (auto& timer : timers_) {
         if (timer.state == TimerState::kActive && current_time >= timer.next_fire_time) {
             // Timer has expired
             timer.state = TimerState::kExpired;
-            
+
             // Invoke callback
             if (timer.callback) {
                 try {
@@ -92,7 +93,7 @@ std::size_t Time::process_timers() {
                     // In a production system, you might want to log this
                 }
             }
-            
+
             // Handle repeat or mark as inactive
             if (timer.repeat) {
                 // Reschedule for next interval
@@ -105,10 +106,10 @@ std::size_t Time::process_timers() {
             }
         }
     }
-    
+
     // Note: Inactive timers remain in the array but are not processed
     // This allows for efficient reuse of slots without expensive array operations
-    
+
     return fired_count;
 }
 
@@ -167,7 +168,7 @@ TimerId Time::get_next_timer_id() {
         // For embedded systems, we might want to implement ID recycling
         return kInvalidTimerId;
     }
-    
+
     return next_timer_id_++;
 }
 
@@ -179,4 +180,5 @@ TimeDriver* Time::getDriver() noexcept {
     return driver_;
 }
 
-} // namespace jenlib::time
+}  // namespace jenlib::time
+

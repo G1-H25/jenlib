@@ -1,20 +1,20 @@
 //! @file include/jenlib/ble/drivers/ArduinoBleDriver.h
 //! @brief Arduino BLE driver implementation using ArduinoBLE library.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_DRIVERS_ARDUINOBLEDRIVER_H_
 #define INCLUDE_JENLIB_BLE_DRIVERS_ARDUINOBLEDRIVER_H_
 
-#include <jenlib/ble/BleDriver.h>
-#include <jenlib/ble/Payload.h>
-#include <jenlib/ble/Ids.h>
-#include <jenlib/ble/drivers/BleCharacteristic.h>
-#include <jenlib/ble/drivers/BleService.h>
 #include <array>
 #include <cstdint>
 #include <memory>
 #include <string_view>
+#include "jenlib/ble/BleDriver.h"
+#include "jenlib/ble/Payload.h"
+#include "jenlib/ble/Ids.h"
+#include "jenlib/ble/drivers/BleCharacteristic.h"
+#include "jenlib/ble/drivers/BleService.h"
 
 #ifdef ARDUINO
 #include <ArduinoBLE.h>
@@ -181,24 +181,25 @@ class ArduinoBleDriver : public BleDriver {
     };
 
     static constexpr std::size_t kMaxDeviceNameLen = 31;
-    std::string_view device_name_; //!< Non-owning; copied to stack buffer in begin()
-    DeviceId local_device_id_;          //!< Local device identifier.
-    PayloadBuffer received_payloads_;   //!< Buffer for received payloads.
-    BleMessageCallback message_callback_; //!< Callback for received messages.
-    StartBroadcastCallback start_broadcast_callback_; //!< Callback for StartBroadcast messages.
-    ReadingCallback reading_callback_;  //!< Callback for Reading messages.
-    ReceiptCallback receipt_callback_;  //!< Callback for Receipt messages.
-    ConnectionCallback connection_callback_; //!< Callback for connection state changes.
-    
-    BleService* gatt_service_;          //!< Main GATT service (static lifetime on Arduino).
-    BleCharacteristic* control_char_;   //!< Control characteristic (StartBroadcast).
-    BleCharacteristic* reading_char_;   //!< Reading characteristic (notifications).
-    BleCharacteristic* receipt_char_;   //!< Receipt characteristic (writes).
-    BleCharacteristic* session_char_;   //!< Session characteristic (read).
-    bool initialized_;                  //!< Initialization state.
-    bool last_connected_state_ = false; //!< Track last connection state for edge detection.
+    std::string_view device_name_;  //!<  Non-owning; copied to stack buffer in begin()
+    DeviceId local_device_id_;  //!<  Local device identifier.
+    PayloadBuffer received_payloads_;  //!<  Buffer for received payloads.
+    BleMessageCallback message_callback_;  //!<  Callback for received messages.
+    StartBroadcastCallback start_broadcast_callback_;  //!<  Callback for StartBroadcast messages.
+    ReadingCallback reading_callback_;  //!<  Callback for Reading messages.
+    ReceiptCallback receipt_callback_;  //!<  Callback for Receipt messages.
+    ConnectionCallback connection_callback_;  //!<  Callback for connection state changes.
+
+    BleService* gatt_service_;  //!<  Main GATT service (static lifetime on Arduino).
+    BleCharacteristic* control_char_;  //!<  Control characteristic (StartBroadcast).
+    BleCharacteristic* reading_char_;  //!<  Reading characteristic (notifications).
+    BleCharacteristic* receipt_char_;  //!<  Receipt characteristic (writes).
+    BleCharacteristic* session_char_;  //!<  Session characteristic (read).
+    bool initialized_;  //!<  Initialization state.
+    bool last_connected_state_ = false;  //!<  Track last connection state for edge detection.
 };
 
-} // namespace jenlib::ble
+}  //  namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_ARDUINOBLEDRIVER_H_
+

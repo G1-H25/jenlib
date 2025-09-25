@@ -1,18 +1,18 @@
 //! @file smoke_tests/SmokeTestSuites.h
 //! @brief Smoke test suite organization macros for jenlib
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef SMOKE_TESTS_SMOKETESTSUITES_H_
 #define SMOKE_TESTS_SMOKETESTSUITES_H_
 
-#include "unity.h"
+#include <unity.h>
 
 //! @brief Macro to run a group of smoke tests with a suite name
 #define RUN_SMOKE_TEST_SUITE(suite_name, ...) \
     do { \
         __VA_ARGS__; \
-    } while(0)
+    } while (0)
 
 //! @brief Macro to run Event System smoke tests
 #define RUN_EVENT_SYSTEM_SMOKE_TESTS() \
@@ -76,4 +76,5 @@
         RUN_TEST(test_mock_broker_behavior); \
     )
 
-#endif // SMOKE_TESTS_SMOKETESTSUITES_H_
+#endif  // SMOKE_TESTS_SMOKETESTSUITES_H_
+

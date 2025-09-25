@@ -1,12 +1,13 @@
 //! @file include/jenlib/ble/Ble.h
 //! @brief Simple BLE facade to set driver and send/receive typed messages.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_BLE_H_
 #define INCLUDE_JENLIB_BLE_BLE_H_
 
 #include <memory>
+#include <utility>
 #include "jenlib/ble/BleDriver.h"
 #include "jenlib/ble/Messages.h"
 
@@ -125,7 +126,7 @@ class BLE {
     static inline BleDriver *driver_ = nullptr;
 };
 
-}  // namespace ble
+}  // namespace jenlib::ble
 
 
 #endif  // INCLUDE_JENLIB_BLE_BLE_H_

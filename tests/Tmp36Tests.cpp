@@ -1,10 +1,10 @@
 //! @file tests/Tmp36Tests.cpp
 //! @brief TMP36 tests.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
+#include <unity.h>
 #include <cstdint>
-#include "unity.h"
 
 
 // Local conversion function (example-style) to avoid embedding sensor logic in the lib
@@ -38,5 +38,6 @@ void test_tmp36_conversion_12bit_3v3(void) {
     float c = tmp36_celsius_from_code_local(code, bits, static_cast<float>(vref));
     TEST_ASSERT_FLOAT_WITHIN(1.0f, 30.0f, c);
 }
+
 
 

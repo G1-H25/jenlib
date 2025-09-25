@@ -1,5 +1,8 @@
+
 //! @file src/ble/NativeBleDriver.cpp
 //! @brief Native (container-friendly) BLE driver using in-memory queues (UDP-like).
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/ble/BleDriver.h>
 #include <jenlib/ble/Messages.h>
@@ -21,7 +24,7 @@ constexpr std::size_t kMaxQueueSize = 100u;  // Maximum messages per device inbo
 //! Queues are bounded to prevent memory exhaustion in resource-constrained environments.
 //! When queues are full, oldest messages are dropped to maintain system stability.
 class NativeBleDriver : public BleDriver {
-public:
+ public:
     //! @brief Constructor.
     //! @param local_device_id Local device identifier for this instance.
     explicit NativeBleDriver(DeviceId local_device_id) : local_device_id_(local_device_id), initialized_(false) {}
@@ -59,22 +62,31 @@ public:
     DeviceId get_local_device_id() const override {
         return local_device_id_;
     }
+
     void advertise(DeviceId device_id, BlePayload payload) override {
-        if (!initialized_) return;
+        if (!initialized_) {
+            return;
+        }
         // Broadcast goes to broker inbox (device_id 0 reserved for broker)
         enqueue(DeviceId(0u), payload_with_sender(device_id, std::move(payload)));
     }
 
     void send_to(DeviceId device_id, BlePayload payload) override {
-        if (!initialized_) return;
+        if (!initialized_) {
+            return;
+        }
         enqueue(device_id, std::move(payload));
     }
 
     bool receive(DeviceId self_id, BlePayload &out_payload) override {
-        if (!initialized_) return false;
+        if (!initialized_) {
+            return false;
+        }
         std::lock_guard<std::mutex> lock(mutex_);
         auto &q = inbox_[self_id.value()];
-        if (q.empty()) return false;
+        if (q.empty()) {
+            return false;
+        }
         out_payload = std::move(q.front());
         q.pop_front();
         return true;
@@ -119,7 +131,7 @@ public:
         connection_callback_ = nullptr;
     }
 
-private:
+ private:
     //! @brief Create a payload with a sender ID.
     //! @param sender_id Sender identity.
     //! @param payload Serialized message bytes (moved).
@@ -142,14 +154,16 @@ private:
     //! @param dest Destination identity.
     //! @param payload Serialized message bytes (moved into queue).
     //! @post Inbox is updated with the payload. If inbox is full, oldest payload is dropped.
-    //! @note Swallows exceptions on the queue operations. I am willing to accept this as a failure mode for BLE which is inherently unreliable
+    //! @note Swallows exceptions on the queue operations.
+    //!       I am willing to accept this as a failure mode for BLE which is
+    //!       inherently unreliable.
     void enqueue(DeviceId dest, BlePayload payload) {
         // Extract sender ID from payload if it has the sender marker
         DeviceId sender_id = extract_sender_id(payload);
 
         // Try type-specific callbacks first
         if (try_type_specific_callbacks(sender_id, payload)) {
-            return; // Handled by type-specific callback
+            return;  // Handled by type-specific callback
         }
 
         // Fallback to generic callback
@@ -160,15 +174,15 @@ private:
 
         // Fallback to queuing for polling-based access
         std::lock_guard<std::mutex> lock(mutex_);
-        
+
         try {
             auto &queue = inbox_[dest.value()];
-            
+
             //! Drop oldest messages if queue is at capacity
             while (queue.size() >= kMaxQueueSize) {
                 queue.pop_front();
             }
-            
+
             queue.push_back(std::move(payload));
         } catch (const std::bad_alloc&) {
             //! Memory allocation failed - swallow and move on
@@ -189,7 +203,7 @@ private:
                                        (static_cast<std::uint32_t>(payload.bytes[4]) << 24);
             return DeviceId(sender_value);
         }
-        return DeviceId(0); // Unknown sender
+        return DeviceId(0);  // Unknown sender
     }
 
     //! @brief Try to handle payload with type-specific callbacks.
@@ -224,20 +238,21 @@ private:
             }
         }
 
-        return false; // No type-specific callback handled this message
+        return false;  // No type-specific callback handled this message
     }
 
-    DeviceId local_device_id_; //!< Local device identifier.
-    bool initialized_; //!< Initialization state.
-    BleMessageCallback message_callback_; //!< Callback for received messages.
-    StartBroadcastCallback start_broadcast_callback_; //!< Callback for StartBroadcast messages.
-    ReadingCallback reading_callback_; //!< Callback for Reading messages.
-    ReceiptCallback receipt_callback_; //!< Callback for Receipt messages.
-    ConnectionCallback connection_callback_; //!< Callback for connection state changes.
-    std::unordered_map<std::uint32_t, std::deque<BlePayload>> inbox_; //!< Inbox for received payloads.
-    std::mutex mutex_; //!< Mutex for inbox.
+    DeviceId local_device_id_;  //!< Local device identifier.
+    bool initialized_;  //!< Initialization state.
+    BleMessageCallback message_callback_;  //!< Callback for received messages.
+    StartBroadcastCallback start_broadcast_callback_;  //!< Callback for StartBroadcast messages.
+    ReadingCallback reading_callback_;  //!< Callback for Reading messages.
+    ReceiptCallback receipt_callback_;  //!< Callback for Receipt messages.
+    ConnectionCallback connection_callback_;  //!< Callback for connection state changes.
+    std::unordered_map<std::uint32_t, std::deque<BlePayload>> inbox_;  //!< Inbox for received payloads.
+    std::mutex mutex_;  //!< Mutex for inbox.
 };
 
-} // namespace jenlib::ble
+}  // namespace jenlib::ble
+
 
 

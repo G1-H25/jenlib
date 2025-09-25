@@ -1,7 +1,7 @@
 //! @file src/gpio/drivers/ArduinoGpioDriver.cpp
 //! @brief Arduino GPIO driver implementation.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 
 #include <jenlib/gpio/drivers/ArduinoGpioDriver.h>
@@ -64,7 +64,9 @@ void ArduinoGpioDriver::analog_write(PinIndex pin, std::uint16_t value) noexcept
 #ifdef analogWriteResolution
     analogWrite(pin, value);
 #else
-    uint8_t out = (analog_write_bits_ <= 8) ? static_cast<uint8_t>(value) : static_cast<uint8_t>(value >> (analog_write_bits_ - 8));
+    uint8_t out = (analog_write_bits_ <= 8)
+        ? static_cast<uint8_t>(value)
+        : static_cast<uint8_t>(value >> (analog_write_bits_ - 8));
     analogWrite(pin, out);
 #endif
 #else
@@ -111,6 +113,7 @@ std::uint8_t ArduinoGpioDriver::get_analog_write_resolution() const noexcept {
     return analog_write_bits_;
 }
 
-} // namespace jenlib::gpio
+}  // namespace jenlib::gpio
+
 
 
