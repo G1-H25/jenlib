@@ -60,6 +60,7 @@ inline BLECharacteristic& get_receipt_chr() {
     static BLECharacteristic chr(jenlib::ble::gatt::kChrReceipt.data(), to_arduino_properties(
         static_cast<std::uint8_t>(jenlib::ble::BleCharacteristicProperty::Write)), jenlib::ble::kMaxPayload);
     return chr;
+
 }
 
 }  // namespace

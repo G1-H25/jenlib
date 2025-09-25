@@ -2,7 +2,7 @@
 
 ## Overview
 
-We have two diferent embedded architectures to work towards, that need to share a common communication library. A sensor (specified as Arduino R4 Wifi in the schoolwork requirements) and a broker (specified as Waveshare Esp32-S3-Zero) will communicate over bluetooth low energy due to some requirements of supporting 100 concurrent wireless sensors.
+We have two different embedded architectures to work towards, that need to share a common communication library. A sensor (specified as Arduino R4 Wifi in the schoolwork requirements) and a broker (specified as Waveshare Esp32-S3-Zero) will communicate over bluetooth low energy due to some requirements of supporting 100 concurrent wireless sensors.
 
 The goal of the library is to share code for communication and sensor readouts between the different components. 
 
@@ -13,7 +13,7 @@ The goal of the library is to share code for communication and sensor readouts b
 static constexpr jenlib::gpio::ArduinoGpioDriver kArduinoDriver;
 jenlib::gpio::GPIO Gpio(kArduinoDriver);
 
-//! @section Pin defintion
+//! @section Pin definition
 enum class PinIndex : std::uint8_t {
     kLedPin = 3;
 }
