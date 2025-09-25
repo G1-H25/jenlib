@@ -3,16 +3,16 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
-#include <jenlib/ble/drivers/ArduinoBleDriver.h>
-#include <jenlib/ble/Messages.h>
-#include <jenlib/ble/GattProfile.h>
 #include <utility>
 #include <vector>
-
 #ifdef ARDUINO
 #include <ArduinoBLE.h>
 #include <Arduino.h>
 #endif
+#include "jenlib/ble/drivers/ArduinoBleDriver.h"
+#include "jenlib/ble/Messages.h"
+#include "jenlib/ble/GattProfile.h"
+
 
 #ifdef ARDUINO
 namespace {
