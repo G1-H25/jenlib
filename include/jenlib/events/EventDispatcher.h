@@ -14,8 +14,8 @@ namespace jenlib::events {
 
 //! @brief Result of the event enqueue operation
 enum class EventEnqueueResult : std::uint8_t {
-    Enqueued, //!< The event was enqueued successfully
-    EnqueuedWithEviction //!< The event was enqueued successfully, but an older event was evicted to make room
+    Enqueued,
+    EnqueuedWithEviction
 };
 
 
