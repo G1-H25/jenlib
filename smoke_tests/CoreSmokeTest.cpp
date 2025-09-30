@@ -233,11 +233,12 @@ void test_event_driven_time_tick_processing(void) {
         jenlib::events::EventType::kTimeTick,
         jenlib::time::Time::now(),
         0);
-    auto dispatched_count = jenlib::events::EventDispatcher::dispatch_event(time_event);
+    auto enqueue_result = jenlib::events::EventDispatcher::dispatch_event(time_event);
     auto processed_count = jenlib::events::EventDispatcher::process_events();
 
     //! ASSERT: Verify event was dispatched and processed correctly
-    TEST_ASSERT_EQUAL(1, dispatched_count);
+    TEST_ASSERT_EQUAL(static_cast<int>(jenlib::events::EventEnqueueResult::Enqueued),
+                      static_cast<int>(enqueue_result));
     TEST_ASSERT_EQUAL(1, processed_count);
     TEST_ASSERT_EQUAL(1, time_tick_events.load());
     TEST_ASSERT_EQUAL(1, measurements_taken.load());

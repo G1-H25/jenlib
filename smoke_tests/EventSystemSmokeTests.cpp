@@ -107,10 +107,11 @@ void test_event_dispatch(void) {
     jenlib::events::Event event(jenlib::events::EventType::kTimeTick, 1000, 0);
 
     //! ACT: Dispatch the event
-    auto dispatched_count = jenlib::events::EventDispatcher::dispatch_event(event);
+    auto enqueue_result = jenlib::events::EventDispatcher::dispatch_event(event);
 
     //! ASSERT: Verify event was dispatched successfully
-    TEST_ASSERT_EQUAL(1, dispatched_count);
+    TEST_ASSERT_EQUAL(static_cast<int>(jenlib::events::EventEnqueueResult::Enqueued),
+                      static_cast<int>(enqueue_result));
 }
 
 //! @test Validates event processing functionality
@@ -181,9 +182,16 @@ void test_event_queue_overflow_handling(void) {
         jenlib::events::EventType::kTimeTick, test_event_callback);
 
     //! ACT: Dispatch more events than the queue can hold (32 max)
-    for (int i = 0; i < 40; i++) {
+    jenlib::events::Event first_event(jenlib::events::EventType::kTimeTick, 1000, 0);
+    jenlib::events::EventDispatcher::dispatch_event(first_event);
+    for (int i = 1; i < 40; i++) {
         jenlib::events::Event event(jenlib::events::EventType::kTimeTick, 1000 + i, i);
-        jenlib::events::EventDispatcher::dispatch_event(event);
+        jenlib::events::Event evicted_snapshot;
+        auto result = jenlib::events::EventDispatcher::dispatch_event(event, &evicted_snapshot);
+        if (i >= 32) {
+            TEST_ASSERT_EQUAL(static_cast<int>(jenlib::events::EventEnqueueResult::EnqueuedWithEviction),
+                              static_cast<int>(result));
+        }
     }
 
     //! ACT: Process events - should handle overflow gracefully

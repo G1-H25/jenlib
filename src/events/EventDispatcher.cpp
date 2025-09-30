@@ -72,22 +72,27 @@ std::size_t EventDispatcher::unregister_callbacks(EventType event_type) {
     return count;
 }
 
-std::size_t EventDispatcher::dispatch_event(const Event& event) {
+EventEnqueueResult EventDispatcher::dispatch_event(const Event& event, Event* evicted_event /* = nullptr */) {
     initialize();
 
-    // Check if event queue is full
+    auto result = EventEnqueueResult::Enqueued;
+
+    // If full, evict the oldest by advancing head and decreasing size
     if (queue_size_ >= kMaxEventQueueSize) {
-        // Remove oldest event (circular buffer behavior)
+        if (evicted_event) {
+            *evicted_event = event_queue_[queue_head_];
+        }
         queue_head_ = (queue_head_ + 1) % kMaxEventQueueSize;
         --queue_size_;
+        result = EventEnqueueResult::EnqueuedWithEviction;
     }
 
-    // Add event to queue (circular buffer)
-    std::size_t tail = (queue_head_ + queue_size_) % kMaxEventQueueSize;
+    // Compute tail position relative to head and size, with wrap-around
+    const std::size_t tail = (queue_head_ + queue_size_) % kMaxEventQueueSize;
     event_queue_[tail] = event;
     ++queue_size_;
 
-    return 1;
+    return result;
 }
 
 std::size_t EventDispatcher::process_events() {

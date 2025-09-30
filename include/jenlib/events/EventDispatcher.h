@@ -7,11 +7,17 @@
 #define INCLUDE_JENLIB_EVENTS_EVENTDISPATCHER_H_
 
 #include <array>
-#include <vector>
 #include <utility>
 #include "jenlib/events/EventTypes.h"
 
 namespace jenlib::events {
+
+//! @brief Result of the event enqueue operation
+enum class EventEnqueueResult : std::uint8_t {
+    Enqueued, //!< The event was enqueued successfully
+    EnqueuedWithEviction //!< The event was enqueued successfully, but an older event was evicted to make room
+};
+
 
 //! @brief Event dispatcher for managing and processing events
 //! @details
@@ -36,10 +42,11 @@ class EventDispatcher {
     //! @return Number of callbacks removed
     static std::size_t unregister_callbacks(EventType event_type);
 
-    //! @brief Dispatch an event to all registered callbacks
+    //! @brief Dispatch an event to the processing queue
     //! @param event The event to dispatch
-    //! @return Number of callbacks invoked
-    static std::size_t dispatch_event(const Event& event);
+    //! @param evicted_event Optional pointer to an event that was evicted to make room for the new event
+    //! @return Result of the enqueue operation
+    static EventEnqueueResult dispatch_event(const Event& event, Event* evicted_event /* = nullptr */);
 
     //! @brief Process all pending events in the queue
     //! @return Number of events processed

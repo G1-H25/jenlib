@@ -83,11 +83,12 @@ void test_event_dispatcher_event_processing_debug(void) {
 
     //! ACT: Dispatch and process an event
     jenlib::events::Event event(jenlib::events::EventType::kTimeTick, 1000, 0);
-    auto dispatched_count = jenlib::events::EventDispatcher::dispatch_event(event);
+    auto enqueue_result = jenlib::events::EventDispatcher::dispatch_event(event);
     auto processed_count = jenlib::events::EventDispatcher::process_events();
 
     //! ASSERT: Verify event was dispatched and processed correctly
-    TEST_ASSERT_EQUAL(1, dispatched_count);
+    TEST_ASSERT_EQUAL(static_cast<int>(jenlib::events::EventEnqueueResult::Enqueued),
+                      static_cast<int>(enqueue_result));
     TEST_ASSERT_EQUAL(1, processed_count);
     TEST_ASSERT_EQUAL(1, test_callback_count.load());
 }
