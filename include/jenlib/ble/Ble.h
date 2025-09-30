@@ -1,34 +1,17 @@
 //! @file include/jenlib/ble/Ble.h
 //! @brief Simple BLE facade to set driver and send/receive typed messages.
-//! @copyright 2025 Jennifer Gott
-//!
-//! Permission is hereby granted, free of charge, to any person obtaining
-//! a copy of this software and associated documentation files (the
-//! "Software"), to deal in the Software without restriction, including
-//! without limitation the rights to use, copy, modify, merge, publish,
-//! distribute, sublicense, and/or sell copies of the Software, and to
-//! permit persons to whom the Software is furnished to do so, subject to
-//! the following conditions:
-//!
-//! The above copyright notice and this permission notice shall be
-//! included in all copies or substantial portions of the Software.
-//!
-//! THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-//! EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-//! MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-//! IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-//! CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-//! TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-//! SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_BLE_BLE_H_
 #define INCLUDE_JENLIB_BLE_BLE_H_
 
 #include <memory>
+#include <utility>
 #include "jenlib/ble/BleDriver.h"
 #include "jenlib/ble/Messages.h"
 
-namespace ble {
+namespace jenlib::ble {
 
 //! @brief Facade for sending typed BLE messages via a configured driver.
 //!
@@ -94,11 +77,56 @@ class BLE {
         return driver_->receive(self_id, out_payload);
     }
 
+    //! @brief Set callback function for connection state changes.
+    //! @param callback Function to call when connection state changes.
+    static void set_connection_callback(ConnectionCallback callback) {
+        if (driver_) {
+            driver_->set_connection_callback(std::move(callback));
+        }
+    }
+
+    //! @brief Remove the connection state callback.
+    static void clear_connection_callback() {
+        if (driver_) {
+            driver_->clear_connection_callback();
+        }
+    }
+
+    //! @brief Process BLE events (call in main loop).
+    static void process_events() {
+        if (driver_) {
+            driver_->poll();
+        }
+    }
+
+    //! @brief Begin BLE driver lifecycle.
+    static bool begin() { return driver_ ? driver_->begin() : false; }
+
+    //! @brief End BLE driver lifecycle.
+    static void end() { if (driver_) driver_->end(); }
+
+    //! @brief Query connection status.
+    static bool is_connected() { return driver_ ? driver_->is_connected() : false; }
+
+    // Forward type-specific callback setters to driver for convenience
+    static void set_start_broadcast_callback(StartBroadcastCallback cb) {
+        if (driver_) driver_->set_start_broadcast_callback(std::move(cb));
+    }
+    static void set_reading_callback(ReadingCallback cb) {
+        if (driver_) driver_->set_reading_callback(std::move(cb));
+    }
+    static void set_receipt_callback(ReceiptCallback cb) {
+        if (driver_) driver_->set_receipt_callback(std::move(cb));
+    }
+    static void set_message_callback(BleMessageCallback cb) {
+        if (driver_) driver_->set_message_callback(std::move(cb));
+    }
+
  private:
     static inline BleDriver *driver_ = nullptr;
 };
 
-}  // namespace ble
+}  // namespace jenlib::ble
 
 
 #endif  // INCLUDE_JENLIB_BLE_BLE_H_

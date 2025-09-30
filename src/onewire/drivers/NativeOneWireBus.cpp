@@ -1,7 +1,7 @@
 //! @file src/onewire/drivers/NativeOneWireBus.cpp
 //! @brief Native OneWire bus implementation for testing and development.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #include <jenlib/onewire/OneWireBus.h>
 #include <jenlib/gpio/GPIO.h>
@@ -45,7 +45,7 @@ void OneWireBus::write_byte(byte data) {
     if (!initialized_) {
         return;
     }
-    
+
     for (int i = 0; i < 8; ++i) {
         write_bit((data & 0x01) != 0);
         data >>= 1;
@@ -57,7 +57,7 @@ OneWireBus::byte OneWireBus::read_byte() {
     if (!initialized_) {
         return 0;
     }
-    
+
     byte data = 0;
     for (int i = 0; i < 8; ++i) {
         data >>= 1;
@@ -81,7 +81,7 @@ void OneWireBus::match_rom(const rom_code_t& rom) {
     if (!initialized_) {
         return;
     }
-    
+
     write_byte(static_cast<byte>(Command::MatchRom));
     for (const auto& byte_val : rom) {
         write_byte(byte_val);
@@ -93,11 +93,11 @@ bool OneWireBus::read_rom(rom_code_t& out_rom) {
     if (!initialized_) {
         return false;
     }
-    
+
     if (!perform_reset()) {
         return false;
     }
-    
+
     write_byte(static_cast<byte>(Command::ReadRom));
     for (auto& byte_val : out_rom) {
         byte_val = read_byte();
@@ -116,21 +116,21 @@ void OneWireBus::configure_pin() {
 //! @brief Internal method to perform a reset pulse.
 bool OneWireBus::perform_reset() {
     GPIO::Pin gpio_pin(pin_);
-    
+
     // Pull line low for 480us (reset pulse)
     gpio_pin.digitalWrite(GPIO::DigitalValue::LOW);
     // Note: In a real implementation, you'd need proper timing here
     // For now, we'll simulate the timing
-    
+
     // Release the line and check for presence pulse
     gpio_pin.pinMode(GPIO::PinMode::INPUT_PULLUP);
     // Check if any device pulls the line low (presence pulse)
     // This is a simplified implementation for testing
-    
+
     // Restore output mode
     gpio_pin.pinMode(GPIO::PinMode::OUTPUT);
     gpio_pin.digitalWrite(GPIO::DigitalValue::HIGH);
-    
+
     // For testing purposes, always return true (device present)
     return true;
 }
@@ -138,7 +138,7 @@ bool OneWireBus::perform_reset() {
 //! @brief Internal method to write a single bit.
 void OneWireBus::write_bit(bool bit) {
     GPIO::Pin gpio_pin(pin_);
-    
+
     if (bit) {
         // Write 1: Pull low for 6us, then release
         gpio_pin.digitalWrite(GPIO::DigitalValue::LOW);
@@ -157,21 +157,22 @@ void OneWireBus::write_bit(bool bit) {
 //! @brief Internal method to read a single bit.
 bool OneWireBus::read_bit() {
     GPIO::Pin gpio_pin(pin_);
-    
+
     // Pull line low for 6us
     gpio_pin.digitalWrite(GPIO::DigitalValue::LOW);
     // Note: In real implementation, wait 6us
-    
+
     // Release line and sample after 9us
     gpio_pin.pinMode(GPIO::PinMode::INPUT_PULLUP);
     // Note: In real implementation, wait 9us then sample
     bool bit_value = (gpio_pin.digitalRead() == GPIO::DigitalValue::HIGH);
-    
+
     // Restore output mode
     gpio_pin.pinMode(GPIO::PinMode::OUTPUT);
     gpio_pin.digitalWrite(GPIO::DigitalValue::HIGH);
-    
+
     return bit_value;
 }
 
-} // namespace OneWire
+}  // namespace OneWire
+

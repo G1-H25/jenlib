@@ -1,17 +1,17 @@
 //! @file jenlib/gpio/GpioDriver.h
 //! @brief GPIO driver interface.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_GPIO_GPIODRIVER_H_
 #define INCLUDE_JENLIB_GPIO_GPIODRIVER_H_
 
 #include <cstdint>
 
-//! @namespace gpio
+//! @namespace jenlib::gpio
 //! @brief GPIO namespace.
 
-namespace gpio {
+namespace jenlib::gpio {
 
 //! @enum PinMode
 //! @brief Pin mode for a GPIO pin.
@@ -130,12 +130,13 @@ class Pin {
     GpioDriver* driver() const noexcept { return driver_; }
 
  private:
-    GpioDriver* driver_; //!< The driver.
-    PinIndex pin_; //!< The pin index.
+    GpioDriver* driver_;  //!<  The driver.
+    PinIndex pin_;        //!<  The pin index.
 };
 
-} // namespace gpio
+}  //  namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_GPIODRIVER_H_
+
 
 

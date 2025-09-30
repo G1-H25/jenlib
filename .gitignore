@@ -51,3 +51,8 @@ cmake_install.cmake
 
 # python venv
 .venv/
+
+# vscode and ide files
+.vscode/*
+.cursor/*
+.idea/*
