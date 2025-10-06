@@ -67,7 +67,7 @@ void on_control_written(BLEDevice, BLECharacteristic ch) {
     jenlib::ble::BlePayload payload;
     payload.append_raw(ch.value(), ch.valueLength());
     DeviceId sender_id = DeviceId(0x00000000);  // Placeholder - extract from connection
-    
+
     // Find the driver instance and process the message
     // Note: In a real implementation, you'd need a way to map to the driver instance
     // For now, this is a simplified approach
@@ -77,7 +77,7 @@ void on_receipt_written(BLEDevice, BLECharacteristic ch) {
     jenlib::ble::BlePayload payload;
     payload.append_raw(ch.value(), ch.valueLength());
     DeviceId sender_id = DeviceId(0x00000000);  // Placeholder - extract from connection
-    
+
     // Find the driver instance and process the message
     // Note: In a real implementation, you'd need a way to map to the driver instance
     // For now, this is a simplified approach
