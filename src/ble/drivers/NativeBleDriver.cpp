@@ -4,6 +4,8 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
+#ifndef ARDUINO
+
 #include <jenlib/ble/BleDriver.h>
 #include <jenlib/ble/Messages.h>
 #include <deque>
@@ -254,5 +256,5 @@ class NativeBleDriver : public BleDriver {
 
 }  // namespace jenlib::ble
 
-
+#endif  // ARDUINO
 

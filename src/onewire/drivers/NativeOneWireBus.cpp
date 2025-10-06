@@ -3,6 +3,8 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
+#ifndef ARDUINO
+
 #include <jenlib/onewire/OneWireBus.h>
 #include <jenlib/gpio/GPIO.h>
 #include <cstdint>
@@ -175,4 +177,6 @@ bool OneWireBus::read_bit() {
 }
 
 }  // namespace OneWire
+
+#endif  // ARDUINO
 

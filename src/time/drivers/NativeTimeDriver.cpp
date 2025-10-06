@@ -3,6 +3,8 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
+#ifndef ARDUINO
+
 #include "jenlib/time/drivers/NativeTimeDriver.h"
 #include <thread>
 #include <chrono>
@@ -52,4 +54,6 @@ std::uint64_t NativeTimeDriver::get_epoch_time_ms() {
 }
 
 }  // namespace jenlib::time
+
+#endif  // ARDUINO
 
