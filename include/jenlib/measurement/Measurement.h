@@ -1,3 +1,9 @@
+//! @file jenlib/measurement/Measurement.h
+//! @brief Measurement type, shared between sensor and broker, with serialization and deserialization functions.
+//! @copyright 2025 Jennifer Gott, released under the MIT License.
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
+
+
 #ifndef INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_
 #define INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_
 
@@ -14,22 +20,22 @@
 namespace measurement {
 
 struct Measurement {
-    std::uint32_t timestamp_ms; //!< Offset since start of session in milliseconds.
-    float temperature_c; //!< Temperature in Celsius.
-    float humidity_bp; //!< Humidity in percentage.
+    std::uint32_t timestamp_ms;  //!< Offset since start of session in milliseconds.
+    float temperature_c;         //!< Temperature in Celsius.
+    float humidity_bp;           //!< Humidity in percentage.
 
     //! @brief Serialize a Measurement to a BLE payload.
     //! @param measurement The measurement to serialize.
     //! @param payload The output payload buffer.
     //! @return true if serialization succeeded, false if payload buffer is too small.
-    static bool serialize(const Measurement &measurement, ble::BlePayload &payload);
+    static bool serialize(const Measurement &measurement, jenlib::ble::BlePayload &payload);
 
     //! @brief Deserialize a Measurement from a BLE payload (consumes the payload).
     //! @param payload The input payload buffer (will be consumed/moved from).
     //! @param measurement The output measurement.
     //! @return true if deserialization succeeded, false if payload format is invalid.
     //! @note The payload will be consumed (size set to 0) after successful deserialization.
-    static bool deserialize(ble::BlePayload &&payload, Measurement &measurement);
+    static bool deserialize(jenlib::ble::BlePayload &&payload, Measurement &measurement);
 };
 
 //! @brief Convert temperature from float Celsius to centi-degrees (int16).
@@ -64,6 +70,6 @@ inline float humidity_from_basis_points(std::uint16_t humidity_bp) {
     return static_cast<float>(humidity_bp) / 100.0f;
 }
 
-} // namespace measurement
+}  // namespace measurement
 
-#endif // INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_
+#endif  // INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_

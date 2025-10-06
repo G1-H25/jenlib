@@ -1,7 +1,7 @@
 //! @file jenlib/gpio/PinTypes.h
 //! @brief Type-safe pin wrappers for different use cases.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_GPIO_PINTYPES_H_
 #define INCLUDE_JENLIB_GPIO_PINTYPES_H_
@@ -17,44 +17,44 @@ namespace GPIO {
 //! when needed for compatibility with existing libraries like OneWire, SPI, I2C, etc.
 template<typename Tag>
 class TypedPin {
-public:
+ public:
     //! @brief Construct from a GPIO::Pin.
     explicit TypedPin(const Pin& pin) noexcept : pin_(pin) {}
-    
+
     //! @brief Construct from a raw pin index.
     explicit TypedPin(PinIndex index) noexcept : pin_(index) {}
-    
+
     //! @brief Get the underlying GPIO::Pin.
     const Pin& getPin() const noexcept { return pin_; }
-    
+
     //! @brief Get the raw pin index.
     PinIndex getIndex() const noexcept { return pin_.getIndex(); }
-    
+
     //! @brief Implicit conversion to raw pin number for library compatibility.
     operator PinIndex() const noexcept { return pin_.getIndex(); }
-    
+
     //! @brief Implicit conversion to GPIO::Pin for GPIO operations.
     operator const Pin&() const noexcept { return pin_; }
-    
+
     //! @brief Access GPIO operations through the underlying pin.
     const Pin* operator->() const noexcept { return &pin_; }
-    
+
     //! @brief Access GPIO operations through the underlying pin.
     const Pin& operator*() const noexcept { return pin_; }
 
-private:
+ private:
     Pin pin_;
 };
 
 //! @brief Tag types for different pin uses.
 namespace PinTags {
-    struct OneWire {};
-    struct SPI {};
-    struct I2C {};
-    struct UART {};
-    struct PWM {};
-    struct ADC {};
-    struct Digital {};
+struct OneWire {};
+struct SPI {};
+struct I2C {};
+struct UART {};
+struct PWM {};
+struct ADC {};
+struct Digital {};
 }
 
 //! @brief Type aliases for common pin types.
@@ -78,6 +78,7 @@ TypedPin<Tag> makeTypedPin(const Pin& pin) noexcept {
     return TypedPin<Tag>(pin);
 }
 
-} // namespace GPIO
+}  // namespace GPIO
 
-#endif // INCLUDE_JENLIB_GPIO_PINTYPES_H_
+#endif  // INCLUDE_JENLIB_GPIO_PINTYPES_H_
+

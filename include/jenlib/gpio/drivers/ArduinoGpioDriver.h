@@ -1,15 +1,15 @@
 //! @file jenlib/gpio/drivers/ArduinoGpioDriver.h
 //! @brief Arduino GPIO driver implementation.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_GPIO_DRIVERS_ARDUINOGPIODRIVER_H_
 #define INCLUDE_JENLIB_GPIO_DRIVERS_ARDUINOGPIODRIVER_H_
 
-#include <jenlib/gpio/GpioDriver.h>
 #include <cstdint>
+#include "jenlib/gpio/GpioDriver.h"
 
-namespace gpio {
+namespace jenlib::gpio {
 
 class ArduinoGpioDriver : public GpioDriver {
  public:
@@ -32,8 +32,9 @@ class ArduinoGpioDriver : public GpioDriver {
     std::uint8_t analog_write_bits_{8};
 };
 
-} // namespace gpio
+}  //  namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_DRIVERS_ARDUINOGPIODRIVER_H_
+
 
 

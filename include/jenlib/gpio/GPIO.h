@@ -1,7 +1,7 @@
 //! @file jenlib/gpio/GPIO.h
 //! @brief Public wrapper API for GPIO operations.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 
 #ifndef INCLUDE_JENLIB_GPIO_GPIO_H_
@@ -15,13 +15,13 @@
 namespace GPIO {
 
 //! @brief Pin mode for a GPIO pin (aliased to core driver enum).
-using PinMode = ::gpio::PinMode;
+using PinMode = jenlib::gpio::PinMode;
 
 //! @brief Logical digital value for GPIO reads/writes (aliased to core driver enum).
-using DigitalValue = ::gpio::DigitalValue;
+using DigitalValue = jenlib::gpio::DigitalValue;
 
 //! @brief Hardware-defined pin index; user creates mapping (aliased to core driver type).
-using PinIndex = ::gpio::PinIndex;
+using PinIndex = jenlib::gpio::PinIndex;
 
 //! Lightweight handle to a GPIO pin; forwards calls to the active driver.
 class Pin {
@@ -65,8 +65,8 @@ std::uint8_t getAnalogReadResolution() noexcept;
 std::uint8_t getAnalogWriteResolution() noexcept;
 
 //! Driver injection for testability and portability.
-void setDriver(::gpio::GpioDriver* driver) noexcept;
-::gpio::GpioDriver* getDriver() noexcept;
+void setDriver(jenlib::gpio::GpioDriver* driver) noexcept;
+jenlib::gpio::GpioDriver* getDriver() noexcept;
 
 //! Singleton accessor providing `operator[]` to construct pins by index.
 class PinMap {
@@ -80,5 +80,6 @@ class PinMap {
 }  // namespace GPIO
 
 #endif  // INCLUDE_JENLIB_GPIO_GPIO_H_
+
 
 

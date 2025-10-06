@@ -1,17 +1,17 @@
 //! @file jenlib/gpio/drivers/NativeGpioDriver.h
 //! @brief Native GPIO driver implementation.
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
-//! @author Jennifer Gott (simbachu@gmail.com)
+//! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
 #ifndef INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_
 #define INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_
 
 #include <jenlib/gpio/GpioDriver.h>
-#include <unordered_map>  // OK for desktop; NativeGpioDriver doesn't run on Arduino 
+#include <unordered_map>  // OK for desktop; NativeGpioDriver doesn't run on Arduino
 
-//! @namespace gpio
+//! @namespace jenlib::gpio
 //! @brief GPIO namespace.
-namespace gpio {
+namespace jenlib::gpio {
 
 //! @class NativeGpioDriver
 //! @brief Native GPIO driver.
@@ -110,8 +110,9 @@ class NativeGpioDriver : public GpioDriver {
         float digital_threshold_ratio_{0.5f};
 };
 
-}  // namespace gpio
+}  // namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_
+
 
 
