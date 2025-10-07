@@ -3,24 +3,46 @@ project(jenlib_gpio C CXX)
 
 option(BUILD_TESTING "Build tests" ON)
 
-add_library(jenlib_gpio
+# Detect Arduino toolchain
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_SYSTEM_NAME STREQUAL "Generic")
+    # Likely Arduino toolchain
+    set(ARDUINO_BUILD TRUE)
+    message(STATUS "Arduino build detected")
+else()
+    set(ARDUINO_BUILD FALSE)
+    message(STATUS "Native build detected")
+endif()
+
+# Base sources (always included)
+set(JENLIB_SOURCES
     src/gpio/GPIO.cpp
-    src/gpio/drivers/NativeGpioDriver.cpp
     src/gpio/drivers/ArduinoGpioDriver.cpp
-    src/onewire/drivers/NativeOneWireBus.cpp
     src/ble/Ids.cpp
     src/ble/Messages.cpp
-    src/ble/drivers/NativeBleDriver.cpp
     src/ble/drivers/ArduinoBleDriver.cpp
-    src/ble/drivers/NativeBleCharacteristic.cpp
-    src/ble/drivers/NativeBleService.cpp
     src/measurement/Measurement.cpp
     src/events/EventDispatcher.cpp
     src/time/Time.cpp
-    src/time/drivers/NativeTimeDriver.cpp
     src/state/SensorStateMachine.cpp
     src/state/BrokerStateMachine.cpp
 )
+
+# Native-only sources (excluded on Arduino)
+if(NOT ARDUINO_BUILD)
+    list(APPEND JENLIB_SOURCES
+        src/gpio/drivers/NativeGpioDriver.cpp
+        src/onewire/drivers/NativeOneWireBus.cpp
+        src/ble/drivers/NativeBleDriver.cpp
+        src/ble/drivers/NativeBleCharacteristic.cpp
+        src/ble/drivers/NativeBleService.cpp
+        src/time/drivers/NativeTimeDriver.cpp
+    )
+    message(STATUS "Including native drivers")
+else()
+    message(STATUS "Excluding native drivers for Arduino build")
+endif()
+
+add_library(jenlib_gpio ${JENLIB_SOURCES})
 target_include_directories(jenlib_gpio PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

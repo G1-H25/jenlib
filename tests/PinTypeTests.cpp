@@ -134,8 +134,10 @@ void test_different_pin_types(void) {
     pwm_pin->analogWrite(512);
     adc_pin->pinMode(GPIO::PinMode::INPUT);
     digital_pin->digitalWrite(GPIO::DigitalValue::LOW);
-
-    TEST_ASSERT_TRUE(true);
+    // Validate observable effects
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::LOW),
+                            static_cast<uint8_t>(driver.digital_read(25)));
+    TEST_ASSERT_EQUAL_UINT16(512, driver.analog_read(23));
 }
 
 //! @test test_onewire_basic_operations
@@ -166,7 +168,7 @@ void test_onewire_basic_operations(void) {
     // Test read ROM (should work in our mock)
     OneWire::OneWireBus::rom_code_t read_rom = {0};
     TEST_ASSERT_TRUE(bus.read_rom(read_rom));
-
-    TEST_ASSERT_TRUE(true);
+    // In mock, read_byte returns 0
+    TEST_ASSERT_EQUAL_UINT8(0, read_data);
 }
 
