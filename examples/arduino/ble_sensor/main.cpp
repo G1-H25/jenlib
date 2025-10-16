@@ -154,7 +154,7 @@ void callback_generic(jenlib::ble::DeviceId sender_id, const jenlib::ble::BlePay
         jenlib::events::EventType::kBleMessage,
         jenlib::time::Time::now(),
         static_cast<std::uint32_t>(jenlib::ble::MessageType::Reading));
-    event_dispatcher.dispatch_event(event);
+    event_dispatcher.dispatch_event(event, nullptr);
 }
 
 //! @section Implementations of event handler functions

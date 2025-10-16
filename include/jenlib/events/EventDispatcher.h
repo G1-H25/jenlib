@@ -43,10 +43,11 @@ class EventDispatcher {
     static std::size_t unregister_callbacks(EventType event_type);
 
     //! @brief Dispatch an event to the processing queue
+    //! @note If you don't want to keep track of the evicted event, don't set the evicted_event pointer
     //! @param event The event to dispatch
-    //! @param evicted_event Optional pointer to an event that was evicted to make room for the new event
+    //! @param[out] evicted_event Optional pointer to keep track of the evicted event
     //! @return Result of the enqueue operation
-    static EventEnqueueResult dispatch_event(const Event& event, Event* evicted_event /* = nullptr */);
+    static EventEnqueueResult dispatch_event(const Event& event, Event* evicted_event = nullptr);
 
     //! @brief Process all pending events in the queue
     //! @return Number of events processed
