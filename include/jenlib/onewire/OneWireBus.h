@@ -148,6 +148,6 @@ inline std::uint8_t OneWireBus::crc8(InputIt first, InputIt last) {
     return crc;
 }
 
-}  // namespace OneWire
+}  // namespace jenlib::onewire
 
 #endif  // INCLUDE_JENLIB_ONEWIRE_ONEWIREBUS_H_

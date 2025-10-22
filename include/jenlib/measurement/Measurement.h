@@ -112,6 +112,6 @@ inline float humidity_from_basis_points(std::uint16_t humidity_bp) {
     return static_cast<float>(humidity_bp) / 100.0f;
 }
 
-}  // namespace measurement
+}  // namespace jenlib::measurement
 
 #endif  // INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_
