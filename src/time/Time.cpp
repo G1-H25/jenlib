@@ -85,13 +85,8 @@ std::size_t Time::process_timers() {
 
             // Invoke callback
             if (timer.callback) {
-                try {
-                    timer.callback();
-                    ++fired_count;
-                } catch (...) {
-                    // Callback exception - continue processing other timers
-                    // In a production system, you might want to log this
-                }
+                timer.callback();
+                ++fired_count;
             }
 
             // Handle repeat or mark as inactive

@@ -266,9 +266,9 @@ void test_event_system_event_dispatch_and_processing(void) {
     jenlib::events::Event ble_event(jenlib::events::EventType::kBleMessage, 1002, 0);
 
     //! ACT: Dispatch events and process them
-    jenlib::events::EventDispatcher::dispatch_event(time_event);
-    jenlib::events::EventDispatcher::dispatch_event(connection_event);
-    jenlib::events::EventDispatcher::dispatch_event(ble_event);
+    jenlib::events::EventDispatcher::dispatch_event(time_event, nullptr);
+    jenlib::events::EventDispatcher::dispatch_event(connection_event, nullptr);
+    jenlib::events::EventDispatcher::dispatch_event(ble_event, nullptr);
 
     auto processed_count = jenlib::events::EventDispatcher::process_events();
 

@@ -107,13 +107,8 @@ std::size_t EventDispatcher::process_events() {
         // Find all callbacks for this event type
         for (const auto& entry : callbacks_) {
             if (entry.active && entry.type == event.type && entry.callback) {
-                try {
-                    entry.callback(event);
-                    ++processed_count;
-                } catch (...) {
-                    // Callback exception - continue processing other callbacks
-                    // In Arduino, exceptions should be avoided entirely
-                }
+                entry.callback(event);
+                ++processed_count;
             }
         }
     }

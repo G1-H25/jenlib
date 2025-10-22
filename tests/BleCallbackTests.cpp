@@ -88,7 +88,7 @@ void test_type_specific_callback_registration(void) {
     NativeBleDriver driver(DeviceId(0x12345678));
     driver.begin();
 
-    //! @section Act - Register type-specific callbacks
+    //! @section Act - Register callbacks and send one message of each type
     driver.set_start_broadcast_callback([&tracker](DeviceId sender_id, const StartBroadcastMsg& msg) {
         tracker.on_start_broadcast(sender_id, msg);
     });
@@ -99,8 +99,37 @@ void test_type_specific_callback_registration(void) {
         tracker.on_receipt(sender_id, msg);
     });
 
-    //! @section Assert - Callbacks should be registered successfully
-    TEST_ASSERT_TRUE(true);
+    // Create and send StartBroadcast
+    StartBroadcastMsg start_msg;
+    start_msg.device_id = DeviceId(0x87654321);
+    start_msg.session_id = SessionId(0xAAAAAAAA);
+    BlePayload start_payload;
+    StartBroadcastMsg::serialize(start_msg, start_payload);
+    driver.send_to(DeviceId(0x12345678), std::move(start_payload));
+
+    // Create and send Reading
+    ReadingMsg reading_msg;
+    reading_msg.sender_id = DeviceId(0x87654321);
+    reading_msg.session_id = SessionId(0xBBBBBBBB);
+    reading_msg.offset_ms = 1;
+    reading_msg.temperature_c_centi = 1;
+    reading_msg.humidity_bp = 1;
+    BlePayload reading_payload;
+    ReadingMsg::serialize(reading_msg, reading_payload);
+    driver.send_to(DeviceId(0x12345678), std::move(reading_payload));
+
+    // Create and send Receipt
+    ReceiptMsg receipt_msg;
+    receipt_msg.session_id = SessionId(0xCCCCCCCC);
+    receipt_msg.up_to_offset_ms = 0;
+    BlePayload receipt_payload;
+    ReceiptMsg::serialize(receipt_msg, receipt_payload);
+    driver.send_to(DeviceId(0x12345678), std::move(receipt_payload));
+
+    //! @section Assert - Each registered callback should have been invoked exactly once
+    TEST_ASSERT_EQUAL_UINT32(1, tracker.start_broadcast_calls.size());
+    TEST_ASSERT_EQUAL_UINT32(1, tracker.reading_calls.size());
+    TEST_ASSERT_EQUAL_UINT32(1, tracker.receipt_calls.size());
 }
 
 //! @test Test StartBroadcast message routing to type-specific callback
