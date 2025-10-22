@@ -12,9 +12,9 @@
 #include "../gpio/GPIO.h"
 #include "../gpio/PinTypes.h"
 
-//! @namespace OneWire
+//! @namespace jenlib::onewire
 //! @brief Public wrapper API for OneWire bus operations.
-namespace OneWire {
+namespace jenlib::onewire {
 
 //! \brief OneWire bus interface abstraction.
 //! \details Provides a minimal, platform-agnostic API for 1-Wire transactions.

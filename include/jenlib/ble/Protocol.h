@@ -32,8 +32,16 @@ enum class OpCode : std::uint8_t {
     Receipt        = 0x03   //!< Broker→Sensor: receipt/ack for readings
 };
 
-//! @brief Payload limits and timing guidance
-namespace limits {
+//! @namespace jenlib::ble::protocol::limits
+//! @brief Protocol limits and timing constraints.
+//! @details
+//! Defines maximum payload sizes, recommended intervals, and other
+//! protocol constraints that ensure reliable communication between
+//! sensors and brokers.
+//!
+//! @note These limits are enforced by the protocol layer and should
+//! not be exceeded by application code.
+namespace jenlib::ble::protocol::limits {
 //! @brief Maximum payload size in bytes for a single message value
 //! @note Matches kMaxPayload in Payload.h to keep protocol consistent.
 inline constexpr std::size_t kMaxPayloadBytes = 64u;
@@ -42,8 +50,13 @@ inline constexpr std::size_t kMaxPayloadBytes = 64u;
 inline constexpr std::uint32_t kRecommendedReadingIntervalMs = 1000u;
 }
 
-//! @brief High-level contract summary
-namespace contract {
+//! @namespace jenlib::ble::protocol::contract
+//! @brief High-level protocol contract definitions.
+//! @details
+//! Defines the directionality and semantics of protocol messages.
+//! These constants help ensure correct usage and can be used for
+//! static analysis and testing.
+namespace jenlib::ble::protocol::contract {
 //! @brief Directionality summary for each opcode
 inline constexpr bool kStartBroadcastBrokerToSensor = true;
 inline constexpr bool kReadingSensorToBroker = true;

@@ -219,8 +219,8 @@ void take_and_broadcast_reading() {
         .sender_id = kDeviceId,
         .session_id = sensor_state_machine.get_current_session_id(),
         .offset_ms = jenlib::time::Time::now(),  // Simplified for this example
-        .temperature_c_centi = measurement::temperature_to_centi(temperature_c),
-        .humidity_bp = measurement::humidity_to_basis_points(humidity_pct)
+        .temperature_c_centi = jenlib::measurement::temperature_to_centi(temperature_c),
+        .humidity_bp = jenlib::measurement::humidity_to_basis_points(humidity_pct)
     };
 
     // Broadcast the reading

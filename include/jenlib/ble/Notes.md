@@ -30,4 +30,3 @@ add this later without changing message formats.
   in milliseconds
 - Application: message APIs in `Messages.h` and `Ble.h`; fixed buffer in
   `Payload.h`
-  

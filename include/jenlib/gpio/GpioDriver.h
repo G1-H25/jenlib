@@ -9,7 +9,33 @@
 #include <cstdint>
 
 //! @namespace jenlib::gpio
-//! @brief GPIO namespace.
+//! @brief Core GPIO driver interface and types for hardware abstraction.
+//! @details
+//! This namespace provides the fundamental GPIO abstractions including:
+//! - Driver interface (@ref GpioDriver) for platform-specific implementations
+//! - Pin modes and digital values for type-safe GPIO operations
+//! - Pin handles that forward operations to the active driver
+//!
+//! @par Usage Example:
+//! @code
+//! #include <jenlib/gpio/GpioDriver.h>
+//!
+//! // Create a pin handle with a driver
+//! jenlib::gpio::Pin led_pin(&my_driver, 13);
+//! led_pin.pin_mode(jenlib::gpio::PinMode::OUTPUT);
+//! led_pin.digital_write(jenlib::gpio::DigitalValue::HIGH);
+//!
+//! // Read from a sensor pin
+//! jenlib::gpio::Pin sensor_pin(&my_driver, 2);
+//! sensor_pin.pin_mode(jenlib::gpio::PinMode::INPUT_PULLUP);
+//! auto value = sensor_pin.digital_read();
+//! @endcode
+//!
+//! @note The public API is available through @ref GPIO namespace
+//! which provides Arduino-compatible function names and type aliases.
+//!
+//! @see @ref GPIO for user-friendly public API
+//! @see @ref gpio_example "GPIO Examples" for more usage patterns
 
 namespace jenlib::gpio {
 

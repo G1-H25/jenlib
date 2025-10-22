@@ -10,7 +10,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace GPIO {
+namespace jenlib::gpio {
 
 //! @brief Type-safe wrapper for pins used with external libraries.
 //! @details This wrapper provides type safety while allowing conversion to raw pin numbers
@@ -46,7 +46,28 @@ class TypedPin {
     Pin pin_;
 };
 
-//! @brief Tag types for different pin uses.
+//! @namespace jenlib::gpio::PinTags
+//! @brief Tag types for different pin uses and type safety.
+//! @details
+//! Provides tag types that enable compile-time type safety for
+//! different pin use cases. These tags prevent accidental mixing
+//! of pins intended for different purposes (OneWire, SPI, I2C, etc.).
+//!
+//! @par Usage Example:
+//! @code
+//! #include <jenlib/gpio/PinTypes.h>
+//!
+//! // Create type-safe pins
+//! auto onewire_pin = jenlib::gpio::makeTypedPin<jenlib::gpio::PinTags::OneWire>(2);
+//! auto spi_pin = jenlib::gpio::makeTypedPin<jenlib::gpio::PinTags::SPI>(13);
+//!
+//! // Type-safe operations
+//! onewire_pin->pinMode(jenlib::gpio::PinMode::OUTPUT);
+//! spi_pin->pinMode(jenlib::gpio::PinMode::OUTPUT);
+//!
+//! // Implicit conversion to raw pin for library compatibility
+//! OneWire onewire_bus(onewire_pin);  // Converts to raw pin number
+//! @endcode
 namespace PinTags {
 struct OneWire {};
 struct SPI {};
@@ -78,7 +99,7 @@ TypedPin<Tag> makeTypedPin(const Pin& pin) noexcept {
     return TypedPin<Tag>(pin);
 }
 
-}  // namespace GPIO
+}  // namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_PINTYPES_H_
 

@@ -11,7 +11,46 @@
 #include <cstdint>
 
 //! @namespace GPIO
-//! @brief Public wrapper API for GPIO operations.
+//! @brief Public GPIO API providing Arduino-compatible interface.
+//! @details
+//! This namespace provides a user-friendly wrapper around the internal
+//! jenlib::gpio namespace, offering:
+//! - Arduino-compatible function names (pinMode, digitalWrite, etc.)
+//! - Type-safe pin handles with implicit conversion to raw pin numbers
+//! - Platform abstraction through driver injection
+//! - Singleton pin map for easy pin access
+//!
+//! @par Usage Example:
+//! @code
+//! #include <jenlib/gpio/GPIO.h>
+//!
+//! // Create pin handles
+//! GPIO::Pin led_pin(13);
+//! GPIO::Pin sensor_pin(2);
+//!
+//! // Configure pins
+//! led_pin.pinMode(GPIO::PinMode::OUTPUT);
+//! sensor_pin.pinMode(GPIO::PinMode::INPUT_PULLUP);
+//!
+//! // Use pins
+//! led_pin.digitalWrite(GPIO::DigitalValue::HIGH);
+//! auto sensor_value = sensor_pin.digitalRead();
+//!
+//! // Alternative: use pin map
+//! GPIO::PinMap pins;
+//! pins[13].pinMode(GPIO::PinMode::OUTPUT);
+//! pins[13].digitalWrite(GPIO::DigitalValue::HIGH);
+//! @endcode
+//!
+//! @par Driver Injection:
+//! @code
+//! // For testing or custom platforms
+//! jenlib::gpio::ArduinoGpioDriver arduino_driver;
+//! GPIO::setDriver(&arduino_driver);
+//! @endcode
+//!
+//! @see jenlib::gpio for internal driver interfaces
+//! @see @ref gpio_example "GPIO Examples" for more usage patterns
 namespace GPIO {
 
 //! @brief Pin mode for a GPIO pin (aliased to core driver enum).

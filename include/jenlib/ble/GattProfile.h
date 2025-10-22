@@ -10,9 +10,15 @@
 
 namespace jenlib::ble {
 
-//! @brief 128-bit UUIDs (string form) for custom service and characteristics.
-//! @note These are placeholders but stable for examples/tests.
-namespace gatt {
+//! @namespace jenlib::ble::gatt
+//! @brief GATT profile definitions for BLE transport layer.
+//! @details
+//! Defines the 128-bit UUIDs and characteristics used for BLE
+//! communication between sensors and brokers. These UUIDs are
+//! stable placeholders suitable for examples and testing.
+//!
+//! @note These are placeholder UUIDs but stable for examples/tests.
+namespace jenlib::ble::gatt {
 
 //! @brief Service: Sensor Telemetry
 constexpr std::string_view kServiceSensor = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";

@@ -10,6 +10,52 @@
 #include <utility>
 #include "jenlib/events/EventTypes.h"
 
+//! @namespace jenlib::events
+//! @brief Event system for decoupled component communication.
+//! @details
+//! Provides a centralized event dispatcher that enables loose coupling
+//! between different parts of the system. Events are processed in the
+//! main loop and can be used to coordinate between:
+//! - BLE communication (@ref jenlib::ble)
+//! - State machines (@ref jenlib::state)
+//! - Time services (@ref jenlib::time)
+//! - GPIO operations (@ref jenlib::gpio)
+//!
+//! @par Usage Example:
+//! @code
+//! #include <jenlib/events/EventDispatcher.h>
+//!
+//! // Global event dispatcher
+//! jenlib::events::EventDispatcher event_dispatcher;
+//!
+//! // Register event handlers
+//! event_dispatcher.register_callback(
+//!     jenlib::events::EventType::kBleMessage,
+//!     [](const jenlib::events::Event& event) {
+//!         // Handle BLE message event
+//!     });
+//!
+//! // Dispatch events
+//! jenlib::events::Event event(
+//!     jenlib::events::EventType::kConnectionStateChange,
+//!     jenlib::time::Time::now(),
+//!     connected ? 1 : 0);
+//! event_dispatcher.dispatch_event(event);
+//!
+//! // Process events in main loop
+//! void loop() {
+//!     event_dispatcher.process_events();
+//! }
+//! @endcode
+//!
+//! @par Event Types:
+//! - kBleMessage: BLE communication events
+//! - kConnectionStateChange: Connection status changes
+//! - kTimeTick: Timer-based events
+//! - kCustom: User-defined events
+//!
+//! @see @ref event_example "Event System Example" for usage patterns
+//! @see jenlib::events::EventTypes for event type definitions
 namespace jenlib::events {
 
 //! @brief Result of the event enqueue operation

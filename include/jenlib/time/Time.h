@@ -11,7 +11,55 @@
 #include "jenlib/time/TimeTypes.h"
 
 //! @namespace jenlib::time
-//! @brief Abstracting time handling away from hardware bound libraries
+//! @brief Time service for platform-abstracted timing operations.
+//! @details
+//! Provides a unified time service that abstracts timing operations
+//! across different platforms (Arduino, ESP-IDF, native). Supports:
+//! - Timer scheduling and cancellation
+//! - Repeating and one-shot timers
+//! - Platform-independent time queries
+//! - Timer processing in main loop
+//!
+//! @par Usage Example:
+//! @code
+//! #include <jenlib/time/Time.h>
+//!
+//! // Initialize time service
+//! jenlib::time::Time::initialize();
+//!
+//! // Schedule a one-shot timer
+//! auto timer_id = jenlib::time::Time::schedule_callback(
+//!     1000,  // 1 second
+//!     []() { Serial.println("Timer fired!"); },
+//!     false  // one-shot
+//! );
+//!
+//! // Schedule a repeating timer
+//! auto repeat_timer = jenlib::time::Time::schedule_callback(
+//!     500,   // 500ms
+//!     []() { take_sensor_reading(); },
+//!     true   // repeating
+//! );
+//!
+//! // Process timers in main loop
+//! void loop() {
+//!     jenlib::time::Time::process_timers();
+//!
+//!     // Get current time
+//!     auto current_time = jenlib::time::Time::now();
+//! }
+//!
+//! // Cancel a timer
+//! jenlib::time::Time::cancel_callback(timer_id);
+//! @endcode
+//!
+//! @par Integration with Other Systems:
+//! - Used by @ref jenlib::state for state machine timing
+//! - Coordinates with @ref jenlib::events for timer events
+//! - Supports @ref jenlib::ble for measurement intervals
+//!
+//! @see @ref time_example "Time Service Example" for more usage patterns
+//! @see jenlib::time::TimeDriver for platform-specific implementations
 namespace jenlib::time {
 
 //! @brief Time service for managing timers and time operations

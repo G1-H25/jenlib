@@ -1,0 +1,163 @@
+name: Build and Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+      - develop*
+  pull_request:
+    branches:
+      - main
+      - develop*
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history for better documentation
+
+    - name: Install Doxygen
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
+
+    - name: Build documentation
+      run: |
+        # Create docs directory if it doesn't exist
+        mkdir -p docs
+
+        # Generate Doxygen documentation
+        doxygen docs/Doxyfile
+
+        # Verify HTML was generated
+        if [ ! -d "docs/html" ]; then
+          echo "Error: HTML documentation was not generated"
+          exit 1
+        fi
+
+        # List generated files for verification
+        echo "Generated documentation files:"
+        ls -la docs/html/ | head -20
+
+    - name: Upload documentation artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: documentation
+        path: docs/html/
+        retention-days: 30
+
+    # Only deploy on successful merge to main/develop branches
+    - name: Deploy to GitHub Pages
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/develop'))
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/html
+        destination_dir: ${{ github.ref == 'refs/heads/main' && 'main' || 'develop' }}
+        keep_files: false  # Clean previous deployments
+
+    - name: Comment PR with documentation preview
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+
+          // Check if documentation was built successfully
+          if (fs.existsSync('docs/html/index.html')) {
+            const comment = `## 📚 Documentation Build Successful
+
+            The documentation has been built successfully and is available as an artifact.
+
+            **Generated files:**
+            - HTML documentation: \`docs/html/\`
+            - Main index: \`docs/html/index.html\`
+
+            You can download the documentation artifact to preview the changes locally.
+
+            **Next steps:**
+            - Review the generated documentation
+            - Ensure all namespace documentation is correct
+            - Verify examples and cross-references work properly`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          } else {
+            const comment = `## ❌ Documentation Build Failed
+
+            The documentation build failed. Please check the build logs for errors.
+
+            **Common issues:**
+            - Missing Doxygen configuration
+            - Syntax errors in documentation comments
+            - Missing include files
+            - Invalid cross-references`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          }
+
+  validate-docs:
+    runs-on: ubuntu-latest
+    needs: build-docs
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download documentation artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: documentation
+        path: docs/html/
+
+    - name: Validate documentation structure
+      run: |
+        echo "Validating documentation structure..."
+
+        # Check for main index file
+        if [ ! -f "docs/html/index.html" ]; then
+          echo "Error: Main documentation index.html is missing"
+          exit 1
+        else
+          echo "✓ Found docs/html/index.html"
+        fi
+
+        echo "Documentation validation completed successfully!"
+
+    - name: Check for broken links
+      run: |
+        echo "Checking for broken internal links..."
+
+        # Simple check for common broken link patterns
+        broken_links=$(grep -r "unable to resolve reference" docs/html/ || true)
+        if [ -n "$broken_links" ]; then
+          echo "Warning: Found potential broken links:"
+          echo "$broken_links"
+          echo ""
+          echo "Consider fixing these cross-references in the documentation."
+        else
+          echo "✓ No obvious broken links found"
+        fi
+
+    - name: Generate documentation summary
+      run: |
+        echo "## Documentation Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Build Status" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Documentation built successfully" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Main index.html generated" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Ready for deployment" >> $GITHUB_STEP_SUMMARY
