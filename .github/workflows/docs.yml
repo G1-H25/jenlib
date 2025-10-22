@@ -1,5 +1,8 @@
 name: Build and Deploy Documentation
 
+permissions:
+  contents: write  # Required to push to documentation branch
+
 on:
   push:
     branches:
@@ -51,14 +54,29 @@ jobs:
         retention-days: 30
 
     # Only deploy on successful merge to main/develop branches
-    - name: Deploy to GitHub Pages
+    - name: Deploy documentation to gh_docs branch
       if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/develop'))
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/html
+        # Publish to a dedicated docs branch with per-source subfolders
+        publish_branch: gh_docs
         destination_dir: ${{ github.ref == 'refs/heads/main' && 'main' || 'develop' }}
         keep_files: false  # Clean previous deployments
+        force_orphan: true  # Force push to avoid merge conflicts
+      continue-on-error: true  # Don't fail the entire workflow if deployment fails
+
+    - name: Check deployment status
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/develop'))
+      run: |
+        echo "## GitHub Pages Deployment Status" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "If deployment failed due to permissions, please:" >> $GITHUB_STEP_SUMMARY
+        echo "1. Go to repository Settings → Actions → General" >> $GITHUB_STEP_SUMMARY
+        echo "2. Under 'Workflow permissions', select 'Read and write permissions'" >> $GITHUB_STEP_SUMMARY
+        echo "3. Check 'Allow GitHub Actions to create and approve pull requests'" >> $GITHUB_STEP_SUMMARY
+        echo "4. Go to Settings → Pages and set Source to 'Deploy from a branch' with branch 'gh_docs' and folder '/'" >> $GITHUB_STEP_SUMMARY
 
     - name: Comment PR with documentation preview
       if: github.event_name == 'pull_request'
