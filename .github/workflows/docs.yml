@@ -78,55 +78,20 @@ jobs:
         echo "3. Check 'Allow GitHub Actions to create and approve pull requests'" >> $GITHUB_STEP_SUMMARY
         echo "4. Go to Settings → Pages and set Source to 'Deploy from a branch' with branch 'gh_docs' and folder '/'" >> $GITHUB_STEP_SUMMARY
 
-    - name: Comment PR with documentation preview
+    - name: Documentation build summary
       if: github.event_name == 'pull_request'
-      uses: actions/github-script@v7
-      with:
-        script: |
-          const fs = require('fs');
-          const path = require('path');
+      run: |
+        echo "## 📚 Documentation Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
 
-          // Check if documentation was built successfully
-          if (fs.existsSync('docs/html/index.html')) {
-            const comment = `## 📚 Documentation Build Successful
-
-            The documentation has been built successfully and is available as an artifact.
-
-            **Generated files:**
-            - HTML documentation: \`docs/html/\`
-            - Main index: \`docs/html/index.html\`
-
-            You can download the documentation artifact to preview the changes locally.
-
-            **Next steps:**
-            - Review the generated documentation
-            - Ensure all namespace documentation is correct
-            - Verify examples and cross-references work properly`;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            });
-          } else {
-            const comment = `## ❌ Documentation Build Failed
-
-            The documentation build failed. Please check the build logs for errors.
-
-            **Common issues:**
-            - Missing Doxygen configuration
-            - Syntax errors in documentation comments
-            - Missing include files
-            - Invalid cross-references`;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            });
-          }
+        if [ -f "docs/html/index.html" ]; then
+          echo "✅ **Build Status:** Successful" >> $GITHUB_STEP_SUMMARY
+          echo "📁 **Artifact:** Documentation available for download" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **Preview:** Download the 'documentation' artifact to preview locally" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ **Build Status:** Failed" >> $GITHUB_STEP_SUMMARY
+          echo "📋 **Next Steps:** Check build logs for errors" >> $GITHUB_STEP_SUMMARY
+        fi
 
   validate-docs:
     runs-on: ubuntu-latest
