@@ -1,0 +1,13 @@
+<map id="include/jenlib/gpio/GPIO.h" name="include/jenlib/gpio/GPIO.h">
+<area shape="rect" id="Node000001" title="Public wrapper API for GPIO operations." alt="" coords="139,5,280,45"/>
+<area shape="rect" id="Node000002" href="$PinTypes_8h.html" title="Type&#45;safe pin wrappers for different use cases." alt="" coords="5,93,147,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,55,107,95,104,91,167,51"/>
+<area shape="rect" id="Node000003" href="$OneWireBus_8h.html" title="Type&#45;safe OneWire bus interface Copyright 2025 Jennifer Gott." alt="" coords="32,181,197,221"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="198,59,161,135,130,183,126,180,156,132,193,57"/>
+<area shape="rect" id="Node000004" href="$NativeOneWireBus_8cpp.html" title="Native OneWire bus implementation for testing and development." alt="" coords="87,269,263,309"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="217,59,221,134,219,178,212,222,202,248,190,270,185,268,197,246,207,221,214,178,216,134,211,60"/>
+<area shape="rect" id="Node000005" href="$GPIO_8cpp.html" title="GPIO wrapper implementation." alt="" coords="272,101,408,126"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="251,51,324,98,321,103,248,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,145,109,180,104,182,88,147"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="138,231,164,268,159,271,134,234"/>
+</map>

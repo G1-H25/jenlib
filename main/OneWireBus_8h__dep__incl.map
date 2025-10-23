@@ -1,0 +1,5 @@
+<map id="include/jenlib/onewire/OneWireBus.h" name="include/jenlib/onewire/OneWireBus.h">
+<area shape="rect" id="Node000001" title="Type&#45;safe OneWire bus interface Copyright 2025 Jennifer Gott." alt="" coords="11,5,176,45"/>
+<area shape="rect" id="Node000002" href="$NativeOneWireBus_8cpp.html" title="Native OneWire bus implementation for testing and development." alt="" coords="5,93,181,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,59,96,93,91,93,91,59"/>
+</map>

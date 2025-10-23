@@ -1,0 +1,5 @@
+<map id="jenlib::ble::ArduinoBleDriver" name="jenlib::ble::ArduinoBleDriver">
+<area shape="rect" id="Node000001" title="Arduino BLE driver implementation using ArduinoBLE library." alt="" coords="5,79,211,104"/>
+<area shape="rect" id="Node000002" href="$classjenlib_1_1ble_1_1BleDriver.html" title="Abstract transport for BLE messaging in this library." alt="" coords="31,5,185,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,44,111,79,105,79,105,44"/>
+</map>

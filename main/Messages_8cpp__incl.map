@@ -1,0 +1,18 @@
+<map id="src/ble/Messages.cpp" name="src/ble/Messages.cpp">
+<area shape="rect" id="Node000001" title="Implementations for BLE message serialization." alt="" coords="6,5,167,31"/>
+<area shape="rect" id="Node000002" href="$Messages_8h.html" title="BLE&#45;friendly message formats and serialization utilities." alt="" coords="5,79,168,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,31,89,65,84,65,84,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="23,299,89,324"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="66,106,40,126,18,153,13,170,11,188,16,224,28,258,43,286,38,288,24,260,11,225,6,188,8,169,14,151,36,122,63,102"/>
+<area shape="rect" id="Node000004" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="93,225,243,251"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="109,102,136,122,160,151,170,181,172,211,167,211,165,182,155,153,133,126,106,106"/>
+<area shape="rect" id="Node000007" href="$Ids_8h.html" title="Strongly&#45;typed identifiers for BLE with checksum support." alt="" coords="28,152,145,177"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="89,104,89,138,84,138,84,104"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="151,253,88,293,85,289,149,248"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="127,299,183,324"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="168,251,162,286,157,285,163,251"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="207,299,267,324"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="181,249,219,287,215,291,178,253"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="87,178,64,286,59,285,82,177"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="101,175,146,214,143,218,98,179"/>
+</map>

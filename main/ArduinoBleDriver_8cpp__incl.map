@@ -1,0 +1,41 @@
+<map id="src/ble/drivers/ArduinoBleDriver.cpp" name="src/ble/drivers/ArduinoBleDriver.cpp">
+<area shape="rect" id="Node000001" title="Arduino BLE driver implementation using ArduinoBLE library." alt="" coords="423,5,612,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="114,401,174,427"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="423,40,295,61,159,93,99,113,51,137,19,164,11,178,8,193,8,268,11,289,18,309,43,343,76,371,109,392,106,397,72,376,39,347,13,311,5,291,3,269,3,192,6,176,15,160,48,132,97,108,158,88,294,56,422,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="803,401,859,427"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="612,28,700,40,745,52,788,68,826,90,856,117,877,151,884,192,884,269,880,303,871,336,847,390,842,388,866,334,875,302,879,269,879,193,872,153,852,120,823,94,786,73,744,57,699,46,612,33"/>
+<area shape="rect" id="Node000004" href="$ArduinoBleDriver_8h.html" title="Arduino BLE driver implementation using ArduinoBLE library." alt="" coords="443,93,591,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="520,46,520,79,515,79,515,46"/>
+<area shape="rect" id="Node000013" href="$Messages_8h.html" title="BLE&#45;friendly message formats and serialization utilities." alt="" coords="43,181,205,207"/>
+<area shape="poly" id="edge21_Node000001_Node000013" title=" " alt="" coords="474,48,165,178,163,174,472,43"/>
+<area shape="rect" id="Node000014" href="$GattProfile_8h.html" title="UUIDs and metadata for the sensor GATT profile." alt="" coords="919,101,1086,126"/>
+<area shape="poly" id="edge25_Node000001_Node000014" title=" " alt="" coords="613,40,900,91,927,96,927,101,900,96,612,46"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="592,115,634,121,678,133,720,152,758,179,778,203,794,229,816,287,828,343,833,387,827,388,823,343,811,288,789,232,774,206,754,183,718,157,676,138,633,127,591,120"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="359,401,425,427"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="592,119,627,127,663,139,698,156,728,179,751,203,765,228,769,254,757,281,725,317,688,346,645,368,601,385,513,406,439,414,439,409,512,401,599,380,643,363,685,341,722,313,752,279,763,253,760,229,747,206,725,183,695,161,661,144,625,132,591,125"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="280,181,357,207"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="471,136,361,179,359,174,469,131"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="382,181,479,207"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="498,136,456,174,452,170,495,132"/>
+<area shape="rect" id="Node000008" href="$BleDriver_8h.html" title="BLE driver interface for sensor/broker communication." alt="" coords="555,181,714,207"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="547,131,608,172,605,176,544,136"/>
+<area shape="rect" id="Node000011" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="205,328,355,353"/>
+<area shape="poly" id="edge19_Node000004_Node000011" title=" " alt="" coords="443,127,340,149,297,165,270,183,261,198,256,214,255,250,261,285,271,314,266,316,256,286,249,250,251,213,256,196,266,180,294,160,338,144,442,122"/>
+<area shape="rect" id="Node000012" href="$Ids_8h.html" title="Strongly&#45;typed identifiers for BLE with checksum support." alt="" coords="277,255,395,280"/>
+<area shape="poly" id="edge20_Node000004_Node000012" title=" " alt="" coords="520,134,513,171,506,191,494,208,475,225,454,238,409,256,407,251,452,234,472,221,490,205,501,188,508,170,514,133"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="600,209,556,229,511,257,477,289,448,326,407,391,402,388,444,323,474,286,508,253,553,224,598,204"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="521,255,607,280"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="625,209,587,247,583,243,621,205"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="631,255,742,280"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="645,205,672,242,668,245,641,209"/>
+<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="599,209,465,257,317,325,315,320,463,252,597,204"/>
+<area shape="poly" id="edge16_Node000008_Node000012" title=" " alt="" coords="587,209,398,254,397,249,586,204"/>
+<area shape="poly" id="edge14_Node000011_Node000002" title=" " alt="" coords="259,356,179,397,177,393,257,351"/>
+<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="355,349,789,405,789,410,354,354"/>
+<area shape="poly" id="edge15_Node000011_Node000005" title=" " alt="" coords="299,351,363,391,360,396,297,356"/>
+<area shape="poly" id="edge17_Node000012_Node000005" title=" " alt="" coords="345,279,369,327,388,387,383,388,364,329,340,281"/>
+<area shape="poly" id="edge18_Node000012_Node000011" title=" " alt="" coords="329,282,300,319,295,316,325,279"/>
+<area shape="poly" id="edge22_Node000013_Node000005" title=" " alt="" coords="128,206,134,236,147,275,166,316,195,351,230,375,269,391,309,401,345,407,344,412,308,407,268,396,227,380,192,355,162,319,142,277,129,237,123,207"/>
+<area shape="poly" id="edge23_Node000013_Node000011" title=" " alt="" coords="139,205,259,316,256,320,135,209"/>
+<area shape="poly" id="edge24_Node000013_Node000012" title=" " alt="" coords="159,204,290,248,288,253,157,209"/>
+</map>

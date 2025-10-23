@@ -1,0 +1,11 @@
+<map id="include/jenlib/state/StateMachine.h" name="include/jenlib/state/StateMachine.h">
+<area shape="rect" id="Node000001" title="Base state machine interface and utilities." alt="" coords="184,5,331,45"/>
+<area shape="rect" id="Node000002" href="$BrokerStateMachine_8h.html" title="Broker state machine for BLE broker applications." alt="" coords="75,93,245,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,56,183,95,180,91,224,52"/>
+<area shape="rect" id="Node000004" href="$SensorStateMachine_8h.html" title="Sensor state machine for BLE sensor applications." alt="" coords="287,93,457,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="295,52,348,91,345,95,292,56"/>
+<area shape="rect" id="Node000003" href="$BrokerStateMachine_8cpp.html" title="Broker state machine implementation." alt="" coords="5,181,245,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="149,147,133,182,128,180,144,145"/>
+<area shape="rect" id="Node000005" href="$SensorStateMachine_8cpp.html" title="Sensor state machine implementation." alt="" coords="269,181,512,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="382,146,390,180,385,182,377,147"/>
+</map>

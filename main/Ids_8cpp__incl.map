@@ -1,0 +1,15 @@
+<map id="src/ble/Ids.cpp" name="src/ble/Ids.cpp">
+<area shape="rect" id="Node000001" title="Implementations for strong ID types with CRC8." alt="" coords="136,5,251,31"/>
+<area shape="rect" id="Node000002" href="$Ids_8h.html" title="Strongly&#45;typed identifiers for BLE with checksum support." alt="" coords="79,79,196,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,33,157,69,153,66,182,29"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="205,225,265,251"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="199,30,211,78,227,152,235,211,229,212,221,152,205,79,194,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,225,72,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,106,80,126,53,153,42,182,40,212,34,211,37,181,48,151,76,121,108,102"/>
+<area shape="rect" id="Node000004" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="63,152,212,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="140,104,140,138,135,138,135,104"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="123,180,67,219,64,215,120,175"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="109,225,165,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="140,178,140,212,135,212,135,178"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="155,175,209,215,206,219,151,180"/>
+</map>

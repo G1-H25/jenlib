@@ -1,0 +1,23 @@
+<map id="include/jenlib/gpio/GpioDriver.h" name="include/jenlib/gpio/GpioDriver.h">
+<area shape="rect" id="Node000001" title="GPIO driver interface." alt="" coords="441,5,583,45"/>
+<area shape="rect" id="Node000002" href="$GPIO_8h.html" title="Public wrapper API for GPIO operations." alt="" coords="164,93,305,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="439,52,296,96,295,91,438,47"/>
+<area shape="rect" id="Node000007" href="$ArduinoGpioDriver_8h.html" title="Arduino GPIO driver implementation." alt="" coords="409,93,615,133"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="515,59,515,93,509,93,509,59"/>
+<area shape="rect" id="Node000009" href="$NativeGpioDriver_8h.html" title="Native GPIO driver implementation." alt="" coords="639,93,838,133"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="576,48,690,91,688,96,574,53"/>
+<area shape="rect" id="Node000003" href="$PinTypes_8h.html" title="Type&#45;safe pin wrappers for different use cases." alt="" coords="5,181,147,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="189,142,112,184,109,179,187,138"/>
+<area shape="rect" id="Node000004" href="$OneWireBus_8h.html" title="Type&#45;safe OneWire bus interface Copyright 2025 Jennifer Gott." alt="" coords="32,269,197,309"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="216,146,130,271,126,268,212,143"/>
+<area shape="rect" id="Node000005" href="$NativeOneWireBus_8cpp.html" title="Native OneWire bus implementation for testing and development." alt="" coords="87,357,263,397"/>
+<area shape="poly" id="edge7_Node000002_Node000005" title=" " alt="" coords="237,147,230,222,223,267,212,310,189,358,184,356,207,308,218,266,225,222,231,147"/>
+<area shape="rect" id="Node000006" href="$GPIO_8cpp.html" title="GPIO wrapper implementation." alt="" coords="272,189,408,214"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="270,140,327,186,324,190,267,144"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="93,233,109,268,104,270,88,235"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="138,319,164,356,159,359,134,322"/>
+<area shape="rect" id="Node000008" href="$ArduinoGpioDriver_8cpp.html" title="Arduino GPIO driver implementation." alt="" coords="432,181,608,221"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="518,147,521,181,516,181,512,147"/>
+<area shape="rect" id="Node000010" href="$NativeGpioDriver_8cpp.html" title="Native GPIO driver implementation." alt="" coords="639,181,838,221"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="741,147,741,181,736,181,736,147"/>
+</map>

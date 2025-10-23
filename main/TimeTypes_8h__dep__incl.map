@@ -1,0 +1,23 @@
+<map id="include/jenlib/time/TimeTypes.h" name="include/jenlib/time/TimeTypes.h">
+<area shape="rect" id="Node000001" title="Time service types and structures for jenlib." alt="" coords="566,5,709,45"/>
+<area shape="rect" id="Node000002" href="$Time_8h.html" title="Time service interface for jenlib." alt="" coords="337,181,479,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="574,53,536,72,500,95,455,140,422,183,418,180,451,136,497,91,534,67,572,48"/>
+<area shape="rect" id="Node000006" href="$TimeDriver_8h.html" title="Abstract interface for time drivers." alt="" coords="511,93,654,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="620,58,597,95,593,92,616,56"/>
+<area shape="rect" id="Node000007" href="$ArduinoTimeDriver_8h.html" title="Arduino&#45;specific time driver implementation." alt="" coords="731,181,941,221"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="671,52,816,179,813,183,667,56"/>
+<area shape="rect" id="Node000008" href="$NativeTimeDriver_8h.html" title="Native (desktop) time driver implementation." alt="" coords="504,181,707,221"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="658,57,671,94,672,114,668,134,652,161,631,183,627,179,648,158,663,132,667,114,665,95,653,59"/>
+<area shape="rect" id="Node000003" href="$BrokerStateMachine_8cpp.html" title="Broker state machine implementation." alt="" coords="5,277,245,302"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="334,228,164,279,162,274,332,223"/>
+<area shape="rect" id="Node000004" href="$SensorStateMachine_8cpp.html" title="Sensor state machine implementation." alt="" coords="269,277,512,302"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="404,235,396,277,390,276,399,234"/>
+<area shape="rect" id="Node000005" href="$Time_8cpp.html" title="Time service implementation." alt="" coords="536,277,675,302"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="465,224,580,274,578,279,463,229"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="533,142,447,184,445,179,531,137"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="652,135,781,179,780,184,650,140"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="594,146,603,180,598,182,589,147"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="608,235,608,276,603,276,603,235"/>
+<area shape="rect" id="Node000009" href="$NativeTimeDriver_8cpp.html" title="Native (desktop) time driver implementation." alt="" coords="699,269,903,309"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="662,224,759,267,757,272,660,229"/>
+</map>

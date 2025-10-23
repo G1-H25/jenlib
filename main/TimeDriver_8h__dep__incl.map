@@ -1,0 +1,18 @@
+<map id="include/jenlib/time/TimeDriver.h" name="include/jenlib/time/TimeDriver.h">
+<area shape="rect" id="Node000001" title="Abstract interface for time drivers." alt="" coords="514,5,657,45"/>
+<area shape="rect" id="Node000002" href="$Time_8h.html" title="Time service interface for jenlib." alt="" coords="314,93,457,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="530,53,430,96,428,91,528,48"/>
+<area shape="rect" id="Node000006" href="$ArduinoTimeDriver_8h.html" title="Arduino&#45;specific time driver implementation." alt="" coords="481,93,690,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="588,59,588,93,583,93,583,59"/>
+<area shape="rect" id="Node000007" href="$NativeTimeDriver_8h.html" title="Native (desktop) time driver implementation." alt="" coords="715,93,917,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="649,48,766,91,765,96,648,53"/>
+<area shape="rect" id="Node000003" href="$BrokerStateMachine_8cpp.html" title="Broker state machine implementation." alt="" coords="5,189,245,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="316,140,161,191,159,186,314,135"/>
+<area shape="rect" id="Node000004" href="$SensorStateMachine_8cpp.html" title="Sensor state machine implementation." alt="" coords="269,189,512,214"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="390,147,393,188,387,188,385,147"/>
+<area shape="rect" id="Node000005" href="$Time_8cpp.html" title="Time service implementation." alt="" coords="545,189,684,214"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="449,136,585,186,583,191,447,141"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="760,141,643,191,640,186,758,136"/>
+<area shape="rect" id="Node000008" href="$NativeTimeDriver_8cpp.html" title="Native (desktop) time driver implementation." alt="" coords="714,181,918,221"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="819,147,819,181,813,181,813,147"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="include/jenlib/state/StateMachine.h" name="include/jenlib/state/StateMachine.h">
+<area shape="rect" id="Node000001" title="Base state machine interface and utilities." alt="" coords="219,5,366,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="28,167,95,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,36,159,45,97,57,45,74,26,84,13,95,8,110,12,125,23,141,37,156,34,159,19,145,7,128,3,109,9,92,23,80,43,69,96,52,158,40,219,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="137,167,224,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="367,42,403,55,432,72,442,83,447,94,447,107,440,120,426,132,407,142,354,157,294,168,238,176,237,170,293,163,353,152,405,137,423,127,436,117,442,106,442,95,438,86,429,77,400,60,365,47"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="244,93,341,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="295,46,295,79,290,79,290,46"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="365,93,425,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="319,43,371,83,367,87,316,48"/>
+<area shape="rect" id="Node000006" href="$EventTypes_8h.html" title="Event system types and structures for jenlib." alt="" coords="24,93,220,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="253,48,160,90,158,85,250,43"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="114,121,82,158,78,154,110,117"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="134,117,164,155,160,158,129,121"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="include/jenlib/ble/drivers/BleService.h" name="include/jenlib/ble/drivers/BleService.h">
+<area shape="rect" id="Node000001" title="Agnostic BLE service interface for cross&#45;platform compatibility." alt="" coords="19,5,175,45"/>
+<area shape="rect" id="Node000002" href="$NativeBleService_8cpp.html" title="Native implementation of BLE service for testing/simulation." alt="" coords="5,93,188,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,59,99,93,94,93,94,59"/>
+</map>
