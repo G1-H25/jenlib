@@ -11,6 +11,62 @@
 #include <jenlib/ble/Messages.h>
 #include <jenlib/events/EventTypes.h>
 
+//! @namespace jenlib::state
+//! @brief State machine implementations for sensor and broker roles.
+//! @details
+//! Provides state machines that manage the lifecycle of sensor
+//! and broker operations. State machines ensure proper state
+//! transitions and validate operations based on current state.
+//!
+//! @par Sensor State Flow:
+//! @dot
+//! digraph sensor_states {
+//!     Disconnected -> Waiting [label="BLE Connected"];
+//!     Waiting -> Running [label="StartBroadcast"];
+//!     Running -> Waiting [label="Session End"];
+//!     Waiting -> Disconnected [label="BLE Disconnected"];
+//!     Running -> Disconnected [label="BLE Disconnected"];
+//!     Disconnected -> Error [label="Connection Error"];
+//!     Waiting -> Error [label="Invalid Message"];
+//!     Running -> Error [label="Session Error"];
+//! }
+//! @enddot
+//!
+//! @par Usage Example:
+//! @code
+//! #include <jenlib/state/SensorStateMachine.h>
+//!
+//! jenlib::state::SensorStateMachine sensor_state_machine;
+//!
+//! // Handle BLE connection changes
+//! void callback_connection(bool connected) {
+//!     sensor_state_machine.handle_connection_change(connected);
+//! }
+//!
+//! // Handle start broadcast messages
+//! void callback_start(jenlib::ble::DeviceId sender_id,
+//!                    const jenlib::ble::StartBroadcastMsg &msg) {
+//!     bool success = sensor_state_machine.handle_start_broadcast(sender_id, msg);
+//!     if (success) {
+//!         start_measurement_session(msg);
+//!     }
+//! }
+//!
+//! // Check if session is active before taking readings
+//! void take_reading() {
+//!     if (sensor_state_machine.is_session_active()) {
+//!         // Take and broadcast reading
+//!     }
+//! }
+//! @endcode
+//!
+//! @par Integration with Other Systems:
+//! - Uses @ref jenlib::events for state change notifications
+//! - Coordinates with @ref jenlib::ble for message handling
+//! - Manages timing through @ref jenlib::time services
+//!
+//! @see @ref state_example "State Machine Example" for complete usage patterns
+//! @see jenlib::state::StateMachine for base state machine functionality
 namespace jenlib::state {
 
 //! @brief Sensor state enumeration

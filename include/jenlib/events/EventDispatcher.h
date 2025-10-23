@@ -10,6 +10,52 @@
 #include <utility>
 #include "jenlib/events/EventTypes.h"
 
+//! @namespace jenlib::events
+//! @brief Event system for decoupled component communication.
+//! @details
+//! Provides a centralized event dispatcher that enables loose coupling
+//! between different parts of the system. Events are processed in the
+//! main loop and can be used to coordinate between:
+//! - BLE communication (@ref jenlib::ble)
+//! - State machines (@ref jenlib::state)
+//! - Time services (@ref jenlib::time)
+//! - GPIO operations (@ref jenlib::gpio)
+//!
+//! @par Usage Example:
+//! @code
+//! #include <jenlib/events/EventDispatcher.h>
+//!
+//! // Global event dispatcher
+//! jenlib::events::EventDispatcher event_dispatcher;
+//!
+//! // Register event handlers
+//! event_dispatcher.register_callback(
+//!     jenlib::events::EventType::kBleMessage,
+//!     [](const jenlib::events::Event& event) {
+//!         // Handle BLE message event
+//!     });
+//!
+//! // Dispatch events
+//! jenlib::events::Event event(
+//!     jenlib::events::EventType::kConnectionStateChange,
+//!     jenlib::time::Time::now(),
+//!     connected ? 1 : 0);
+//! event_dispatcher.dispatch_event(event);
+//!
+//! // Process events in main loop
+//! void loop() {
+//!     event_dispatcher.process_events();
+//! }
+//! @endcode
+//!
+//! @par Event Types:
+//! - kBleMessage: BLE communication events
+//! - kConnectionStateChange: Connection status changes
+//! - kTimeTick: Timer-based events
+//! - kCustom: User-defined events
+//!
+//! @see @ref event_example "Event System Example" for usage patterns
+//! @see jenlib::events::EventTypes for event type definitions
 namespace jenlib::events {
 
 //! @brief Result of the event enqueue operation
@@ -43,10 +89,11 @@ class EventDispatcher {
     static std::size_t unregister_callbacks(EventType event_type);
 
     //! @brief Dispatch an event to the processing queue
+    //! @note If you don't want to keep track of the evicted event, don't set the evicted_event pointer
     //! @param event The event to dispatch
-    //! @param evicted_event Optional pointer to an event that was evicted to make room for the new event
+    //! @param[out] evicted_event Optional pointer to keep track of the evicted event
     //! @return Result of the enqueue operation
-    static EventEnqueueResult dispatch_event(const Event& event, Event* evicted_event /* = nullptr */);
+    static EventEnqueueResult dispatch_event(const Event& event, Event* evicted_event = nullptr);
 
     //! @brief Process all pending events in the queue
     //! @return Number of events processed

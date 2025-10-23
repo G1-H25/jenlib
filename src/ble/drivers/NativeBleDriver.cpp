@@ -1,5 +1,5 @@
 
-//! @file src/ble/NativeBleDriver.cpp
+//! @file src/ble/drivers/NativeBleDriver.cpp
 //! @brief Native (container-friendly) BLE driver using in-memory queues (UDP-like).
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)

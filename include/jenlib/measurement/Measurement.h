@@ -15,9 +15,51 @@
 //! As data is collected, it is stored in this format. Then it is serialized to a BLE message for transmission.
 //! Broker deserializes into this format for aggregation and json serialization for backend transfer.
 
-//! @namespace measurement
-//! @brief Namespace for measurement types.
-namespace measurement {
+//! @namespace jenlib::measurement
+//! @brief Measurement types and conversion utilities for sensor data.
+//! @details
+//! Provides common data structures and utility functions for
+//! sensor measurements. All measurements use consistent units
+//! and provide serialization for BLE transmission. This namespace
+//! handles the conversion between floating-point sensor readings
+//! and fixed-point BLE message formats.
+//!
+//! @par Usage Example:
+//! @code
+//! #include <jenlib/measurement/Measurement.h>
+//!
+//! // Read sensors (platform-specific code)
+//! float temperature_c = read_temperature_sensor();  // 23.12°C
+//! float humidity_pct = read_humidity_sensor();     // 45.0%
+//!
+//! // Convert for BLE transmission
+//! auto temp_centi = jenlib::measurement::temperature_to_centi(temperature_c);
+//! auto hum_bp = jenlib::measurement::humidity_to_basis_points(humidity_pct);
+//!
+//! // Create measurement message
+//! jenlib::ble::ReadingMsg reading_msg{
+//!     .sender_id = kDeviceId,
+//!     .session_id = session_id,
+//!     .offset_ms = jenlib::time::Time::now(),
+//!     .temperature_c_centi = temp_centi,  // 2312 (23.12°C)
+//!     .humidity_bp = hum_bp              // 4500 (45.00%)
+//! };
+//!
+//! // Broadcast the reading
+//! sensor.broadcast_reading(reading_msg);
+//! @endcode
+//!
+//! @par Unit Conversions:
+//! - Temperature: Celsius to centi-degrees (multiply by 100)
+//! - Humidity: Percentage to basis points (multiply by 100)
+//! - Time: Platform-specific to milliseconds
+//!
+//! @note Sensor-specific reading code (like TMP36 conversion) should
+//! be implemented in your application, not in this library.
+//!
+//! @see jenlib::ble::Messages for BLE message formats
+//! @see @ref measurement_example "Measurement Example" for sensor integration
+namespace jenlib::measurement {
 
 struct Measurement {
     std::uint32_t timestamp_ms;  //!< Offset since start of session in milliseconds.
@@ -70,6 +112,6 @@ inline float humidity_from_basis_points(std::uint16_t humidity_bp) {
     return static_cast<float>(humidity_bp) / 100.0f;
 }
 
-}  // namespace measurement
+}  // namespace jenlib::measurement
 
 #endif  // INCLUDE_JENLIB_MEASUREMENT_MEASUREMENT_H_

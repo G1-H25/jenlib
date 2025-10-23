@@ -8,10 +8,15 @@
 
 namespace jenlib::ble {
 
-//! @brief 128-bit UUIDs (string form) for custom service and characteristics.
-//! @note These are placeholders but stable for examples/tests.
-//! @note Using inline const char[] for C++17 compatibility instead of constexpr string_view
-namespace gatt {
+//! @namespace jenlib::ble::gatt
+//! @brief GATT profile definitions for BLE transport layer.
+//! @details
+//! Defines the 128-bit UUIDs and characteristics used for BLE
+//! communication between sensors and brokers. These UUIDs are
+//! stable placeholders suitable for examples and testing.
+//!
+//! @note These are placeholder UUIDs but stable for examples/tests.
+namespace jenlib::ble::gatt {
 
 //! @brief Service: Sensor Telemetry
 inline const char kServiceSensor[] = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
@@ -29,9 +34,7 @@ inline const char kChrReceipt[] = "6e400012-b5a3-f393-e0a9-e50e24dcca9e";
 //! @brief Session: Read (optional)
 inline const char kChrSession[] = "6e400013-b5a3-f393-e0a9-e50e24dcca9e";
 
-}  // namespace gatt
-
-}  // namespace jenlib::ble
+}  // namespace jenlib::ble::gatt
 
 #endif  // INCLUDE_JENLIB_BLE_GATTPROFILE_H_
 

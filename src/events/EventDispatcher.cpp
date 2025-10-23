@@ -72,7 +72,7 @@ std::size_t EventDispatcher::unregister_callbacks(EventType event_type) {
     return count;
 }
 
-EventEnqueueResult EventDispatcher::dispatch_event(const Event& event, Event* evicted_event /* = nullptr */) {
+EventEnqueueResult EventDispatcher::dispatch_event(const Event& event, Event* evicted_event) {
     initialize();
 
     auto result = EventEnqueueResult::Enqueued;
