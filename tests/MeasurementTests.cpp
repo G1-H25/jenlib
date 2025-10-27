@@ -197,4 +197,3 @@ void run_measurement_tests() {
     RUN_TEST(test_payload_consumption);
     RUN_TEST(test_conversion_boundaries);
 }
-

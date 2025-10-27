@@ -69,4 +69,3 @@ struct ReceiptMsg {
 }  //  namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_MESSAGES_H_
-

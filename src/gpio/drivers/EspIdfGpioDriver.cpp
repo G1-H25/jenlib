@@ -20,12 +20,12 @@ void EspIdfGpioDriver::set_pin_mode(PinIndex pin, PinMode mode) noexcept {
     io_conf.pull_up_en = (mode == PinMode::INPUT_PULLUP) ? GPIO_PULLUP_ENABLE : GPIO_PULLUP_DISABLE;
     io_conf.pull_down_en = (mode == PinMode::INPUT_PULLDOWN) ? GPIO_PULLDOWN_ENABLE : GPIO_PULLDOWN_DISABLE;
     io_conf.intr_type = GPIO_INTR_DISABLE;
-    
+
     gpio_config(&io_conf);
 }
 
 void EspIdfGpioDriver::digital_write(PinIndex pin, DigitalValue value) noexcept {
-    gpio_set_level(static_cast<gpio_num_t>(pin), 
+    gpio_set_level(static_cast<gpio_num_t>(pin),
                    (value == DigitalValue::HIGH) ? 1 : 0);
 }
 
@@ -60,10 +60,10 @@ std::uint16_t EspIdfGpioDriver::analog_read(PinIndex pin) noexcept {
     // Configure ADC
     adc1_config_width(static_cast<adc_bits_width_t>(analog_read_bits_));
     adc1_config_channel_atten(static_cast<adc1_channel_t>(pin), ADC_ATTEN_DB_11);
-    
+
     // Read ADC value
     int adc_reading = adc1_get_raw(static_cast<adc1_channel_t>(pin));
-    
+
     // Convert to 16-bit value based on resolution
     std::uint16_t max_value = (1 << analog_read_bits_) - 1;
     return static_cast<std::uint16_t>((adc_reading * 65535) / max_value);

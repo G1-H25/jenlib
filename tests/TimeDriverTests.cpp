@@ -92,4 +92,3 @@ void test_driver_clear(void) {
     TEST_ASSERT_EQUAL_UINT32(0, time1);
     TEST_ASSERT_EQUAL_UINT32(0, time2);
 }
-

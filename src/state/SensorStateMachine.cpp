@@ -191,4 +191,3 @@ void SensorStateMachine::take_measurement() {
 }
 
 }  // namespace jenlib::state
-

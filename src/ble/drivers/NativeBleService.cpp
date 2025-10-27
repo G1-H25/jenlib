@@ -69,4 +69,3 @@ class NativeBleService : public jenlib::ble::BleService {
 }  // namespace jenlib::ble
 
 #endif  // ARDUINO
-

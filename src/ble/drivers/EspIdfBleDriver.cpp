@@ -6,6 +6,7 @@
 #include <jenlib/ble/drivers/EspIdfBleDriver.h>
 #include <jenlib/ble/Messages.h>
 #include <jenlib/ble/GattProfile.h>
+#include <utility>
 
 #ifdef ESP_PLATFORM
 #include <esp_gattc_api.h>
@@ -36,7 +37,7 @@ EspIdfBleDriver::EspIdfBleDriver(std::string_view device_name, DeviceId local_de
     receipt_char_handle_ = 0;
 }
 
-EspIdfBleDriver::EspIdfBleDriver(std::string_view device_name, DeviceId local_device_id, 
+EspIdfBleDriver::EspIdfBleDriver(std::string_view device_name, DeviceId local_device_id,
                                   const BleCallbacks& callbacks)
     : EspIdfBleDriver(device_name, local_device_id) {
     if (callbacks.on_connection) set_connection_callback(callbacks.on_connection);
@@ -107,8 +108,8 @@ bool EspIdfBleDriver::begin() {
     adv_data.set_scan_rsp = false;
     adv_data.include_name = true;
     adv_data.include_txpower = true;
-    adv_data.min_interval = 0x0006; // slave connection min interval
-    adv_data.max_interval = 0x0010; // slave connection max interval
+    adv_data.min_interval = 0x0006;  // slave connection min interval
+    adv_data.max_interval = 0x0010;  // slave connection max interval
     adv_data.appearance = 0x00;
     adv_data.manufacturer_len = 0;
     adv_data.p_manufacturer_data = nullptr;
@@ -230,7 +231,7 @@ void EspIdfBleDriver::setup_gatt_service() {
     service_id.id.uuid.len = ESP_UUID_LEN_128;
     memcpy(service_id.id.uuid.uuid.uuid128, gatt::kServiceSensor.data(), 16);
 
-    esp_ble_gatts_create_service(gatts_if_, &service_id, 3); // 3 characteristics
+    esp_ble_gatts_create_service(gatts_if_, &service_id, 3);  // 3 characteristics
 }
 
 void EspIdfBleDriver::process_ble_events() {
@@ -238,15 +239,15 @@ void EspIdfBleDriver::process_ble_events() {
     // This method is kept for compatibility with the interface
 }
 
-void EspIdfBleDriver::gatts_event_handler(esp_gatts_cb_event_t event, 
-                                          esp_gatt_if_t gatts_if, 
+void EspIdfBleDriver::gatts_event_handler(esp_gatts_cb_event_t event,
+                                          esp_gatt_if_t gatts_if,
                                           esp_ble_gatts_cb_param_t* param) {
     // Implementation would handle GATT server events
     // This is a simplified version - full implementation would handle
     // service creation, characteristic creation, read/write events, etc.
 }
 
-void EspIdfBleDriver::gap_event_handler(esp_gap_ble_cb_event_t event, 
+void EspIdfBleDriver::gap_event_handler(esp_gap_ble_cb_event_t event,
                                         esp_ble_gap_cb_param_t* param) {
     // Implementation would handle GAP events
     // This is a simplified version - full implementation would handle
@@ -304,7 +305,7 @@ bool EspIdfBleDriver::try_type_specific_callbacks(DeviceId sender_id, const BleP
 }
 
 void EspIdfBleDriver::send_via_gatt(uint16_t char_handle, const BlePayload& payload) {
-    esp_ble_gatts_send_indicate(gatts_if_, conn_id_, char_handle, 
+    esp_ble_gatts_send_indicate(gatts_if_, conn_id_, char_handle,
                                 payload.size, payload.bytes.data(), false);
 }
 

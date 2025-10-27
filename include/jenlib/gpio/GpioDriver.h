@@ -163,6 +163,3 @@ class Pin {
 }  //  namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_GPIODRIVER_H_
-
-
-

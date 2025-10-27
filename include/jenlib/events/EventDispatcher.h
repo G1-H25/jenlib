@@ -238,4 +238,3 @@ class EventDispatcher {
 }  // namespace jenlib::events
 
 #endif  // INCLUDE_JENLIB_EVENTS_EVENTDISPATCHER_H_
-

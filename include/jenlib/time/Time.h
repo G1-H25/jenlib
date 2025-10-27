@@ -161,4 +161,3 @@ inline TimerId schedule_one_shot(std::uint32_t delay_ms, TimerCallback callback)
 }  // namespace jenlib::time
 
 #endif  // INCLUDE_JENLIB_TIME_TIME_H_
-

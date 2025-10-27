@@ -475,6 +475,3 @@ void test_ble_multiple_broadcast_ordering(void) {
     TEST_ASSERT_EQUAL_UINT32(1000u, decoded_first.offset_ms);
     TEST_ASSERT_EQUAL_UINT32(2000u, decoded_second.offset_ms);
 }
-
-
-

@@ -85,4 +85,3 @@ class NativeBleCharacteristic : public jenlib::ble::BleCharacteristic {
 }  // namespace jenlib::ble
 
 #endif  // ARDUINO
-

@@ -44,4 +44,3 @@ class BleService {
 }  // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_BLESERVICE_H_
-

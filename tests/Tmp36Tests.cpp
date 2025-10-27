@@ -38,6 +38,3 @@ void test_tmp36_conversion_12bit_3v3(void) {
     float c = tmp36_celsius_from_code_local(code, bits, static_cast<float>(vref));
     TEST_ASSERT_FLOAT_WITHIN(1.0f, 30.0f, c);
 }
-
-
-

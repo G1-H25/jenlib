@@ -182,4 +182,3 @@ void BrokerStateMachine::process_reading(const jenlib::ble::ReadingMsg& msg) {
 }
 
 }  // namespace jenlib::state
-

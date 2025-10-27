@@ -34,7 +34,7 @@ bool EspIdfTimeDriver::has_overflowed(std::uint32_t time_value) noexcept {
     return time_value < last_time_;
 }
 
-std::uint32_t EspIdfTimeDriver::time_difference(std::uint32_t current_time, 
+std::uint32_t EspIdfTimeDriver::time_difference(std::uint32_t current_time,
                                                  std::uint32_t previous_time) noexcept {
     // Handle overflow case
     if (current_time < previous_time) {

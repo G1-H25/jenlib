@@ -169,4 +169,3 @@ inline bool read_i16le(BlePayload::const_iterator &it, BlePayload::const_iterato
 
 
 #endif  // INCLUDE_JENLIB_BLE_PAYLOAD_H_
-

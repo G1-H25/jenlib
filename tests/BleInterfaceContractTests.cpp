@@ -357,4 +357,3 @@ void test_device_id_return_value_consistency(void) {
     //! Assert
     TEST_ASSERT_EQUAL_UINT32(id1.value(), id2.value());
 }
-

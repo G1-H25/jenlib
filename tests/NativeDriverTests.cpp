@@ -73,6 +73,3 @@ void test_voltage_levels_and_tmp36(void) {
     TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(jenlib::gpio::DigitalValue::HIGH),
                             static_cast<uint8_t>(sensor.digitalRead()));
 }
-
-
-

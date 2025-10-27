@@ -66,6 +66,3 @@ inline constexpr bool kReceiptBrokerToSensor = true;
 }  // namespace jenlib::ble::protocol
 
 #endif  // INCLUDE_JENLIB_BLE_PROTOCOL_H_
-
-
-

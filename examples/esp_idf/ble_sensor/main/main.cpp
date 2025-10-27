@@ -56,7 +56,7 @@ float read_humidity_sensor();     // Mock sensor reading
 //! @section Main task
 void sensor_task(void* pvParameters) {
     ESP_LOGI(TAG, "Starting sensor task");
-    
+
     // Initialize time service first
     jenlib::time::Time::initialize();
 
@@ -66,7 +66,7 @@ void sensor_task(void* pvParameters) {
         vTaskDelete(nullptr);
         return;
     }
-    
+
     sensor.configure_callbacks(jenlib::ble::BleCallbacks{
         .on_connection = callback_connection,
         .on_start = callback_start,
@@ -78,7 +78,7 @@ void sensor_task(void* pvParameters) {
     sensor_state_machine.set_state_action_callback(
         [](jenlib::state::StateAction action,
            jenlib::state::SensorState state) {
-            ESP_LOGI(TAG, "State action: %d, State: %d", 
+            ESP_LOGI(TAG, "State action: %d, State: %d",
                      static_cast<int>(action), static_cast<int>(state));
         });
 
@@ -104,15 +104,15 @@ void sensor_task(void* pvParameters) {
 
         // Process state machine events
         // The state machine handles its own event processing internally
-        
-        vTaskDelay(pdMS_TO_TICKS(10)); // 10ms delay
+
+        vTaskDelay(pdMS_TO_TICKS(10));  // 10ms delay
     }
 }
 
 //! @section Implementations of forward declared functions
 void callback_connection(bool connected) {
     ESP_LOGI(TAG, "BLE connection: %s", connected ? "connected" : "disconnected");
-    
+
     // Update state machine first - this validates the transition
     sensor_state_machine.handle_connection_change(connected);
 
@@ -126,7 +126,7 @@ void callback_connection(bool connected) {
 
 void callback_start(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBroadcastMsg &msg) {
     ESP_LOGI(TAG, "Received start broadcast from device: 0x%08x", sender_id.value());
-    
+
     // First check if this message is intended for this sensor
     if (msg.device_id != kDeviceId) {
         ESP_LOGW(TAG, "Start broadcast not for this device (0x%08x)", msg.device_id.value());
@@ -153,7 +153,7 @@ void callback_start(jenlib::ble::DeviceId sender_id, const jenlib::ble::StartBro
 
 void callback_receipt(jenlib::ble::DeviceId sender_id, const jenlib::ble::ReceiptMsg &msg) {
     ESP_LOGI(TAG, "Received receipt from device: 0x%08x", sender_id.value());
-    
+
     // Update state machine
     sensor_state_machine.handle_receipt(sender_id, msg);
 
@@ -170,7 +170,7 @@ void callback_receipt(jenlib::ble::DeviceId sender_id, const jenlib::ble::Receip
 
 void callback_generic(jenlib::ble::DeviceId sender_id, const jenlib::ble::BlePayload &payload) {
     ESP_LOGI(TAG, "Received generic message from device: 0x%08x", sender_id.value());
-    
+
     // Dispatch generic BLE message event
     jenlib::events::Event event(
         jenlib::events::EventType::kBleMessage,
@@ -210,7 +210,7 @@ void handle_connection_state_event(const jenlib::events::Event& event) {
 //! @section Implementations of helper functions
 void start_measurement_session(const jenlib::ble::StartBroadcastMsg& msg) {
     ESP_LOGI(TAG, "Starting measurement session");
-    
+
     // Stop any existing session
     stop_measurement_session();
 
@@ -252,8 +252,8 @@ void take_and_broadcast_reading() {
 
     // Broadcast the reading
     sensor.broadcast_reading(reading_msg);
-    
-    ESP_LOGI(TAG, "Broadcasted reading: temp=%.1f°C, humidity=%.1f%%", 
+
+    ESP_LOGI(TAG, "Broadcasted reading: temp=%.1f°C, humidity=%.1f%%",
              temperature_c, humidity_pct);
 }
 
@@ -281,9 +281,9 @@ float read_humidity_sensor() {
 //! @section ESP-IDF app_main function
 extern "C" void app_main() {
     ESP_LOGI(TAG, "Starting JenLib ESP-IDF sensor example");
-    
+
     // Create sensor task
     xTaskCreate(sensor_task, "sensor_task", 8192, nullptr, 5, nullptr);
-    
+
     ESP_LOGI(TAG, "Sensor task created, system running");
 }

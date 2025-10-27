@@ -50,6 +50,3 @@ class ArduinoGpioDriver {
 #endif  // ARDUINO
 
 #endif  // INCLUDE_JENLIB_GPIO_DRIVERS_ARDUINOGPIODRIVER_H_
-
-
-

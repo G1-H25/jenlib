@@ -55,4 +55,3 @@ namespace jenlib::time {
 }
 
 #endif  // ARDUINO
-

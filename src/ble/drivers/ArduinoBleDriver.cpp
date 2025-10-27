@@ -359,4 +359,3 @@ namespace jenlib::ble {
 }
 
 #endif  // ARDUINO
-

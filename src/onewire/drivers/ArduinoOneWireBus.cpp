@@ -127,6 +127,3 @@ namespace OneWire {
 }
 
 #endif  // JENLIB_ENABLE_ARDUINO_ONEWIRE
-
-
-

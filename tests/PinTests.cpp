@@ -45,6 +45,3 @@ void test_resolution_forwarding(void) {
     TEST_ASSERT_EQUAL_UINT8(11, driver.get_analog_read_resolution());
     TEST_ASSERT_EQUAL_UINT8(9, driver.get_analog_write_resolution());
 }
-
-
-

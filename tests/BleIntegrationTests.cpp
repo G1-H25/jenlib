@@ -487,4 +487,3 @@ void test_callback_with_concurrent_access(void) {
     //! @section Assert - Verify all messages were processed
     TEST_ASSERT_EQUAL_INT(thread_count * messages_per_thread, callback_count.load());
 }
-

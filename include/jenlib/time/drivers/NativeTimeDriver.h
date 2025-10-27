@@ -48,4 +48,3 @@ class NativeTimeDriver : public TimeDriver {
 }  // namespace jenlib::time
 
 #endif  // INCLUDE_JENLIB_TIME_DRIVERS_NATIVETIMEDRIVER_H_
-

@@ -11,7 +11,7 @@
 
 namespace jenlib::onewire {
 
-EspIdfOneWireBus::EspIdfOneWireBus(gpio_num_t pin) 
+EspIdfOneWireBus::EspIdfOneWireBus(gpio_num_t pin)
     : pin_(pin), initialized_(false), device_count_(0) {
 }
 
@@ -27,7 +27,7 @@ bool EspIdfOneWireBus::begin() {
     io_conf.pull_up_en = GPIO_PULLUP_ENABLE;
     io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
     io_conf.intr_type = GPIO_INTR_DISABLE;
-    
+
     esp_err_t ret = gpio_config(&io_conf);
     if (ret != ESP_OK) {
         return false;
@@ -48,13 +48,13 @@ bool EspIdfOneWireBus::reset() {
     set_output();
     gpio_set_level(pin_, 0);
     wait_us(480);
-    
+
     set_input();
     wait_us(70);
-    
+
     bool presence = !gpio_get_level(pin_);
     wait_us(410);
-    
+
     return presence;
 }
 
@@ -118,7 +118,7 @@ void EspIdfOneWireBus::set_input() const {
 void EspIdfOneWireBus::write_bit_timing(bool bit) const {
     set_output();
     gpio_set_level(pin_, 0);
-    
+
     if (bit) {
         wait_us(6);
         gpio_set_level(pin_, 1);
@@ -134,13 +134,13 @@ bool EspIdfOneWireBus::read_bit_timing() const {
     set_output();
     gpio_set_level(pin_, 0);
     wait_us(6);
-    
+
     set_input();
     wait_us(9);
-    
+
     bool bit = gpio_get_level(pin_);
     wait_us(55);
-    
+
     return bit;
 }
 

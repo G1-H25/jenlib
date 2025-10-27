@@ -66,4 +66,3 @@ class ArduinoTimeDriver {
 #endif  // ARDUINO
 
 #endif  // INCLUDE_JENLIB_TIME_DRIVERS_ARDUINOTIMEDRIVER_H_
-

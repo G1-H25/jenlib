@@ -77,4 +77,3 @@
     )
 
 #endif  // SMOKE_TESTS_SMOKETESTSUITES_H_
-

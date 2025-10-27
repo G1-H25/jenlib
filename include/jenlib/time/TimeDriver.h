@@ -30,4 +30,3 @@ class TimeDriver {
 }  // namespace jenlib::time
 
 #endif  // INCLUDE_JENLIB_TIME_TIMEDRIVER_H_
-
