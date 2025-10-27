@@ -5,16 +5,14 @@
 
 #include <utility>
 #include <array>
-#ifdef ARDUINO
-#include <ArduinoBLE.h>
-#include <Arduino.h>
-#endif
 #include "jenlib/ble/drivers/ArduinoBleDriver.h"
 #include "jenlib/ble/Messages.h"
 #include "jenlib/ble/GattProfile.h"
 
-
 #ifdef ARDUINO
+#include <ArduinoBLE.h>
+#include <Arduino.h>
+
 namespace {
 
 // Helpers to convert property masks to ArduinoBLE flags
@@ -84,7 +82,6 @@ void on_receipt_written(BLEDevice, BLECharacteristic ch) {
 }
 
 }  // namespace
-#endif  // ARDUINO
 
 namespace jenlib::ble {
 
@@ -108,7 +105,6 @@ ArduinoBleDriver::ArduinoBleDriver(std::string_view device_name, DeviceId local_
 }
 
 bool ArduinoBleDriver::begin() {
-#ifdef ARDUINO
     if (initialized_) {
         return true;
     }
@@ -126,24 +122,18 @@ bool ArduinoBleDriver::begin() {
 
     initialized_ = true;
     return true;
-#else
-    return false;
-#endif
 }
 
 void ArduinoBleDriver::end() {
-#ifdef ARDUINO
     if (initialized_) {
         BLE.end();
         initialized_ = false;
     }
-#endif
 }
 
 // initialize/cleanup removed in favor of begin/end
 
 void ArduinoBleDriver::advertise(DeviceId device_id, BlePayload payload) {
-#ifdef ARDUINO
     if (!initialized_) {
         return;
     }
@@ -157,26 +147,16 @@ void ArduinoBleDriver::advertise(DeviceId device_id, BlePayload payload) {
             (void)reading.writeValue(payload.bytes.data(), payload.size);
         }
     }
-#else
-    (void)device_id;
-    (void)payload;
-#endif
 }
 
 void ArduinoBleDriver::send_to(DeviceId device_id, BlePayload payload) {
-#ifdef ARDUINO
     //! @brief No-op on Arduino sensor role.
     //! @details Out of scope for sensor: directed point-to-point sends are handled by the broker.
     (void)device_id;
     (void)payload;
-#else
-    (void)device_id;
-    (void)payload;
-#endif
 }
 
 bool ArduinoBleDriver::receive(DeviceId self_id, BlePayload &out_payload) {
-#ifdef ARDUINO
     if (!initialized_) {
         return false;
     }
@@ -186,24 +166,15 @@ bool ArduinoBleDriver::receive(DeviceId self_id, BlePayload &out_payload) {
 
     // Check for pending payloads
     return get_pending_payload(self_id, out_payload);
-#else
-    (void)self_id;
-    (void)out_payload;
-    return false;
-#endif
 }
 
 void ArduinoBleDriver::poll() {
-#ifdef ARDUINO
     if (!initialized_) {
         return;
     }
 
     //  Process BLE events - this is the Arduino-friendly polling method
     process_ble_events();
-#else
-    // No-op for non-Arduino platforms
-#endif
 }
 
 void ArduinoBleDriver::set_message_callback(BleMessageCallback callback) {
@@ -241,15 +212,10 @@ void ArduinoBleDriver::clear_connection_callback() {
 }
 
 bool ArduinoBleDriver::is_connected() const {
-#ifdef ARDUINO
     return initialized_ && BLE.connected();
-#else
-    return false;
-#endif
 }
 
 void ArduinoBleDriver::setup_gatt_service() {
-#ifdef ARDUINO
     // Create ArduinoBLE service and characteristics directly
     BLEService& service = get_service();
     BLECharacteristic& control = get_control_chr();
@@ -268,11 +234,9 @@ void ArduinoBleDriver::setup_gatt_service() {
     BLE.setAdvertisedService(service);
     BLE.addService(service);
     BLE.advertise();
-#endif
 }
 
 void ArduinoBleDriver::process_ble_events() {
-#ifdef ARDUINO
     if (!initialized_) {
         return;
     }
@@ -288,15 +252,12 @@ void ArduinoBleDriver::process_ble_events() {
             connection_callback_(now_connected);
         }
     }
-#endif
 }
 
 void ArduinoBleDriver::send_via_advertising(const BlePayload& payload) {
-#ifdef ARDUINO
     //  In a real implementation, you'd set advertising data
     //  For now, this is a placeholder
     (void)payload;
-#endif
 }
 
 //  No separate send_via_gatt helper needed in direct ArduinoBLE path
@@ -320,16 +281,12 @@ bool ArduinoBleDriver::get_pending_payload(DeviceId device_id, BlePayload& out_p
 }
 
 DeviceId ArduinoBleDriver::extract_sender_id_from_connection() {
-#ifdef ARDUINO
     //  In a real implementation, you would extract the sender ID from the BLE connection
     //  For now, we'll use a placeholder that could be enhanced with:
     //  1. Connection handle lookup
     //  2. Device address mapping
     //  3. Characteristic-specific routing
     return DeviceId(0x00000000);  //  Placeholder
-#else
-    return DeviceId(0x00000000);
-#endif
 }
 
 bool ArduinoBleDriver::try_type_specific_callbacks(DeviceId sender_id, const BlePayload& payload) {
@@ -393,4 +350,13 @@ bool ArduinoBleDriver::PayloadBuffer::pop(BlePayload& out_payload) {
 }
 
 }  // namespace jenlib::ble
+
+#else
+// Empty implementation for non-Arduino platforms
+// The header file already provides deleted constructors
+namespace jenlib::ble {
+    // No implementation needed - constructors are deleted in header
+}
+
+#endif  // ARDUINO
 

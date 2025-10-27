@@ -16,6 +16,12 @@ inline constexpr bool kArduinoPlatform = true;
 inline constexpr bool kArduinoPlatform = false;
 #endif
 
+#ifdef ESP_PLATFORM
+inline constexpr bool kEspIdfPlatform = true;
+#else
+inline constexpr bool kEspIdfPlatform = false;
+#endif
+
 //! @brief C++ standard version detection
 #if __cplusplus >= 202002L
 inline constexpr bool kCpp20Available = true;
@@ -24,8 +30,13 @@ inline constexpr bool kCpp20Available = false;
 #endif
 
 //! @brief Feature availability flags
-inline constexpr bool kThreadingAvailable = !kArduinoPlatform || defined(JENLIB_ENABLE_THREADING);
-inline constexpr bool kStdMutexAvailable = !kArduinoPlatform || defined(JENLIB_ENABLE_STD_MUTEX);
+#ifdef ESP_PLATFORM
+inline constexpr bool kThreadingAvailable = true;
+inline constexpr bool kStdMutexAvailable = true;
+#else
+inline constexpr bool kThreadingAvailable = false;
+inline constexpr bool kStdMutexAvailable = false;
+#endif
 
 //! @brief Whether the build is for a sensor only.
 //! Set build flag to skip GATT paths (maybe use a preprocessor define?).
@@ -36,7 +47,7 @@ inline constexpr bool kSensorOnly = false;
 #endif  // JENLIB_BLE_SENSOR_ONLY
 
 //! @brief Whether to use native drivers (desktop/container environments)
-inline constexpr bool kUseNativeDrivers = !kArduinoPlatform;
+inline constexpr bool kUseNativeDrivers = !kArduinoPlatform && !kEspIdfPlatform;
 
 }  //  namespace jenlib::config
 

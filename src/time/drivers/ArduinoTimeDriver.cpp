@@ -46,5 +46,13 @@ std::uint32_t ArduinoTimeDriver::time_difference(std::uint32_t current_time, std
 }
 
 }  // namespace jenlib::time
-#endif
+
+#else
+// Empty implementation for non-Arduino platforms
+// The header file already provides deleted constructors
+namespace jenlib::time {
+    // No implementation needed - constructors are deleted in header
+}
+
+#endif  // ARDUINO
 

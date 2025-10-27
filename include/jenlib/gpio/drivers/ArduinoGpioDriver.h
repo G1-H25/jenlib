@@ -9,6 +9,8 @@
 #include <cstdint>
 #include "jenlib/gpio/GpioDriver.h"
 
+#ifdef ARDUINO
+
 namespace jenlib::gpio {
 
 class ArduinoGpioDriver : public GpioDriver {
@@ -32,7 +34,20 @@ class ArduinoGpioDriver : public GpioDriver {
     std::uint8_t analog_write_bits_{8};
 };
 
-}  //  namespace jenlib::gpio
+}  // namespace jenlib::gpio
+
+#else
+// Fallback implementation for non-Arduino platforms
+namespace jenlib::gpio {
+
+class ArduinoGpioDriver {
+ public:
+    ArduinoGpioDriver() = delete;
+};
+
+}  // namespace jenlib::gpio
+
+#endif  // ARDUINO
 
 #endif  // INCLUDE_JENLIB_GPIO_DRIVERS_ARDUINOGPIODRIVER_H_
 

@@ -3,23 +3,29 @@ project(jenlib_gpio C CXX)
 
 option(BUILD_TESTING "Build tests" ON)
 
-# Detect Arduino toolchain
+# Detect build environment
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_SYSTEM_NAME STREQUAL "Generic")
     # Likely Arduino toolchain
     set(ARDUINO_BUILD TRUE)
+    set(ESP_IDF_BUILD FALSE)
     message(STATUS "Arduino build detected")
-else()
+elseif(DEFINED IDF_PATH OR DEFINED ENV{IDF_PATH})
+    # ESP-IDF build environment
     set(ARDUINO_BUILD FALSE)
+    set(ESP_IDF_BUILD TRUE)
+    message(STATUS "ESP-IDF build detected")
+else()
+    # Native build environment
+    set(ARDUINO_BUILD FALSE)
+    set(ESP_IDF_BUILD FALSE)
     message(STATUS "Native build detected")
 endif()
 
 # Base sources (always included)
 set(JENLIB_SOURCES
     src/gpio/GPIO.cpp
-    src/gpio/drivers/ArduinoGpioDriver.cpp
     src/ble/Ids.cpp
     src/ble/Messages.cpp
-    src/ble/drivers/ArduinoBleDriver.cpp
     src/measurement/Measurement.cpp
     src/events/EventDispatcher.cpp
     src/time/Time.cpp
@@ -27,8 +33,26 @@ set(JENLIB_SOURCES
     src/state/BrokerStateMachine.cpp
 )
 
-# Native-only sources (excluded on Arduino)
-if(NOT ARDUINO_BUILD)
+# Platform-specific sources
+if(ESP_IDF_BUILD)
+    # ESP-IDF specific sources
+    list(APPEND JENLIB_SOURCES
+        src/gpio/drivers/EspIdfGpioDriver.cpp
+        src/ble/drivers/EspIdfBleDriver.cpp
+        src/time/drivers/EspIdfTimeDriver.cpp
+        src/onewire/drivers/EspIdfOneWireBus.cpp
+    )
+    message(STATUS "Including ESP-IDF drivers")
+elseif(ARDUINO_BUILD)
+    # Arduino specific sources
+    list(APPEND JENLIB_SOURCES
+        src/gpio/drivers/ArduinoGpioDriver.cpp
+        src/ble/drivers/ArduinoBleDriver.cpp
+        src/time/drivers/ArduinoTimeDriver.cpp
+    )
+    message(STATUS "Including Arduino drivers")
+else()
+    # Native-only sources (excluded on Arduino and ESP-IDF)
     list(APPEND JENLIB_SOURCES
         src/gpio/drivers/NativeGpioDriver.cpp
         src/onewire/drivers/NativeOneWireBus.cpp
@@ -38,8 +62,6 @@ if(NOT ARDUINO_BUILD)
         src/time/drivers/NativeTimeDriver.cpp
     )
     message(STATUS "Including native drivers")
-else()
-    message(STATUS "Excluding native drivers for Arduino build")
 endif()
 
 add_library(jenlib_gpio ${JENLIB_SOURCES})

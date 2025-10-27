@@ -9,6 +9,7 @@
 #include <jenlib/ble/drivers/BleCharacteristic.h>
 #include <array>
 #include <cstring>
+#include <string_view>
 #include <utility>
 
 namespace jenlib::ble {

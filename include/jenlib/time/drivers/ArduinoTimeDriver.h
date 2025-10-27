@@ -9,6 +9,8 @@
 #include "jenlib/time/TimeDriver.h"
 #include "jenlib/time/TimeTypes.h"
 
+#ifdef ARDUINO
+
 namespace jenlib::time {
 
 //! @brief Arduino-specific time driver
@@ -49,6 +51,19 @@ class ArduinoTimeDriver : public TimeDriver {
 };
 
 }  // namespace jenlib::time
+
+#else
+// Fallback implementation for non-Arduino platforms
+namespace jenlib::time {
+
+class ArduinoTimeDriver {
+ public:
+    ArduinoTimeDriver() = delete;
+};
+
+}  // namespace jenlib::time
+
+#endif  // ARDUINO
 
 #endif  // INCLUDE_JENLIB_TIME_DRIVERS_ARDUINOTIMEDRIVER_H_
 
