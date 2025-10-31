@@ -128,4 +128,3 @@ class BleDriver {
 }  // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_BLEDRIVER_H_
-

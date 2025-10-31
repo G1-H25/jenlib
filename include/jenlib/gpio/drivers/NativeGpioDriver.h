@@ -113,6 +113,3 @@ class NativeGpioDriver : public GpioDriver {
 }  // namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_DRIVERS_NATIVEGPIODRIVER_H_
-
-
-

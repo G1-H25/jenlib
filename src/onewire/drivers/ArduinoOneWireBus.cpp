@@ -3,6 +3,7 @@
 //! @brief Arduino OneWire bus wrapper implementation
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
+
 #ifdef JENLIB_ENABLE_ARDUINO_ONEWIRE
 
 #include <jenlib/onewire/OneWireBus.h>
@@ -118,7 +119,11 @@ bool OneWireBus::read_bit() {
 
 }  // namespace OneWire
 
+#else
+// Empty implementation for non-Arduino platforms
+// This implementation is only available when JENLIB_ENABLE_ARDUINO_ONEWIRE is defined
+namespace OneWire {
+    // No implementation needed - this file is only compiled when JENLIB_ENABLE_ARDUINO_ONEWIRE is defined
+}
+
 #endif  // JENLIB_ENABLE_ARDUINO_ONEWIRE
-
-
-

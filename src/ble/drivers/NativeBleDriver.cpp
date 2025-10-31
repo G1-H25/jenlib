@@ -257,4 +257,3 @@ class NativeBleDriver : public BleDriver {
 }  // namespace jenlib::ble
 
 #endif  // ARDUINO
-

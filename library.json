@@ -1,0 +1,64 @@
+{
+  "name": "jenlib",
+  "version": "1.0.0",
+  "description": "Jennifer's embedded library for GPIO, BLE, time, and state management",
+  "keywords": ["embedded", "gpio", "ble", "arduino", "sensors", "esp32", "espidf"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/G1-H25/jenlib.git"
+  },
+  "authors": [
+    {
+      "name": "Jennifer Gott",
+      "email": "jennifer.gott@chasacademy.se"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/G1-H25/jenlib",
+  "frameworks": ["arduino", "espidf"],
+  "platforms": ["renesas_uno", "renesas_uno_wifi", "espressif32"],
+  "dependencies": [
+    {
+      "name": "ArduinoBLE",
+      "version": ">=1.3.0",
+      "frameworks": ["arduino"],
+      "platforms": ["*"]
+    }
+  ],
+  "build": {
+    "flags": [
+      "-std=gnu++17"
+    ],
+    "unflags": [
+      "-std=gnu++11"
+    ]
+  },
+  "srcFilter": [
+    "+<*>",
+    "-<src/ble/drivers/NativeBleDriver.cpp>",
+    "-<src/ble/drivers/NativeBleService.cpp>",
+    "-<src/ble/drivers/NativeBleCharacteristic.cpp>",
+    "-<src/time/drivers/NativeTimeDriver.cpp>",
+    "-<src/gpio/drivers/NativeGpioDriver.cpp>",
+    "-<src/onewire/drivers/NativeOneWireBus.cpp>",
+    "-<src/ble/drivers/EspIdfBleDriver.cpp>",
+    "-<src/gpio/drivers/EspIdfGpioDriver.cpp>",
+    "-<src/time/drivers/EspIdfTimeDriver.cpp>",
+    "-<src/onewire/drivers/EspIdfOneWireBus.cpp>",
+    "-<tests/>",
+    "-<smoke_tests/>",
+    "-<examples/>"
+  ],
+  "examples": [
+    {
+      "name": "BLE Sensor",
+      "base": "examples/arduino/ble_sensor",
+      "files": ["main.cpp"]
+    },
+    {
+      "name": "Temperature Sensor",
+      "base": "examples/arduino/temperature",
+      "files": ["temperature.ino"]
+    }
+  ]
+}

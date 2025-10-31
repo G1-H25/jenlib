@@ -227,4 +227,3 @@ void test_state_machine_error_recovery(void) {
     //! @section Assert
     TEST_ASSERT_EQUAL(jenlib::state::SensorState::kDisconnected, sensor_sm.get_current_state());
 }
-

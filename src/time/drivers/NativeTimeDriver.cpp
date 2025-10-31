@@ -56,4 +56,3 @@ std::uint64_t NativeTimeDriver::get_epoch_time_ms() {
 }  // namespace jenlib::time
 
 #endif  // ARDUINO
-

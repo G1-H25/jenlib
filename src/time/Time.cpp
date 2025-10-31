@@ -176,4 +176,3 @@ TimeDriver* Time::getDriver() noexcept {
 }
 
 }  // namespace jenlib::time
-

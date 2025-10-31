@@ -47,4 +47,3 @@ constexpr EventId kInvalidEventId = 0;
 }  //  namespace jenlib::events
 
 #endif  // INCLUDE_JENLIB_EVENTS_EVENTTYPES_H_
-

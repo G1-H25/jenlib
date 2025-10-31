@@ -525,4 +525,3 @@ void test_concurrent_callback_access(void) {
     //! @section Assert - All callbacks should be invoked
     TEST_ASSERT_EQUAL_INT(10, callback_count.load());
 }
-

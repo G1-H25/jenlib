@@ -137,6 +137,3 @@ class Broker {
 }  // namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_ROLES_H_
-
-
-

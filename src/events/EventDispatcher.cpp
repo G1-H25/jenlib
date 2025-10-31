@@ -201,4 +201,3 @@ EventDispatcher::CircularBufferIterator EventDispatcher::event_queue_end() {
 }
 
 }  // namespace jenlib::events
-

@@ -56,3 +56,11 @@ cmake_install.cmake
 .vscode/*
 .cursor/*
 .idea/*
+
+# platformio files
+.pio/*
+.env/*
+.env.local/*
+.env.development.local/*
+.env.test.local/*
+.env.production.local/*

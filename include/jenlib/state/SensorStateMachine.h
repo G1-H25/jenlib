@@ -170,4 +170,3 @@ class SensorStateMachine : public StateMachine<SensorState> {
 }  // namespace jenlib::state
 
 #endif  // INCLUDE_JENLIB_STATE_SENSORSTATEMACHINE_H_
-

@@ -179,4 +179,3 @@ bool OneWireBus::read_bit() {
 }  // namespace OneWire
 
 #endif  // ARDUINO
-

@@ -187,4 +187,3 @@ class ArduinoBleDriver : public BleDriver {
 }  //  namespace jenlib::ble
 
 #endif  // INCLUDE_JENLIB_BLE_DRIVERS_ARDUINOBLEDRIVER_H_
-

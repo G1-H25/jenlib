@@ -16,4 +16,3 @@ namespace jenlib::gpio {
 }  // namespace jenlib::gpio
 
 #endif  // ARDUINO
-

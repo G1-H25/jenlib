@@ -171,4 +171,3 @@ void test_onewire_basic_operations(void) {
     // In mock, read_byte returns 0
     TEST_ASSERT_EQUAL_UINT8(0, read_data);
 }
-

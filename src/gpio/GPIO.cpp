@@ -80,6 +80,3 @@ jenlib::gpio::GpioDriver* getDriver() noexcept {
 }
 
 }  // namespace GPIO
-
-
-

@@ -390,4 +390,3 @@ class MockBroker {
 }  // namespace smoke_tests
 
 #endif  // SMOKE_TESTS_PLATFORMMOCKS_H_
-

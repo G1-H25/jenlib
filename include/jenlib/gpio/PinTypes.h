@@ -102,4 +102,3 @@ TypedPin<Tag> makeTypedPin(const Pin& pin) noexcept {
 }  // namespace jenlib::gpio
 
 #endif  // INCLUDE_JENLIB_GPIO_PINTYPES_H_
-

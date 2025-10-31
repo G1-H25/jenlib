@@ -77,6 +77,3 @@ void test_payload_i16_roundtrip(void) {
     TEST_ASSERT_TRUE(jenlib::ble::read_i16le(p, i, out));
     TEST_ASSERT_EQUAL_INT16(v, out);
 }
-
-
-

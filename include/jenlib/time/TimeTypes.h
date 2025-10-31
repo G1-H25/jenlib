@@ -59,4 +59,3 @@ struct TimerEntry {
 }  //  namespace jenlib::time
 
 #endif  // INCLUDE_JENLIB_TIME_TIMETYPES_H_
-
