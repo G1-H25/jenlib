@@ -7,13 +7,13 @@
 #define INCLUDE_JENLIB_GPIO_DRIVERS_ESPIDFGPIODRIVER_H_
 
 #include <jenlib/gpio/GpioDriver.h>
+#include <array>
+#include <unordered_map>
 
 #ifdef ESP_PLATFORM
 #include <driver/gpio.h>
 #include <driver/adc.h>
 #include <driver/ledc.h>
-#include <unordered_map>
-#include <array>
 
 namespace jenlib::gpio {
 

@@ -7,7 +7,7 @@
 #include <jenlib/ble/Messages.h>
 #include <jenlib/ble/GattProfile.h>
 #include <utility>
-#include <string_view>
+#include <string>
 
 #ifdef ESP_PLATFORM
 #include <esp_gattc_api.h>
