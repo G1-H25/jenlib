@@ -1,0 +1,21 @@
+<map id="include/jenlib/events/EventTypes.h" name="include/jenlib/events/EventTypes.h">
+<area shape="rect" id="Node000001" title="Event system types and structures for jenlib." alt="" coords="341,5,499,45"/>
+<area shape="rect" id="Node000002" href="$EventDispatcher_8h.html" title="Event dispatcher for managing and processing events." alt="" coords="57,93,215,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="345,52,199,96,197,91,344,47"/>
+<area shape="rect" id="Node000004" href="$BrokerStateMachine_8h.html" title="Broker state machine for BLE broker applications." alt="" coords="307,181,477,221"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="405,59,393,94,389,141,392,181,387,181,384,141,388,93,400,57"/>
+<area shape="rect" id="Node000005" href="$BrokerStateMachine_8cpp.html" title="Broker state machine implementation." alt="" coords="224,269,464,295"/>
+<area shape="poly" id="edge10_Node000001_Node000005" title=" " alt="" coords="389,57,338,111,315,145,297,182,293,201,297,220,313,247,332,267,328,271,308,250,292,222,288,201,292,180,310,143,334,108,385,53"/>
+<area shape="rect" id="Node000006" href="$SensorStateMachine_8h.html" title="Sensor state machine for BLE sensor applications." alt="" coords="501,181,672,221"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="504,48,536,67,563,92,576,113,584,138,590,181,584,182,579,139,572,116,559,95,533,71,501,53"/>
+<area shape="rect" id="Node000007" href="$SensorStateMachine_8cpp.html" title="Sensor state machine implementation." alt="" coords="513,269,756,295"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="512,47,562,67,612,95,655,133,673,155,686,180,692,201,686,222,670,250,651,271,647,267,666,247,682,220,686,201,682,182,668,158,651,136,609,100,560,72,510,52"/>
+<area shape="rect" id="Node000008" href="$StateMachine_8h.html" title="Base state machine interface and utilities." alt="" coords="403,93,549,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="442,56,466,92,461,95,438,58"/>
+<area shape="rect" id="Node000003" href="$EventDispatcher_8cpp.html" title="Event dispatcher implementation." alt="" coords="5,189,232,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="132,147,124,189,118,188,127,146"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="376,234,353,270,349,268,371,232"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="608,232,630,268,625,270,603,234"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="450,145,412,183,409,179,446,141"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="513,140,564,179,561,183,510,144"/>
+</map>

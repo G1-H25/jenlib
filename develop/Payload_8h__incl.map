@@ -1,0 +1,9 @@
+<map id="include/jenlib/ble/Payload.h" name="include/jenlib/ble/Payload.h">
+<area shape="rect" id="Node000001" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="49,5,183,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,61,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,47,57,86,54,82,94,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="86,93,146,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,46,119,79,113,79,113,46"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="171,93,237,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="139,44,182,82,179,86,136,48"/>
+</map>

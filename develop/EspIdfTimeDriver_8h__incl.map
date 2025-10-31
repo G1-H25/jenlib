@@ -1,0 +1,13 @@
+<map id="include/jenlib/time/drivers/EspIdfTimeDriver.h" name="include/jenlib/time/drivers/EspIdfTimeDriver.h">
+<area shape="rect" id="Node000001" title="ESP&#45;IDF time driver interface." alt="" coords="41,5,239,45"/>
+<area shape="rect" id="Node000002" href="$TimeDriver_8h.html" title="Abstract interface for time drivers." alt="" coords="50,93,230,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,46,143,79,137,79,137,46"/>
+<area shape="rect" id="Node000003" href="$TimeTypes_8h.html" title="Time service types and structures for jenlib." alt="" coords="51,167,229,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="143,119,143,153,137,153,137,119"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,240,72,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="125,194,68,234,65,230,122,190"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="97,240,183,265"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="143,192,143,226,137,226,137,192"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="207,240,267,265"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="157,190,212,229,209,234,154,194"/>
+</map>

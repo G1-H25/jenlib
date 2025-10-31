@@ -1,0 +1,11 @@
+<map id="include/jenlib/gpio/PinTypes.h" name="include/jenlib/gpio/PinTypes.h">
+<area shape="rect" id="Node000001" title="Type&#45;safe pin wrappers for different use cases." alt="" coords="146,5,287,45"/>
+<area shape="rect" id="Node000002" href="$OneWireBus_8h.html" title="Type&#45;safe OneWire bus interface Copyright 2025 Jennifer Gott." alt="" coords="134,93,299,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,59,219,93,214,93,214,59"/>
+<area shape="rect" id="Node000003" href="$EspIdfOneWireBus_8h.html" title="ESP&#45;IDF OneWire bus driver interface." alt="" coords="5,181,212,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="184,144,134,183,131,179,180,140"/>
+<area shape="rect" id="Node000005" href="$NativeOneWireBus_8cpp.html" title="Native OneWire bus implementation for testing and development." alt="" coords="237,181,413,221"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="253,140,302,179,299,183,250,144"/>
+<area shape="rect" id="Node000004" href="$EspIdfOneWireBus_8cpp.html" title="ESP&#45;IDF OneWire bus driver implementation." alt="" coords="22,269,195,309"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="111,235,111,269,106,269,106,235"/>
+</map>

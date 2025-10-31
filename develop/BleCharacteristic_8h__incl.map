@@ -1,0 +1,14 @@
+<map id="include/jenlib/ble/drivers/BleCharacteristic.h" name="include/jenlib/ble/drivers/BleCharacteristic.h">
+<area shape="rect" id="Node000001" title="Agnostic BLE characteristic interface for cross&#45;platform compatibility." alt="" coords="122,5,321,45"/>
+<area shape="rect" id="Node000002" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="35,93,184,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,48,139,87,136,83,193,43"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="183,167,249,192"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="223,46,220,153,214,153,218,46"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="259,93,346,119"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="243,44,282,82,279,85,239,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,61,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="99,121,58,159,54,155,95,117"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="86,167,146,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="113,119,116,153,111,153,108,119"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="128,116,189,157,186,161,125,121"/>
+</map>

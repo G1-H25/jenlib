@@ -1,0 +1,17 @@
+<map id="include/jenlib/gpio/GPIO.h" name="include/jenlib/gpio/GPIO.h">
+<area shape="rect" id="Node000001" title="Public wrapper API for GPIO operations." alt="" coords="229,5,370,45"/>
+<area shape="rect" id="Node000002" href="$PinTypes_8h.html" title="Type&#45;safe pin wrappers for different use cases." alt="" coords="95,93,237,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="260,55,197,95,194,91,257,51"/>
+<area shape="rect" id="Node000003" href="$OneWireBus_8h.html" title="Type&#45;safe OneWire bus interface Copyright 2025 Jennifer Gott." alt="" coords="102,181,267,221"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="290,59,273,96,251,135,208,183,204,179,247,132,268,94,285,57"/>
+<area shape="rect" id="Node000006" href="$NativeOneWireBus_8cpp.html" title="Native OneWire bus implementation for testing and development." alt="" coords="237,269,413,309"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="305,59,325,269,320,269,300,59"/>
+<area shape="rect" id="Node000007" href="$GPIO_8cpp.html" title="GPIO wrapper implementation." alt="" coords="362,101,498,126"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="341,51,414,98,411,103,338,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="176,146,183,181,178,182,170,147"/>
+<area shape="rect" id="Node000004" href="$EspIdfOneWireBus_8h.html" title="ESP&#45;IDF OneWire bus driver interface." alt="" coords="5,269,212,309"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="161,234,127,271,123,267,157,230"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="228,226,295,267,293,272,226,231"/>
+<area shape="rect" id="Node000005" href="$EspIdfOneWireBus_8cpp.html" title="ESP&#45;IDF OneWire bus driver implementation." alt="" coords="22,357,195,397"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="111,323,111,357,106,357,106,323"/>
+</map>

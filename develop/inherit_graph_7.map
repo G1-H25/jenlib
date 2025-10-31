@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classjenlib_1_1ble_1_1BleService.html" title="Abstract BLE service interface." alt="" coords="5,5,168,31"/>
+<area shape="rect" id="Node000001" href="$classjenlib_1_1ble_1_1NativeBleService.html" title="Native BLE service implementation for testing/simulation." alt="" coords="216,5,423,31"/>
+<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="182,15,216,15,216,21,182,21"/>
+</map>

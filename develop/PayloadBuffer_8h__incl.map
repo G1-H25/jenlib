@@ -1,0 +1,15 @@
+<map id="include/jenlib/ble/PayloadBuffer.h" name="include/jenlib/ble/PayloadBuffer.h">
+<area shape="rect" id="Node000001" title="Common circular buffer for BLE payloads across platforms." alt="" coords="58,5,191,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="18,167,74,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,48,37,67,12,95,8,109,11,125,28,155,23,158,6,127,3,109,8,92,33,63,66,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="23,93,93,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="110,47,79,84,75,81,106,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="263,167,323,192"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,37,240,57,263,73,281,92,294,122,297,152,292,153,289,123,277,95,259,77,238,62,190,42"/>
+<area shape="rect" id="Node000005" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="118,93,267,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="143,44,175,81,171,84,139,47"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="170,121,83,163,81,158,168,116"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="210,117,267,156,264,161,207,121"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="159,167,226,192"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="195,119,195,153,190,153,190,119"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="include/jenlib/events/EventDispatcher.h" name="include/jenlib/events/EventDispatcher.h">
+<area shape="rect" id="Node000001" title="Event dispatcher for managing and processing events." alt="" coords="37,5,195,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,61,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,47,57,86,54,82,94,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="86,93,146,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,46,119,79,113,79,113,46"/>
+<area shape="rect" id="Node000004" href="$EventTypes_8h.html" title="Event system types and structures for jenlib." alt="" coords="170,93,366,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,43,234,84,232,89,151,48"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="184,167,251,192"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="262,121,236,157,231,154,257,117"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="275,167,362,192"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="279,117,305,154,300,157,274,121"/>
+</map>

@@ -1,0 +1,31 @@
+<map id="include/jenlib/ble/drivers/EspIdfBleDriver.h" name="include/jenlib/ble/drivers/EspIdfBleDriver.h">
+<area shape="rect" id="Node000001" title="ESP&#45;IDF BLE driver interface." alt="" coords="415,5,602,45"/>
+<area shape="rect" id="Node000002" href="$BleDriver_8h.html" title="BLE driver interface for sensor/broker communication." alt="" coords="233,93,392,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="463,48,355,91,353,86,461,43"/>
+<area shape="rect" id="Node000010" href="$PayloadBuffer_8h.html" title="Common circular buffer for BLE payloads across platforms." alt="" coords="494,167,681,192"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="514,45,522,80,536,117,566,155,562,159,532,120,516,81,509,46"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="546,93,605,119"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="527,44,559,81,555,84,523,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="297,313,363,339"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,120,300,141,293,167,291,204,297,240,320,300,315,302,292,241,286,204,287,166,295,140,304,118"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,167,92,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="271,121,105,166,104,160,270,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="116,167,227,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="291,121,208,163,205,158,289,116"/>
+<area shape="rect" id="Node000006" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="367,240,517,265"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="360,116,399,135,418,148,434,165,445,196,447,226,442,226,440,197,429,168,415,152,397,139,358,121"/>
+<area shape="rect" id="Node000009" href="$Ids_8h.html" title="Strongly&#45;typed identifiers for BLE with checksum support." alt="" coords="302,167,419,192"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="323,118,348,154,343,157,318,121"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="425,268,362,308,359,303,423,263"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="434,313,490,339"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="448,265,458,299,453,301,443,266"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="555,313,615,339"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="466,263,550,305,548,309,464,268"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="361,193,338,301,333,300,356,192"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="375,190,420,229,417,233,372,194"/>
+<area shape="poly" id="edge16_Node000010_Node000006" title=" " alt="" coords="565,194,479,236,477,232,563,190"/>
+<area shape="poly" id="edge13_Node000010_Node000007" title=" " alt="" coords="583,194,561,228,531,267,489,307,485,303,527,264,557,225,578,191"/>
+<area shape="poly" id="edge15_Node000010_Node000008" title=" " alt="" coords="590,193,588,300,582,300,584,192"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="643,240,713,265"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="604,190,654,229,651,233,600,194"/>
+</map>
