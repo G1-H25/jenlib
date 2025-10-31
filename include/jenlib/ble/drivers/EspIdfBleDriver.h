@@ -7,6 +7,7 @@
 #define INCLUDE_JENLIB_BLE_DRIVERS_ESPIDFBLEDRIVER_H_
 
 #include <jenlib/ble/BleDriver.h>
+#include <jenlib/ble/PayloadBuffer.h>
 #include <string>
 
 #ifdef ESP_PLATFORM
@@ -22,19 +23,24 @@
 namespace jenlib::ble {
 
 //! @brief ESP-IDF BLE driver implementation using ESP32 BLE stack.
+//!
+//! @note Precondition: The application must initialize NVS (nvs_flash_init) once
+//! at startup before constructing this driver or calling begin(). NVS is a
+//! system-wide resource and should not be initialized by the driver.
 class EspIdfBleDriver : public BleDriver {
  public:
     //! @brief Constructor.
-    EspIdfBleDriver(std::string_view device_name, DeviceId local_device_id);
+    EspIdfBleDriver(const std::string& device_name, DeviceId local_device_id);
 
     //! @brief Constructor with callbacks.
-    EspIdfBleDriver(std::string_view device_name, DeviceId local_device_id,
+    EspIdfBleDriver(const std::string& device_name, DeviceId local_device_id,
                     const BleCallbacks& callbacks);
 
     //! @brief Destructor.
     ~EspIdfBleDriver() override;
 
     //! @brief Initialize BLE stack and start advertising.
+    //! @note Requires NVS to be initialized by the application beforehand.
     bool begin() override;
 
     //! @brief Stop BLE stack.
@@ -80,6 +86,9 @@ class EspIdfBleDriver : public BleDriver {
     bool is_connected() const override;
 
  private:
+    // Active instance used by static ESP-IDF callbacks to route events
+    static EspIdfBleDriver* instance_;
+
     std::string device_name_;                    //!< Device name for advertising
     DeviceId local_device_id_;                  //!< Local device ID
     bool initialized_;                          //!< Initialization state

@@ -13,6 +13,7 @@
 #include "jenlib/ble/BleDriver.h"
 #include "jenlib/ble/Payload.h"
 #include "jenlib/ble/Ids.h"
+#include "jenlib/ble/PayloadBuffer.h"
 // No service/characteristic adapter includes: Arduino path uses ArduinoBLE directly in .cpp
 
 #ifdef ARDUINO
@@ -154,20 +155,7 @@ class ArduinoBleDriver : public BleDriver {
     //! @return true if handled by type-specific callback, false otherwise.
     bool try_type_specific_callbacks(DeviceId sender_id, const BlePayload& payload);
 
-    //! @brief Circular buffer for received payloads.
-    struct PayloadBuffer {
-        static constexpr size_t kMaxBufferedPayloads = 10;
-        std::array<BlePayload, kMaxBufferedPayloads> payloads{};
-        using iterator = std::array<BlePayload, kMaxBufferedPayloads>::iterator;
-        iterator write_it = payloads.begin();
-        iterator read_it = payloads.begin();
-        size_t count = 0;
-
-        bool push(BlePayload payload);
-        bool pop(BlePayload& out_payload);
-        bool empty() const { return count == 0; }
-        bool full() const { return count >= kMaxBufferedPayloads; }
-    };
+    // Uses common PayloadBuffer
 
     static constexpr std::size_t kMaxDeviceNameLen = 31;
     std::string_view device_name_;  //!<  Non-owning; copied to stack buffer in begin()

@@ -320,34 +320,7 @@ bool ArduinoBleDriver::try_type_specific_callbacks(DeviceId sender_id, const Ble
     return false;  //  No type-specific callback handled this message
 }
 
-// PayloadBuffer implementation
-bool ArduinoBleDriver::PayloadBuffer::push(BlePayload payload) {
-    if (full()) {
-        return false;
-    }
-
-    *write_it = std::move(payload);
-    ++write_it;
-    if (write_it == payloads.end()) {
-        write_it = payloads.begin();
-    }
-    count++;
-    return true;
-}
-
-bool ArduinoBleDriver::PayloadBuffer::pop(BlePayload& out_payload) {
-    if (empty()) {
-        return false;
-    }
-
-    out_payload = std::move(*read_it);
-    ++read_it;
-    if (read_it == payloads.end()) {
-        read_it = payloads.begin();
-    }
-    count--;
-    return true;
-}
+// PayloadBuffer now defined in common header
 
 }  // namespace jenlib::ble
 

@@ -25,6 +25,10 @@ class TimeDriver {
     //! @brief Block for the specified number of milliseconds
     //! @param delay_ms Number of milliseconds to delay
     virtual void delay(std::uint32_t delay_ms) = 0;
+
+    virtual bool has_overflowed(std::uint32_t time_value) noexcept = 0;
+
+    virtual std::uint32_t time_difference(std::uint32_t current_time, std::uint32_t previous_time) noexcept = 0;
 };
 
 }  // namespace jenlib::time

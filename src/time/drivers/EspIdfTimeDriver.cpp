@@ -26,7 +26,25 @@ std::uint32_t EspIdfTimeDriver::now() noexcept {
     return current_time;
 }
 
-void EspIdfTimeDriver::delay(std::uint32_t delay_ms) noexcept {
+void EspIdfTimeDriver::delay(std::uint32_t delay_ms) {
+    // Immediate return for zero delay to avoid a context switch
+    if (delay_ms == 0) {
+        return;
+    }
+
+    // Use a short busy-wait for very small delays where task switching
+    // overhead would dominate and could extend the delay significantly.
+    // Threshold chosen conservatively; adjust based on platform tuning if needed.
+    if (delay_ms <= 2) {
+        std::uint64_t start_us = esp_timer_get_time();
+        std::uint64_t target_us = start_us + static_cast<std::uint64_t>(delay_ms) * 1000ULL;
+        while (esp_timer_get_time() < target_us) {
+            // busy-wait
+        }
+        return;
+    }
+
+    // For longer delays, yield to the scheduler
     vTaskDelay(pdMS_TO_TICKS(delay_ms));
 }
 

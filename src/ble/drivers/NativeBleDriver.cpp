@@ -4,7 +4,7 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
-#ifndef ARDUINO
+#if !defined(ARDUINO) && !defined(ESP_PLATFORM)
 
 #include <jenlib/ble/BleDriver.h>
 #include <jenlib/ble/Messages.h>
@@ -256,4 +256,4 @@ class NativeBleDriver : public BleDriver {
 
 }  // namespace jenlib::ble
 
-#endif  // ARDUINO
+#endif  // !ARDUINO && !ESP_PLATFORM

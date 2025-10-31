@@ -17,6 +17,7 @@
 #include <freertos/task.h>
 #include <esp_log.h>
 #include <esp_system.h>
+#include <nvs_flash.h>
 
 static const char* TAG = "jenlib_sensor";
 
@@ -281,6 +282,14 @@ float read_humidity_sensor() {
 //! @section ESP-IDF app_main function
 extern "C" void app_main() {
     ESP_LOGI(TAG, "Starting JenLib ESP-IDF sensor example");
+
+    // Initialize NVS once at application startup (required by BLE stack)
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
 
     // Create sensor task
     xTaskCreate(sensor_task, "sensor_task", 8192, nullptr, 5, nullptr);

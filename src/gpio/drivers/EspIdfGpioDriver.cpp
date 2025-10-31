@@ -35,30 +35,34 @@ DigitalValue EspIdfGpioDriver::digital_read(PinIndex pin) noexcept {
 }
 
 void EspIdfGpioDriver::analog_write(PinIndex pin, std::uint16_t value) noexcept {
-    // Configure LEDC timer for PWM
-    ledc_timer_config_t ledc_timer = {};
-    ledc_timer.speed_mode = LEDC_LOW_SPEED_MODE;
-    ledc_timer.timer_num = LEDC_TIMER_0;
-    ledc_timer.duty_resolution = static_cast<ledc_timer_bit_t>(analog_write_bits_);
-    ledc_timer.freq_hz = 5000;
-    ledc_timer.clk_cfg = LEDC_AUTO_CLK;
-    ledc_timer_config(&ledc_timer);
+    // Lazy init LEDC once
+    if (!ledc_initialized_) {
+        ledc_timer_config_t ledc_timer = {};
+        ledc_timer.speed_mode = LEDC_LOW_SPEED_MODE;
+        ledc_timer.timer_num = LEDC_TIMER_0;
+        ledc_timer.duty_resolution = static_cast<ledc_timer_bit_t>(analog_write_bits_);
+        ledc_timer.freq_hz = 5000;
+        ledc_timer.clk_cfg = LEDC_AUTO_CLK;
+        ledc_timer_config(&ledc_timer);
+        ledc_initialized_ = true;
+    }
 
-    // Configure LEDC channel
-    ledc_channel_config_t ledc_channel = {};
-    ledc_channel.speed_mode = LEDC_LOW_SPEED_MODE;
-    ledc_channel.channel = LEDC_CHANNEL_0;
-    ledc_channel.timer_sel = LEDC_TIMER_0;
-    ledc_channel.intr_type = LEDC_INTR_DISABLE;
-    ledc_channel.gpio_num = pin;
-    ledc_channel.duty = value;
-    ledc_channel.hpoint = 0;
-    ledc_channel_config(&ledc_channel);
+    // Get or allocate a unique channel for this pin
+    const ledc_channel_t channel = get_or_allocate_channel_for_pin(static_cast<int>(pin));
+
+    // Clamp duty to current resolution
+    const std::uint32_t max_duty = (analog_write_bits_ >= 16)
+        ? 0xFFFFu
+        : ((1u << analog_write_bits_) - 1u);
+    const std::uint32_t duty = (value > max_duty) ? max_duty : value;
+
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, channel, duty);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, channel);
 }
 
 std::uint16_t EspIdfGpioDriver::analog_read(PinIndex pin) noexcept {
     // Configure ADC
-    adc1_config_width(static_cast<adc_bits_width_t>(analog_read_bits_));
+    adc1_config_width(convert_adc_bits_width(analog_read_bits_));
     adc1_config_channel_atten(static_cast<adc1_channel_t>(pin), ADC_ATTEN_DB_11);
 
     // Read ADC value
@@ -75,6 +79,16 @@ void EspIdfGpioDriver::set_analog_read_resolution(std::uint8_t bits) noexcept {
 
 void EspIdfGpioDriver::set_analog_write_resolution(std::uint8_t bits) noexcept {
     analog_write_bits_ = bits;
+    if (ledc_initialized_) {
+        // Reconfigure timer with new resolution; keep frequency and mode the same
+        ledc_timer_config_t ledc_timer = {};
+        ledc_timer.speed_mode = LEDC_LOW_SPEED_MODE;
+        ledc_timer.timer_num = LEDC_TIMER_0;
+        ledc_timer.duty_resolution = static_cast<ledc_timer_bit_t>(analog_write_bits_);
+        ledc_timer.freq_hz = 5000;
+        ledc_timer.clk_cfg = LEDC_AUTO_CLK;
+        ledc_timer_config(&ledc_timer);
+    }
 }
 
 std::uint8_t EspIdfGpioDriver::get_analog_read_resolution() const noexcept {
@@ -83,6 +97,38 @@ std::uint8_t EspIdfGpioDriver::get_analog_read_resolution() const noexcept {
 
 std::uint8_t EspIdfGpioDriver::get_analog_write_resolution() const noexcept {
     return analog_write_bits_;
+}
+
+ledc_channel_t EspIdfGpioDriver::get_or_allocate_channel_for_pin(int gpio_pin) noexcept {
+    auto it = pin_to_channel_.find(gpio_pin);
+    if (it != pin_to_channel_.end()) {
+        return it->second;
+    }
+
+    // Find first free channel
+    for (int ch = 0; ch < LEDC_CHANNEL_MAX; ++ch) {
+        if (!channel_used_[static_cast<size_t>(ch)]) {
+            ledc_channel_t channel = static_cast<ledc_channel_t>(ch);
+
+            // Configure the LEDC channel for this pin
+            ledc_channel_config_t ledc_channel = {};
+            ledc_channel.speed_mode = LEDC_LOW_SPEED_MODE;
+            ledc_channel.channel = channel;
+            ledc_channel.timer_sel = LEDC_TIMER_0;
+            ledc_channel.intr_type = LEDC_INTR_DISABLE;
+            ledc_channel.gpio_num = static_cast<gpio_num_t>(gpio_pin);
+            ledc_channel.duty = 0;
+            ledc_channel.hpoint = 0;
+            ledc_channel_config(&ledc_channel);
+
+            channel_used_[static_cast<size_t>(ch)] = true;
+            pin_to_channel_.emplace(gpio_pin, channel);
+            return channel;
+        }
+    }
+
+    // No available channels; fall back to channel 0 to avoid crash
+    return LEDC_CHANNEL_0;
 }
 
 gpio_mode_t EspIdfGpioDriver::convert_pin_mode(PinMode mode) const noexcept {
@@ -106,6 +152,22 @@ gpio_pull_mode_t EspIdfGpioDriver::convert_pull_mode(PinMode mode) const noexcep
             return GPIO_PULLDOWN_ONLY;
         default:
             return GPIO_FLOATING;
+    }
+}
+
+adc_bits_width_t EspIdfGpioDriver::convert_adc_bits_width(std::uint8_t bits) const noexcept {
+    switch (bits) {
+        case 9:
+            return ADC_WIDTH_BIT_9;
+        case 10:
+            return ADC_WIDTH_BIT_10;
+        case 11:
+            return ADC_WIDTH_BIT_11;
+        case 12:
+            return ADC_WIDTH_BIT_12;
+        default:
+            // Default to 12-bit resolution for unsupported bit widths
+            return ADC_WIDTH_BIT_12;
     }
 }
 

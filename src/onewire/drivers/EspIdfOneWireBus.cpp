@@ -7,7 +7,7 @@
 
 #ifdef ESP_PLATFORM
 #include <driver/gpio.h>
-#include <esp_timer.h>
+#include <rom/ets_sys.h>
 
 namespace jenlib::onewire {
 
@@ -145,7 +145,7 @@ bool EspIdfOneWireBus::read_bit_timing() const {
 }
 
 void EspIdfOneWireBus::wait_us(std::uint32_t us) const {
-    esp_timer_wait(us);
+    ets_delay_us(us);
 }
 
 }  // namespace jenlib::onewire

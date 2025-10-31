@@ -3,7 +3,7 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
-#ifndef ARDUINO
+#if !defined(ARDUINO) && !defined(ESP_PLATFORM)
 
 #include "jenlib/time/drivers/NativeTimeDriver.h"
 #include <thread>
@@ -55,4 +55,4 @@ std::uint64_t NativeTimeDriver::get_epoch_time_ms() {
 
 }  // namespace jenlib::time
 
-#endif  // ARDUINO
+#endif  // !ARDUINO && !ESP_PLATFORM
