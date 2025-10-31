@@ -2,7 +2,7 @@
   "name": "jenlib",
   "version": "1.0.0",
   "description": "Jennifer's embedded library for GPIO, BLE, time, and state management",
-  "keywords": ["embedded", "gpio", "ble", "arduino", "sensors", "esp32", "esp8266"],
+  "keywords": ["embedded", "gpio", "ble", "arduino", "sensors", "esp32", "espidf"],
   "repository": {
     "type": "git",
     "url": "https://github.com/G1-H25/jenlib.git"
@@ -15,11 +15,24 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/G1-H25/jenlib",
-  "dependencies": {
-    "ArduinoBLE": ">=1.3.0"
+  "frameworks": ["arduino", "espidf"],
+  "platforms": ["renesas_uno", "renesas_uno_wifi", "espressif32"],
+  "dependencies": [
+    {
+      "name": "ArduinoBLE",
+      "version": ">=1.3.0",
+      "frameworks": ["arduino"],
+      "platforms": ["*"]
+    }
+  ],
+  "build": {
+    "flags": [
+      "-std=gnu++17"
+    ],
+    "unflags": [
+      "-std=gnu++11"
+    ]
   },
-  "frameworks": ["arduino"],
-  "platforms": ["espressif32", "espressif8266", "atmelsam", "teensy", "ststm32", "nordicnrf52"],
   "srcFilter": [
     "+<*>",
     "-<src/ble/drivers/NativeBleDriver.cpp>",
@@ -36,15 +49,6 @@
     "-<smoke_tests/>",
     "-<examples/>"
   ],
-  "build": {
-    "flags": [
-      "-std=gnu++17",
-      "-fexceptions"
-    ],
-    "unflags": [
-      "-std=gnu++11"
-    ]
-  },
   "examples": [
     {
       "name": "BLE Sensor",

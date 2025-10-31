@@ -1,21 +1,21 @@
 # ESP-IDF Component for jenlib
 idf_component_register(
     SRCS 
-        "src/gpio/GPIO.cpp"
-        "src/gpio/drivers/EspIdfGpioDriver.cpp"
-        "src/ble/Ids.cpp"
-        "src/ble/Messages.cpp"
-        "src/ble/drivers/EspIdfBleDriver.cpp"
-        "src/measurement/Measurement.cpp"
-        "src/events/EventDispatcher.cpp"
-        "src/time/Time.cpp"
-        "src/time/drivers/EspIdfTimeDriver.cpp"
-        "src/state/SensorStateMachine.cpp"
-        "src/state/BrokerStateMachine.cpp"
-        "src/onewire/drivers/EspIdfOneWireBus.cpp"
+        "../../src/gpio/GPIO.cpp"
+        "../../src/gpio/drivers/EspIdfGpioDriver.cpp"
+        "../../src/ble/Ids.cpp"
+        "../../src/ble/Messages.cpp"
+        "../../src/ble/drivers/EspIdfBleDriver.cpp"
+        "../../src/measurement/Measurement.cpp"
+        "../../src/events/EventDispatcher.cpp"
+        "../../src/time/Time.cpp"
+        "../../src/time/drivers/EspIdfTimeDriver.cpp"
+        "../../src/state/SensorStateMachine.cpp"
+        "../../src/state/BrokerStateMachine.cpp"
+        "../../src/onewire/drivers/EspIdfOneWireBus.cpp"
     INCLUDE_DIRS 
-        "include"
-        "src"
+        "../../include"
+        "../../src"
     REQUIRES 
         driver
         esp_timer
