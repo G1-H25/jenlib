@@ -4,7 +4,7 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
-#ifndef ARDUINO
+#if !defined(ARDUINO) && !defined(ESP_PLATFORM)
 
 #include <jenlib/ble/drivers/BleService.h>
 #include <jenlib/ble/drivers/BleCharacteristic.h>
@@ -68,4 +68,4 @@ class NativeBleService : public jenlib::ble::BleService {
 
 }  // namespace jenlib::ble
 
-#endif  // ARDUINO
+#endif  // !ARDUINO && !ESP_PLATFORM

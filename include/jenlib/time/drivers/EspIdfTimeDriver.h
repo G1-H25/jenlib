@@ -25,8 +25,12 @@ class EspIdfTimeDriver : public TimeDriver {
     //! @brief Get current time in milliseconds using esp_timer.
     std::uint32_t now() noexcept override;
 
-    //! @brief Delay execution for specified milliseconds using esp_timer.
-    void delay(std::uint32_t delay_ms) noexcept override;
+    //! @brief Delay execution for the specified milliseconds.
+    //! @details
+    //! - If delay_ms == 0, returns immediately (no context switch).
+    //! - For very small delays, performs a short busy-wait using esp_timer.
+    //! - For larger delays, yields to the scheduler via vTaskDelay.
+    void delay(std::uint32_t delay_ms) override;
 
     //! @brief Check if time value has overflowed.
     bool has_overflowed(std::uint32_t time_value) noexcept override;
