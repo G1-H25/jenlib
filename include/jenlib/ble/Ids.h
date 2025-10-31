@@ -6,6 +6,7 @@
 #ifndef INCLUDE_JENLIB_BLE_IDS_H_
 #define INCLUDE_JENLIB_BLE_IDS_H_
 
+#include <stddef.h>
 #include <cstdint>
 #include "jenlib/ble/Payload.h"
 
