@@ -7,9 +7,13 @@
 #define INCLUDE_JENLIB_GPIO_DRIVERS_ESPIDFGPIODRIVER_H_
 
 #include <jenlib/gpio/GpioDriver.h>
+#include <array>
+#include <unordered_map>
 
 #ifdef ESP_PLATFORM
 #include <driver/gpio.h>
+#include <driver/adc.h>
+#include <driver/ledc.h>
 
 namespace jenlib::gpio {
 
@@ -53,11 +57,24 @@ class EspIdfGpioDriver : public GpioDriver {
     std::uint8_t analog_read_bits_ = 12;   //!< ADC resolution in bits
     std::uint8_t analog_write_bits_ = 8;  //!< PWM resolution in bits
 
+    // LEDC lazy-initialization state
+    bool ledc_initialized_ = false;
+
+    // Channel allocation: map pin -> channel and track used channels
+    std::unordered_map<int, ledc_channel_t> pin_to_channel_;
+    std::array<bool, LEDC_CHANNEL_MAX> channel_used_{};
+
+    //! @brief Get or allocate an LEDC channel for a GPIO pin.
+    ledc_channel_t get_or_allocate_channel_for_pin(int gpio_pin) noexcept;
+
     //! @brief Convert jenlib PinMode to ESP-IDF gpio_mode_t.
     gpio_mode_t convert_pin_mode(PinMode mode) const noexcept;
 
     //! @brief Convert jenlib PinMode to ESP-IDF gpio_pull_mode_t.
     gpio_pull_mode_t convert_pull_mode(PinMode mode) const noexcept;
+
+    //! @brief Convert bit width to ESP-IDF adc_bits_width_t enum.
+    adc_bits_width_t convert_adc_bits_width(std::uint8_t bits) const noexcept;
 };
 
 }  // namespace jenlib::gpio

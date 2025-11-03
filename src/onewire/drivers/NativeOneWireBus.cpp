@@ -3,7 +3,7 @@
 //! @copyright 2025 Jennifer Gott, released under the MIT License.
 //! @author Jennifer Gott (jennifer.gott@chasacademy.se)
 
-#ifndef ARDUINO
+#if !defined(ARDUINO) && !defined(ESP_PLATFORM)
 
 #include <jenlib/onewire/OneWireBus.h>
 #include <jenlib/gpio/GPIO.h>
@@ -178,4 +178,4 @@ bool OneWireBus::read_bit() {
 
 }  // namespace OneWire
 
-#endif  // ARDUINO
+#endif  // !ARDUINO && !ESP_PLATFORM
