@@ -38,7 +38,7 @@ class OneWireBus {
 
         //! @brief Constructor with type-safe pin.
         //! @param pin The typed pin to use for the OneWire bus.
-        explicit OneWireBus(GPIO::OneWirePin pin);
+        explicit OneWireBus(gpio::OneWirePin pin);
         //! @brief Constructor with generic GPIO pin.
         //! @param pin The GPIO pin to use for the OneWire bus.
         explicit OneWireBus(GPIO::Pin pin);
