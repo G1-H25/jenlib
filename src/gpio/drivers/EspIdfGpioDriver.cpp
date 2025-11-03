@@ -63,7 +63,7 @@ void EspIdfGpioDriver::analog_write(PinIndex pin, std::uint16_t value) noexcept 
 std::uint16_t EspIdfGpioDriver::analog_read(PinIndex pin) noexcept {
     // Configure ADC
     adc1_config_width(convert_adc_bits_width(analog_read_bits_));
-    adc1_config_channel_atten(static_cast<adc1_channel_t>(pin), ADC_ATTEN_DB_11);
+    adc1_config_channel_atten(static_cast<adc1_channel_t>(pin), ADC_ATTEN_DB_12);
 
     // Read ADC value
     int adc_reading = adc1_get_raw(static_cast<adc1_channel_t>(pin));
@@ -157,14 +157,20 @@ gpio_pull_mode_t EspIdfGpioDriver::convert_pull_mode(PinMode mode) const noexcep
 
 adc_bits_width_t EspIdfGpioDriver::convert_adc_bits_width(std::uint8_t bits) const noexcept {
     switch (bits) {
+        #if CONFIG_IDF_TARGET_ESP32
         case 9:
             return ADC_WIDTH_BIT_9;
         case 10:
             return ADC_WIDTH_BIT_10;
         case 11:
             return ADC_WIDTH_BIT_11;
+        #elif SOC_ADC_RTC_MAX_BITWIDTH == 12
         case 12:
             return ADC_WIDTH_BIT_12;
+        #elif SOC_ADC_RTC_MAX_BITWIDTH == 13
+        case 13:
+            return ADC_WIDTH_BIT_13;
+        #endif
         default:
             // Default to 12-bit resolution for unsupported bit widths
             return ADC_WIDTH_BIT_12;
