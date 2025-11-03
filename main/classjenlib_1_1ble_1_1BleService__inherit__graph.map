@@ -1,0 +1,5 @@
+<map id="jenlib::ble::BleService" name="jenlib::ble::BleService">
+<area shape="rect" id="Node000001" title="Abstract BLE service interface." alt="" coords="27,5,190,31"/>
+<area shape="rect" id="Node000002" href="$classjenlib_1_1ble_1_1NativeBleService.html" title="Native BLE service implementation for testing/simulation." alt="" coords="5,79,212,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,44,111,79,106,79,106,44"/>
+</map>

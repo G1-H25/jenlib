@@ -1,0 +1,21 @@
+<map id="src/time/drivers/NativeTimeDriver.cpp" name="src/time/drivers/NativeTimeDriver.cpp">
+<area shape="rect" id="Node000001" title="Native (desktop) time driver implementation." alt="" coords="75,5,279,45"/>
+<area shape="rect" id="Node000002" href="$NativeTimeDriver_8h.html" title="Native (desktop) time driver implementation." alt="" coords="101,93,254,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,46,180,79,175,79,175,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,72,207"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="148,47,119,69,91,95,67,133,50,169,45,167,62,130,87,92,115,65,144,43"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="279,101,343,126"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="208,43,283,91,280,95,205,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="145,136,72,177,70,172,143,131"/>
+<area shape="rect" id="Node000004" href="$TimeDriver_8h.html" title="Abstract interface for time drivers." alt="" coords="97,181,277,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="182,133,186,167,181,168,177,134"/>
+<area shape="rect" id="Node000005" href="$TimeTypes_8h.html" title="Time service types and structures for jenlib." alt="" coords="161,255,340,280"/>
+<area shape="poly" id="edge8_Node000002_Node000005" title=" " alt="" coords="234,131,266,151,292,180,296,197,293,215,275,245,270,243,288,213,291,197,287,183,263,155,231,136"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="199,205,233,243,229,246,195,209"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="116,328,183,353"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="236,282,179,322,176,318,233,278"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="207,328,294,353"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="253,280,253,314,248,314,248,280"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="318,328,378,353"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="268,278,322,317,319,322,265,282"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="include/jenlib/ble/Ids.h" name="include/jenlib/ble/Ids.h">
+<area shape="rect" id="Node000001" title="Strongly&#45;typed identifiers for BLE with checksum support." alt="" coords="51,5,184,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,80,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,47,65,85,61,81,97,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="97,167,164,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,46,131,153,126,153,116,46"/>
+<area shape="rect" id="Node000004" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="155,93,304,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="146,43,203,83,200,87,143,48"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="215,121,159,161,156,156,212,117"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="195,167,251,192"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="231,119,228,153,222,153,226,119"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="275,167,335,192"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="243,117,285,155,281,159,240,121"/>
+</map>

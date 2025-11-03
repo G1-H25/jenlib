@@ -1,0 +1,9 @@
+<map id="include/jenlib/onewire/OneWireBus.h" name="include/jenlib/onewire/OneWireBus.h">
+<area shape="rect" id="Node000001" title="Type&#45;safe OneWire bus interface Copyright 2025 Jennifer Gott." alt="" coords="134,5,299,45"/>
+<area shape="rect" id="Node000002" href="$EspIdfOneWireBus_8h.html" title="ESP&#45;IDF OneWire bus driver interface." alt="" coords="5,93,212,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,56,134,95,131,91,180,52"/>
+<area shape="rect" id="Node000004" href="$NativeOneWireBus_8cpp.html" title="Native OneWire bus implementation for testing and development." alt="" coords="237,93,413,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="253,52,302,91,299,95,250,56"/>
+<area shape="rect" id="Node000003" href="$EspIdfOneWireBus_8cpp.html" title="ESP&#45;IDF OneWire bus driver implementation." alt="" coords="22,181,195,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,147,111,181,106,181,106,147"/>
+</map>

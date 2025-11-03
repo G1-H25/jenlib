@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['karduinoplatform_0',['kArduinoPlatform',['../namespacejenlib_1_1config.html#a4a9e061914ff2042b0f9c1f4f2a58b4a',1,'jenlib::config']]],
+  ['kcpp20available_1',['kCpp20Available',['../namespacejenlib_1_1config.html#a4448b289b0024016419a63f3d495d392',1,'jenlib::config']]],
+  ['kespidfplatform_2',['kEspIdfPlatform',['../namespacejenlib_1_1config.html#a14477d6baf4e3dcaaf9b82ed6426d980',1,'jenlib::config']]],
+  ['kinvalideventid_3',['kInvalidEventId',['../namespacejenlib_1_1events.html#a8bcc9dd796344ea934119cdc75bc0fa9',1,'jenlib::events']]],
+  ['kinvalidtimerid_4',['kInvalidTimerId',['../namespacejenlib_1_1time.html#ae3eccea59a37c19bed83669ff23a2cc3',1,'jenlib::time']]],
+  ['kmaxbufferedpayloads_5',['kMaxBufferedPayloads',['../structjenlib_1_1ble_1_1PayloadBuffer.html#a4da352c8f73004ed383f1a487a0ea030',1,'jenlib::ble::PayloadBuffer']]],
+  ['kmaxpayload_6',['kMaxPayload',['../namespacejenlib_1_1ble.html#aeaa060989dff718bf9dfd48866807da5',1,'jenlib::ble']]],
+  ['kmaxpayloadbytes_7',['kMaxPayloadBytes',['../namespacejenlib_1_1ble_1_1protocol_1_1jenlib_1_1ble_1_1protocol_1_1limits.html#aed95f3425158fe77870ef01b94ab90cf',1,'jenlib::ble::protocol::jenlib::ble::protocol::limits']]],
+  ['kmaxqueuesize_8',['kMaxQueueSize',['../namespacejenlib_1_1ble.html#a85929b4a1751e00fff5a8dbac30e6a2f',1,'jenlib::ble']]],
+  ['kreadingsensortobroker_9',['kReadingSensorToBroker',['../namespacejenlib_1_1ble_1_1protocol_1_1jenlib_1_1ble_1_1protocol_1_1contract.html#a8ccac46c2bac7aa6bfb8acfa5651c955',1,'jenlib::ble::protocol::jenlib::ble::protocol::contract']]],
+  ['kreceiptbrokertosensor_10',['kReceiptBrokerToSensor',['../namespacejenlib_1_1ble_1_1protocol_1_1jenlib_1_1ble_1_1protocol_1_1contract.html#ab42b4174e3aca16a58c582dd7e77e11a',1,'jenlib::ble::protocol::jenlib::ble::protocol::contract']]],
+  ['krecommendedreadingintervalms_11',['kRecommendedReadingIntervalMs',['../namespacejenlib_1_1ble_1_1protocol_1_1jenlib_1_1ble_1_1protocol_1_1limits.html#a609b6f892d4432efc088575d82f98609',1,'jenlib::ble::protocol::jenlib::ble::protocol::limits']]],
+  ['ksenderidmarker_12',['kSenderIdMarker',['../namespacejenlib_1_1ble.html#abd696955f829a072c81215cb1764c380',1,'jenlib::ble']]],
+  ['ksensoronly_13',['kSensorOnly',['../namespacejenlib_1_1config.html#a2d323d0c9577a1b150ce2f5356d33b6c',1,'jenlib::config']]],
+  ['kstartbroadcastbrokertosensor_14',['kStartBroadcastBrokerToSensor',['../namespacejenlib_1_1ble_1_1protocol_1_1jenlib_1_1ble_1_1protocol_1_1contract.html#a27a9d9fc4d234a4cfcf40b45dfda2bed',1,'jenlib::ble::protocol::jenlib::ble::protocol::contract']]],
+  ['kstdmutexavailable_15',['kStdMutexAvailable',['../namespacejenlib_1_1config.html#abdc87f12bfe421b7d9c0ab2d9206de82',1,'jenlib::config']]],
+  ['kthreadingavailable_16',['kThreadingAvailable',['../namespacejenlib_1_1config.html#a00e26cecb366343974b222108daa7a05',1,'jenlib::config']]],
+  ['kusenativedrivers_17',['kUseNativeDrivers',['../namespacejenlib_1_1config.html#a3225acd7869bb667c1d47a2a5f79f1d1',1,'jenlib::config']]],
+  ['kversionmajor_18',['kVersionMajor',['../namespacejenlib_1_1ble_1_1protocol.html#ae3ea98a3214f94b4b9ca5ac0a56b89ac',1,'jenlib::ble::protocol']]],
+  ['kversionminor_19',['kVersionMinor',['../namespacejenlib_1_1ble_1_1protocol.html#a5d57f89f4323cbd2f2874043dcf55a1e',1,'jenlib::ble::protocol']]]
+];

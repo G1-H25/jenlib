@@ -1,0 +1,10 @@
+<map id="include/jenlib/ble/drivers/BleCharacteristic.h" name="include/jenlib/ble/drivers/BleCharacteristic.h">
+<area shape="rect" id="Node000001" title="Agnostic BLE characteristic interface for cross&#45;platform compatibility." alt="" coords="100,5,299,45"/>
+<area shape="rect" id="Node000002" href="$BleService_8h.html" title="Agnostic BLE service interface for cross&#45;platform compatibility." alt="" coords="5,93,161,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,56,111,95,107,91,161,52"/>
+<area shape="rect" id="Node000003" href="$NativeBleService_8cpp.html" title="Native implementation of BLE service for testing/simulation." alt="" coords="49,181,232,221"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="196,60,177,134,154,182,149,180,171,132,191,58"/>
+<area shape="rect" id="Node000004" href="$NativeBleCharacteristic_8cpp.html" title="Native implementation of BLE characteristic for testing/simulation." alt="" coords="237,93,420,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="241,51,302,91,299,95,238,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,144,130,180,126,183,102,146"/>
+</map>

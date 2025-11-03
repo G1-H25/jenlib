@@ -1,0 +1,11 @@
+<map id="include/jenlib/ble/PayloadBuffer.h" name="include/jenlib/ble/PayloadBuffer.h">
+<area shape="rect" id="Node000001" title="Common circular buffer for BLE payloads across platforms." alt="" coords="145,5,279,45"/>
+<area shape="rect" id="Node000002" href="$ArduinoBleDriver_8h.html" title="Arduino BLE driver implementation using ArduinoBLE library." alt="" coords="5,93,203,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,56,130,95,126,91,176,52"/>
+<area shape="rect" id="Node000004" href="$EspIdfBleDriver_8h.html" title="ESP&#45;IDF BLE driver interface." alt="" coords="227,93,413,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="248,52,298,91,294,95,245,56"/>
+<area shape="rect" id="Node000003" href="$ArduinoBleDriver_8cpp.html" title="Arduino BLE driver implementation using ArduinoBLE library." alt="" coords="9,181,199,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,147,107,181,101,181,101,147"/>
+<area shape="rect" id="Node000005" href="$EspIdfBleDriver_8cpp.html" title="ESP&#45;IDF BLE driver implementation using ESP32 BLE stack." alt="" coords="231,181,409,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="323,147,323,181,317,181,317,147"/>
+</map>

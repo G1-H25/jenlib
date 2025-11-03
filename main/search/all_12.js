@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['offset_5fms_0',['offset_ms',['../structjenlib_1_1ble_1_1ReadingMsg.html#a4bd3672eb24cfbdbd675b5b3b65b5d4c',1,'jenlib::ble::ReadingMsg']]],
+  ['on_5fconnection_1',['on_connection',['../structjenlib_1_1ble_1_1BleCallbacks.html#a5a075b66b0af302fd58eeae763e0bc47',1,'jenlib::ble::BleCallbacks']]],
+  ['on_5fgeneric_2',['on_generic',['../structjenlib_1_1ble_1_1BleCallbacks.html#a5c0234e5c4bb65f0ae2b712680af27ad',1,'jenlib::ble::BleCallbacks']]],
+  ['on_5freading_3',['on_reading',['../structjenlib_1_1ble_1_1BleCallbacks.html#a6fb62b7f552ef4a97e86e6f40fc8309f',1,'jenlib::ble::BleCallbacks']]],
+  ['on_5freceipt_4',['on_receipt',['../structjenlib_1_1ble_1_1BleCallbacks.html#a459d3ef503fd0b37cbc4931fd201d2b8',1,'jenlib::ble::BleCallbacks']]],
+  ['on_5fstart_5',['on_start',['../structjenlib_1_1ble_1_1BleCallbacks.html#acaa5e9e05b03fab2cabd15495e88761d',1,'jenlib::ble::BleCallbacks']]],
+  ['onewire_6',['OneWire',['../namespaceOneWire.html',1,'']]],
+  ['onewirebus_7',['onewirebus',['../classjenlib_1_1onewire_1_1OneWireBus.html#a2528726ef58c4eeeea8515d555867489',1,'jenlib::onewire::OneWireBus::OneWireBus()'],['../classjenlib_1_1onewire_1_1OneWireBus.html',1,'jenlib::onewire::OneWireBus'],['../classjenlib_1_1onewire_1_1OneWireBus.html#a8fd88e7b0438b670db19ef65f528344d',1,'jenlib::onewire::OneWireBus::OneWireBus(std::uint8_t raw_pin)'],['../classjenlib_1_1onewire_1_1OneWireBus.html#a0abd25631e151f5869071598dae56474',1,'jenlib::onewire::OneWireBus::OneWireBus(gpio::OneWirePin pin)']]],
+  ['onewirebus_2eh_8',['OneWireBus.h',['../OneWireBus_8h.html',1,'']]],
+  ['onewirepin_9',['OneWirePin',['../namespacejenlib_1_1gpio.html#aff9b8318103885febed51ff082c45b03',1,'jenlib::gpio']]],
+  ['opcode_10',['OpCode',['../namespacejenlib_1_1ble_1_1protocol.html#a37f7374a8134e6452a84dd347ae461dd',1,'jenlib::ble::protocol']]],
+  ['operator_20const_20pin_20_26_11',['operator const Pin &amp;',['../classjenlib_1_1gpio_1_1TypedPin.html#a329e19c94b74a234f94746f83b50ca9e',1,'jenlib::gpio::TypedPin']]],
+  ['operator_20pinindex_12',['operator pinindex',['../classGPIO_1_1Pin.html#afed7c5405cf79bc1a0557c5b3ff1ae00',1,'GPIO::Pin::operator PinIndex()'],['../classjenlib_1_1gpio_1_1TypedPin.html#a9ccc22480970608ae3c8a42b13752378',1,'jenlib::gpio::TypedPin::operator PinIndex()']]],
+  ['operator_21_3d_13',['operator!=',['../classjenlib_1_1ble_1_1SessionId.html#a39a9690bed801addd64b7daeb40c746a',1,'jenlib::ble::SessionId::operator!='],['../classjenlib_1_1ble_1_1DeviceId.html#ae9e0d5b412fcec45050fea76c2245d79',1,'jenlib::ble::DeviceId::operator!=']]],
+  ['operator_2a_14',['operator*',['../classjenlib_1_1gpio_1_1TypedPin.html#a94c55c31743eab54d3b7e785ad032d93',1,'jenlib::gpio::TypedPin']]],
+  ['operator_2d_3e_15',['operator-&gt;',['../classjenlib_1_1gpio_1_1TypedPin.html#abab79e35d21077fd798fb9672e0e8971',1,'jenlib::gpio::TypedPin']]],
+  ['operator_3c_16',['operator&lt;',['../classjenlib_1_1ble_1_1DeviceId.html#afeea4a043107c7d47415fe80f8eea581',1,'jenlib::ble::DeviceId::operator&lt;'],['../classjenlib_1_1ble_1_1SessionId.html#ab023c4bae54dda56d2e7c560e435dc23',1,'jenlib::ble::SessionId::operator&lt;']]],
+  ['operator_3d_17',['operator=',['../structjenlib_1_1ble_1_1BlePayload.html#a3f9a2db797a26cf1de414fe708a9c876',1,'jenlib::ble::BlePayload::operator=(BlePayload &amp;&amp;other) noexcept'],['../structjenlib_1_1ble_1_1BlePayload.html#a3ae65149996fe944df0bb2f25a0abae7',1,'jenlib::ble::BlePayload::operator=(const BlePayload &amp;)=delete']]],
+  ['operator_3d_3d_18',['operator==',['../classjenlib_1_1ble_1_1SessionId.html#a6697649fd0dacf77dfb67ff774d0ffa3',1,'jenlib::ble::SessionId::operator=='],['../classjenlib_1_1ble_1_1DeviceId.html#a383f3ca5364ba02d6b00243eb087f7c6',1,'jenlib::ble::DeviceId::operator==']]],
+  ['operator_5b_5d_19',['operator[]',['../classGPIO_1_1PinMap.html#ac9acfe86b16e44cf702aaf276e52d282',1,'GPIO::PinMap']]],
+  ['option_20a_3a_20arduino_20library_20manager_20',['Option A: Arduino Library Manager',['../md_docs_2integration__guide.html#autotoc_md76',1,'']]],
+  ['option_20b_3a_20manual_20installation_21',['Option B: Manual Installation',['../md_docs_2integration__guide.html#autotoc_md77',1,'']]],
+  ['option_20c_3a_20platformio_22',['Option C: PlatformIO',['../md_docs_2integration__guide.html#autotoc_md78',1,'']]],
+  ['output_23',['OUTPUT',['../namespacejenlib_1_1gpio.html#a678f25170eabce21e9edf45a59efe2cea50a87f0d71f7221582dad4bf507a0f34',1,'jenlib::gpio']]],
+  ['overview_24',['overview',['../md_include_2jenlib_2ble_2Notes.html#autotoc_md1',1,'Overview'],['../md_README.html#autotoc_md5',1,'Overview'],['../md_docs_2examples_2complete_2ble__sensor__example.html#autotoc_md18',1,'Overview'],['../md_docs_2ble__protocol.html#autotoc_md13',1,'Protocol Overview']]]
+];

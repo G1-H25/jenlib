@@ -1,0 +1,12 @@
+<map id="include/jenlib/measurement/Measurement.h" name="include/jenlib/measurement/Measurement.h">
+<area shape="rect" id="Node000001" title="Measurement type, shared between sensor and broker, with serialization and deserialization functions." alt="" coords="5,5,209,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="31,167,98,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,46,79,94,69,153,64,152,74,93,94,44"/>
+<area shape="rect" id="Node000003" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="89,93,238,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,44,149,80,145,84,119,47"/>
+<area shape="poly" id="edge5_Node000003_Node000002" title=" " alt="" coords="149,121,93,161,90,156,146,117"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="129,167,185,192"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="165,119,162,153,156,153,160,119"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="209,167,269,192"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="177,117,219,155,215,159,174,121"/>
+</map>

@@ -1,0 +1,20 @@
+<map id="include/jenlib/ble/drivers/BleService.h" name="include/jenlib/ble/drivers/BleService.h">
+<area shape="rect" id="Node000001" title="Agnostic BLE service interface for cross&#45;platform compatibility." alt="" coords="281,5,437,45"/>
+<area shape="rect" id="Node000002" href="$BleCharacteristic_8h.html" title="Agnostic BLE characteristic interface for cross&#45;platform compatibility." alt="" coords="147,93,296,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="330,48,265,88,262,84,327,43"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="320,101,397,126"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="361,46,361,87,356,87,356,46"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="422,101,519,126"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="385,43,446,90,442,94,382,48"/>
+<area shape="rect" id="Node000003" href="$Payload_8h.html" title="Fixed&#45;size BLE payload buffer for Arduino compatibility." alt="" coords="35,181,184,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="196,136,139,175,136,171,193,131"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="183,255,249,280"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="223,134,220,241,214,241,218,134"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="259,181,346,207"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="243,132,282,170,279,173,239,135"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,255,61,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="99,209,58,247,54,243,95,205"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="86,255,146,280"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="113,207,116,241,111,241,108,207"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="128,204,189,245,186,249,125,209"/>
+</map>

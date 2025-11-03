@@ -1,0 +1,7 @@
+<map id="include/jenlib/time/drivers/NativeTimeDriver.h" name="include/jenlib/time/drivers/NativeTimeDriver.h">
+<area shape="rect" id="Node000001" title="Native (desktop) time driver implementation." alt="" coords="71,5,273,45"/>
+<area shape="rect" id="Node000002" href="$Time_8cpp.html" title="Time service implementation." alt="" coords="5,101,144,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,57,90,102,86,98,138,53"/>
+<area shape="rect" id="Node000003" href="$NativeTimeDriver_8cpp.html" title="Native (desktop) time driver implementation." alt="" coords="169,93,373,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="206,52,251,91,247,95,202,56"/>
+</map>

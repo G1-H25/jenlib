@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classjenlib_1_1ble_1_1BleCharacteristic.html" title="Abstract BLE characteristic interface." alt="" coords="5,5,211,31"/>
+<area shape="rect" id="Node000001" href="$classjenlib_1_1ble_1_1NativeBleCharacteristic.html" title="Native BLE characteristic implementation for testing/simulation." alt="" coords="259,5,507,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="225,15,259,15,259,21,225,21"/>
+</map>

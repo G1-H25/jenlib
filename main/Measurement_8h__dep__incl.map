@@ -1,0 +1,5 @@
+<map id="include/jenlib/measurement/Measurement.h" name="include/jenlib/measurement/Measurement.h">
+<area shape="rect" id="Node000001" title="Measurement type, shared between sensor and broker, with serialization and deserialization functions." alt="" coords="32,5,236,45"/>
+<area shape="rect" id="Node000002" href="$Measurement_8cpp.html" title="Implementation of Measurement serialization/deserialization." alt="" coords="5,93,263,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,59,137,93,131,93,131,59"/>
+</map>

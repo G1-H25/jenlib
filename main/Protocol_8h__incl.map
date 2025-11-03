@@ -1,0 +1,9 @@
+<map id="include/jenlib/ble/Protocol.h" name="include/jenlib/ble/Protocol.h">
+<area shape="rect" id="Node000001" title="Protocol&#45;level definitions for BLE sensor/broker communication. Copyright 2025 Jennifer Gott." alt="" coords="79,5,212,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,72,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,48,67,87,64,83,118,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="97,93,194,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,46,148,79,143,79,143,46"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="218,93,278,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="172,43,224,83,220,87,169,48"/>
+</map>

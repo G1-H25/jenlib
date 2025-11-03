@@ -1,0 +1,9 @@
+<map id="include/jenlib/time/Time.h" name="include/jenlib/time/Time.h">
+<area shape="rect" id="Node000001" title="Time service interface for jenlib." alt="" coords="319,5,462,45"/>
+<area shape="rect" id="Node000002" href="$BrokerStateMachine_8cpp.html" title="Broker state machine implementation." alt="" coords="5,93,245,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="315,52,165,96,163,91,314,47"/>
+<area shape="rect" id="Node000003" href="$SensorStateMachine_8cpp.html" title="Sensor state machine implementation." alt="" coords="269,93,512,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="393,59,393,93,388,93,388,59"/>
+<area shape="rect" id="Node000004" href="$Time_8cpp.html" title="Time service implementation." alt="" coords="536,93,675,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="456,48,575,91,573,96,454,53"/>
+</map>

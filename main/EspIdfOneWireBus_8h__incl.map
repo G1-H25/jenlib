@@ -1,0 +1,26 @@
+<map id="include/jenlib/onewire/drivers/EspIdfOneWireBus.h" name="include/jenlib/onewire/drivers/EspIdfOneWireBus.h">
+<area shape="rect" id="Node000001" title="ESP&#45;IDF OneWire bus driver interface." alt="" coords="164,5,371,45"/>
+<area shape="rect" id="Node000002" href="$OneWireBus_8h.html" title="Type&#45;safe OneWire bus interface Copyright 2025 Jennifer Gott." alt="" coords="162,93,373,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="270,46,270,79,265,79,265,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,76,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="232,121,90,165,89,160,230,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="429,387,495,412"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="218,121,184,133,156,148,145,158,139,168,138,179,142,191,167,229,199,262,235,292,273,317,350,357,416,382,415,387,348,362,270,322,232,296,195,266,163,232,137,193,132,179,134,166,141,154,152,144,182,128,216,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="151,167,207,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="255,121,206,160,203,156,252,117"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="232,167,303,192"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="270,119,270,153,265,153,265,119"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="299,240,391,265"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="281,117,299,138,318,165,332,196,341,226,336,228,327,198,313,168,295,142,277,120"/>
+<area shape="rect" id="Node000008" href="$GPIO_8h.html" title="Public wrapper API for GPIO operations." alt="" coords="491,240,601,265"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="364,116,461,135,501,148,528,165,538,179,544,194,549,226,544,227,539,196,533,181,524,169,499,153,459,140,363,121"/>
+<area shape="rect" id="Node000010" href="$PinTypes_8h.html" title="Type&#45;safe pin wrappers for different use cases." alt="" coords="379,167,513,192"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="297,116,405,159,403,164,295,121"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="541,267,478,376,473,373,537,264"/>
+<area shape="rect" id="Node000009" href="$GpioDriver_8h.html" title="GPIO driver interface." alt="" coords="525,313,700,339"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="559,264,594,301,591,305,555,267"/>
+<area shape="poly" id="edge9_Node000009_Node000004" title=" " alt="" coords="590,341,500,383,498,378,587,336"/>
+<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="450,192,463,372,457,373,444,193"/>
+<area shape="poly" id="edge14_Node000010_Node000007" title=" " alt="" coords="431,194,374,234,371,230,428,190"/>
+<area shape="poly" id="edge12_Node000010_Node000008" title=" " alt="" coords="464,190,520,230,517,234,461,194"/>
+</map>

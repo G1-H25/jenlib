@@ -1,0 +1,7 @@
+<map id="jenlib::ble::ReadingMsg" name="jenlib::ble::ReadingMsg">
+<area shape="rect" id="Node000001" title="Sensor to Broker measurement payload." alt="" coords="81,93,256,119"/>
+<area shape="rect" id="Node000002" href="$classjenlib_1_1ble_1_1DeviceId.html" title="Device identifier type." alt="" coords="5,5,156,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,38,158,91,155,95,100,42"/>
+<area shape="rect" id="Node000003" href="$classjenlib_1_1ble_1_1SessionId.html" title="Session identifier type." alt="" coords="180,5,336,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="238,42,183,95,179,91,234,38"/>
+</map>
