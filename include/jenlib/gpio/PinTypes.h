@@ -28,10 +28,10 @@ class TypedPin {
     const Pin& getPin() const noexcept { return pin_; }
 
     //! @brief Get the raw pin index.
-    PinIndex getIndex() const noexcept { return pin_.getIndex(); }
+    PinIndex getIndex() const noexcept { return pin_.index(); }
 
     //! @brief Implicit conversion to raw pin number for library compatibility.
-    operator PinIndex() const noexcept { return pin_.getIndex(); }
+    operator PinIndex() const noexcept { return pin_.index(); }
 
     //! @brief Implicit conversion to GPIO::Pin for GPIO operations.
     operator const Pin&() const noexcept { return pin_; }

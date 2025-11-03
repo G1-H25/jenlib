@@ -6,7 +6,7 @@
 
 #include "jenlib/measurement/Measurement.h"
 
-namespace measurement {
+namespace jenlib::measurement {
 
 bool Measurement::serialize(const Measurement &measurement, jenlib::ble::BlePayload &payload) {
     payload.clear();
@@ -75,4 +75,4 @@ bool Measurement::deserialize(jenlib::ble::BlePayload &&payload, Measurement &me
     return true;
 }
 
-}  // namespace measurement
+}  // namespace jenlib::measurement
