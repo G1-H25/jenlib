@@ -75,4 +75,4 @@ bool Measurement::deserialize(jenlib::ble::BlePayload &&payload, Measurement &me
     return true;
 }
 
-}  // namespace measurement
+}  // namespace jenlib::measurement
